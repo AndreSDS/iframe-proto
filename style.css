@@ -166,12 +166,6 @@
   margin-bottom: 20px;
 }
 
-.instructions {
-  text-align: center;
-  margin: 20px 0;
-  color: #666;
-}
-
 @media (max-width: 768px) {
   .carousel-container {
     padding: 0 15px;
@@ -184,11 +178,7 @@
   }
 
   .carousel-control {
-    display: none; /* Hide controls on mobile */
-  }
-
-  .instructions {
-    font-size: 14px;
+    display: none;
   }
 }
 
