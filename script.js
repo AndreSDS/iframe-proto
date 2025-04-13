@@ -1,153 +1,27 @@
-const cardsItemsInfo = [
+const cardsTestimonialsInfo = [
   {
-    image:
-      "https://static.wixstatic.com/media/b98454_203daa3560e34a0d8410d32e2c5bb457~mv2.png",
-    title: "Revestimentos",
-    subTitle: 'O nosso "carro-chefe"',
-    description:
-      "Cerâmicos, porcelanatos e vinílicos incríveis, que vão desde os mais simples até os mais sofisticados. Temos uma vasta lista de opções com um potencial incrível de transformar o ambiente de qualquer um.",
-    categories: [
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Cerâmicas",
-      },
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Porcelanatos",
-      },
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Vinílicos",
-      },
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Pastilhas",
-      },
-    ],
+    nome: "Renato Neves",
+    text: "Sou cliente há muitos anos! E sempre fui muito bem atendido, com agilidade e auxílio na escolha dos produtos para que eu possa ter o melhor resultado no serviço. O atendimento pelo Whatsapp é também uma ferramenta que funciona perfeitamente!!",
   },
   {
-    image:
-      "https://static.wixstatic.com/media/b98454_203daa3560e34a0d8410d32e2c5bb457~mv2.png",
-    title: "Revestimentos",
-    subTitle: 'O nosso "carro-chefe"',
-    description:
-      "Cerâmicos, porcelanatos e vinílicos incríveis, que vão desde os mais simples até os mais sofisticados. Temos uma vasta lista de opções com um potencial incrível de transformar o ambiente de qualquer um.",
-    categories: [
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Cerâmicas",
-      },
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Porcelanatos",
-      },
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Vinílicos",
-      },
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Pastilhas",
-      },
-    ],
+    nome: "Renato Neves",
+    text: "Sou cliente há muitos anos! E sempre fui muito bem atendido, com agilidade e auxílio na escolha dos produtos para que eu possa ter o melhor resultado no serviço. O atendimento pelo Whatsapp é também uma ferramenta que funciona perfeitamente!!",
   },
   {
-    image:
-      "https://static.wixstatic.com/media/b98454_203daa3560e34a0d8410d32e2c5bb457~mv2.png",
-    title: "Revestimentos",
-    subTitle: 'O nosso "carro-chefe"',
-    description:
-      "Cerâmicos, porcelanatos e vinílicos incríveis, que vão desde os mais simples até os mais sofisticados. Temos uma vasta lista de opções com um potencial incrível de transformar o ambiente de qualquer um.",
-    categories: [
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Cerâmicas",
-      },
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Porcelanatos",
-      },
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Vinílicos",
-      },
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Pastilhas",
-      },
-    ],
+    nome: "Renato Neves",
+    text: "Sou cliente há muitos anos! E sempre fui muito bem atendido, com agilidade e auxílio na escolha dos produtos para que eu possa ter o melhor resultado no serviço. O atendimento pelo Whatsapp é também uma ferramenta que funciona perfeitamente!!",
   },
   {
-    image:
-      "https://static.wixstatic.com/media/b98454_203daa3560e34a0d8410d32e2c5bb457~mv2.png",
-    title: "Revestimentos",
-    subTitle: 'O nosso "carro-chefe"',
-    description:
-      "Cerâmicos, porcelanatos e vinílicos incríveis, que vão desde os mais simples até os mais sofisticados. Temos uma vasta lista de opções com um potencial incrível de transformar o ambiente de qualquer um.",
-    categories: [
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Cerâmicas",
-      },
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Porcelanatos",
-      },
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Vinílicos",
-      },
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Pastilhas",
-      },
-    ],
+    nome: "Renato Neves",
+    text: "Sou cliente há muitos anos! E sempre fui muito bem atendido, com agilidade e auxílio na escolha dos produtos para que eu possa ter o melhor resultado no serviço. O atendimento pelo Whatsapp é também uma ferramenta que funciona perfeitamente!!",
   },
   {
-    image:
-      "https://static.wixstatic.com/media/b98454_203daa3560e34a0d8410d32e2c5bb457~mv2.png",
-    title: "Revestimentos",
-    subTitle: 'O nosso "carro-chefe"',
-    description:
-      "Cerâmicos, porcelanatos e vinílicos incríveis, que vão desde os mais simples até os mais sofisticados. Temos uma vasta lista de opções com um potencial incrível de transformar o ambiente de qualquer um.",
-    categories: [
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Cerâmicas",
-      },
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Porcelanatos",
-      },
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Vinílicos",
-      },
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Pastilhas",
-      },
-    ],
+    nome: "Renato Neves",
+    text: "Sou cliente há muitos anos! E sempre fui muito bem atendido, com agilidade e auxílio na escolha dos produtos para que eu possa ter o melhor resultado no serviço. O atendimento pelo Whatsapp é também uma ferramenta que funciona perfeitamente!!",
+  },
+  {
+    nome: "Renato Neves",
+    text: "Sou cliente há muitos anos! E sempre fui muito bem atendido, com agilidade e auxílio na escolha dos produtos para que eu possa ter o melhor resultado no serviço. O atendimento pelo Whatsapp é também uma ferramenta que funciona perfeitamente!!",
   },
 ];
 
@@ -155,82 +29,61 @@ function createCard(item) {
   const card = document.createElement("div");
   card.classList.add("card");
 
-  // Card Image
-  const cardImageContainer = document.createElement("div");
-  cardImageContainer.classList.add("card-image-container");
+  const avatar = document.createElement("div");
+  avatar.classList.add("avatar");
 
-  const cardImage = document.createElement("img");
-  cardImage.src = item.image;
-  cardImage.alt = item.title;
+  const avatarText = document.createElement("span");
+  avatarText.textContent = item.nome.charAt(0).toUpperCase();
+  avatar.appendChild(avatarText);
 
-  cardImageContainer.appendChild(cardImage);
-  card.appendChild(cardImageContainer);
+  const content = document.createElement("div");
+  content.classList.add("content");
+  const name = document.createElement("h2");
+  name.classList.add("name");
+  name.textContent = item.nome;
 
-  // Card Content
-  const cardContent = document.createElement("div");
-  cardContent.classList.add("card-content");
+  const stars = document.createElement("div");
+  stars.classList.add("stars");
 
-  const cardTitle = document.createElement("h2");
-  cardTitle.classList.add("card-title");
-  cardTitle.textContent = item.title;
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("preserveAspectRatio", "none");
+  svg.setAttribute("viewBox", "25 29 150.346 142.783");
+  svg.setAttribute("height", "200");
+  svg.setAttribute("width", "200");
+  svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+  svg.setAttribute("role", "presentation");
+  svg.setAttribute("aria-hidden", "true");
+  svg.setAttribute("aria-label", "");
+  svg.setAttribute("data-type", "shape");
+  svg.setAttribute("data-bbox", "25 29 150.346 142.783");
+  svg.setAttribute("data-type", "shape");
 
-  const cardSubtitle = document.createElement("h3");
-  cardSubtitle.classList.add("card-subtitle");
-  cardSubtitle.textContent = item.subTitle;
+  const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
 
-  const cardDescription = document.createElement("p");
-  cardDescription.classList.add("card-description");
-  cardDescription.textContent = item.description;
+  const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  path.setAttribute(
+    "d",
+    "M174.479 82.542c-.833-3.334-3.333-5-6.666-5.834l-41.667-5.833-18.333-37.5c-2.5-5.833-12.5-5.833-15 0l-18.334 37.5-41.666 5.833c-3.334.834-5.834 2.5-7.5 5.834-.834 3.333 0 6.666 2.5 8.333l30 29.167-7.5 41.666c-.834 3.334.833 6.667 3.333 8.334 1.666.833 3.333 1.666 5 1.666 1.666 0 2.5 0 4.166-.833l37.501-20 37.5 20c2.5 1.667 5.833.833 9.166-.833 2.5-1.667 4.167-5 3.334-8.334l-7.5-41.666 30-29.167c2.5-1.667 3.333-5 1.666-8.333Z"
+  );
 
-  cardContent.appendChild(cardTitle);
-  cardContent.appendChild(cardSubtitle);
-  cardContent.appendChild(cardDescription);
+  g.appendChild(path);
+  svg.appendChild(g);
 
-  // Card Categories
-  const cardCategories = document.createElement("div");
-  cardCategories.classList.add("card-categories");
-
-  item.categories.forEach((category) => {
-    const categoryElement = document.createElement("div");
-    categoryElement.classList.add("category");
-
-    const categoryIconContainer = document.createElement("div");
-    categoryIconContainer.classList.add("category-icon");
-
-    const categoryIcon = document.createElement("img");
-    categoryIcon.classList.add("category-icon-img");
-    categoryIcon.src = category.image;
-    categoryIcon.alt = category.title;
-
-    const categoryTitle = document.createElement("span");
-    categoryTitle.textContent = category.title;
-
-    categoryIconContainer.appendChild(categoryIcon);
-    categoryElement.appendChild(categoryIconContainer);
-    categoryElement.appendChild(categoryTitle);
-
-    cardCategories.appendChild(categoryElement);
+  Array.from({ length: 5 }, (_, i) => {
+    const svgClone = svg.cloneNode(true);
+    stars.appendChild(svgClone);
   });
 
-  // Add "Mais" Icon
-  const moreIconContainer = document.createElement("div");
-  moreIconContainer.classList.add("category");
+  const text = document.createElement("p");
+  text.classList.add("text");
+  text.textContent = item.text;
 
-  const moreIcon = document.createElement("div");
-  moreIcon.classList.add("category-icon", "mais-icon");
-  moreIcon.appendChild(document.createTextNode("+"));
+  content.appendChild(name);
+  content.appendChild(stars);
+  content.appendChild(text);
 
-  const moreText = document.createElement("span");
-  moreText.textContent = "Mais";
-
-  moreIconContainer.appendChild(moreIcon);
-  moreIconContainer.appendChild(moreText);
-
-  cardCategories.appendChild(moreIconContainer);
-
-  cardContent.appendChild(cardCategories);
-
-  card.appendChild(cardContent);
+  card.appendChild(avatar);
+  card.appendChild(content);
 
   return card;
 }
@@ -239,7 +92,7 @@ function createCarousel() {
   const container = document.querySelector(".carousel-container");
   const carousel = document.querySelector(".carousel");
 
-  cardsItemsInfo.forEach((item) => {
+  cardsTestimonialsInfo.forEach((item) => {
     const carouselItem = document.createElement("div");
     carouselItem.classList.add("carousel-item");
 
