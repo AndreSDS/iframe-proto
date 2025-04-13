@@ -1,236 +1,93 @@
-const cardsItemsInfo = [
+const cardsSectionsInfo = [
   {
+    title: "Paredão de Revestimentos",
     image:
-      "https://static.wixstatic.com/media/b98454_203daa3560e34a0d8410d32e2c5bb457~mv2.png",
-    title: "Revestimentos",
-    subTitle: 'O nosso "carro-chefe"',
+      "https://static.wixstatic.com/media/b98454_64b3e3258f474688a974e809fbce59d5~mv2.png/v1/fill/w_279,h_174,al_c,lg_1,q_85,enc_auto/image.png",
     description:
-      "Cerâmicos, porcelanatos e vinílicos incríveis, que vão desde os mais simples até os mais sofisticados. Temos uma vasta lista de opções com um potencial incrível de transformar o ambiente de qualquer um.",
-    categories: [
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Cerâmicas",
-      },
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Porcelanatos",
-      },
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Vinílicos",
-      },
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Pastilhas",
-      },
-    ],
+      "Nosso paredão é o lugar perfeito pra você se inspirar! São diversos modelos de revestimentos expostos lado a lado, pra comparar cores, texturas e estilos com mais facilidade. Venha sentir de perto, imaginar seu ambiente dos sonhos e descobrir o que combina com o seu estilo.",
   },
   {
+    title: "Paredão de Revestimentos",
     image:
-      "https://static.wixstatic.com/media/b98454_203daa3560e34a0d8410d32e2c5bb457~mv2.png",
-    title: "Revestimentos",
-    subTitle: 'O nosso "carro-chefe"',
+      "https://static.wixstatic.com/media/b98454_64b3e3258f474688a974e809fbce59d5~mv2.png/v1/fill/w_279,h_174,al_c,lg_1,q_85,enc_auto/image.png",
     description:
-      "Cerâmicos, porcelanatos e vinílicos incríveis, que vão desde os mais simples até os mais sofisticados. Temos uma vasta lista de opções com um potencial incrível de transformar o ambiente de qualquer um.",
-    categories: [
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Cerâmicas",
-      },
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Porcelanatos",
-      },
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Vinílicos",
-      },
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Pastilhas",
-      },
-    ],
+      "Nosso paredão é o lugar perfeito pra você se inspirar! São diversos modelos de revestimentos expostos lado a lado, pra comparar cores, texturas e estilos com mais facilidade. Venha sentir de perto, imaginar seu ambiente dos sonhos e descobrir o que combina com o seu estilo.",
   },
   {
+    title: "Paredão de Revestimentos",
     image:
-      "https://static.wixstatic.com/media/b98454_203daa3560e34a0d8410d32e2c5bb457~mv2.png",
-    title: "Revestimentos",
-    subTitle: 'O nosso "carro-chefe"',
+      "https://static.wixstatic.com/media/b98454_64b3e3258f474688a974e809fbce59d5~mv2.png/v1/fill/w_279,h_174,al_c,lg_1,q_85,enc_auto/image.png",
     description:
-      "Cerâmicos, porcelanatos e vinílicos incríveis, que vão desde os mais simples até os mais sofisticados. Temos uma vasta lista de opções com um potencial incrível de transformar o ambiente de qualquer um.",
-    categories: [
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Cerâmicas",
-      },
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Porcelanatos",
-      },
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Vinílicos",
-      },
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Pastilhas",
-      },
-    ],
+      "Nosso paredão é o lugar perfeito pra você se inspirar! São diversos modelos de revestimentos expostos lado a lado, pra comparar cores, texturas e estilos com mais facilidade. Venha sentir de perto, imaginar seu ambiente dos sonhos e descobrir o que combina com o seu estilo.",
   },
   {
+    title: "Paredão de Revestimentos",
     image:
-      "https://static.wixstatic.com/media/b98454_203daa3560e34a0d8410d32e2c5bb457~mv2.png",
-    title: "Revestimentos",
-    subTitle: 'O nosso "carro-chefe"',
+      "https://static.wixstatic.com/media/b98454_64b3e3258f474688a974e809fbce59d5~mv2.png/v1/fill/w_279,h_174,al_c,lg_1,q_85,enc_auto/image.png",
     description:
-      "Cerâmicos, porcelanatos e vinílicos incríveis, que vão desde os mais simples até os mais sofisticados. Temos uma vasta lista de opções com um potencial incrível de transformar o ambiente de qualquer um.",
-    categories: [
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Cerâmicas",
-      },
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Porcelanatos",
-      },
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Vinílicos",
-      },
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Pastilhas",
-      },
-    ],
+      "Nosso paredão é o lugar perfeito pra você se inspirar! São diversos modelos de revestimentos expostos lado a lado, pra comparar cores, texturas e estilos com mais facilidade. Venha sentir de perto, imaginar seu ambiente dos sonhos e descobrir o que combina com o seu estilo.",
   },
   {
+    title: "Paredão de Revestimentos",
     image:
-      "https://static.wixstatic.com/media/b98454_203daa3560e34a0d8410d32e2c5bb457~mv2.png",
-    title: "Revestimentos",
-    subTitle: 'O nosso "carro-chefe"',
+      "https://static.wixstatic.com/media/b98454_64b3e3258f474688a974e809fbce59d5~mv2.png/v1/fill/w_279,h_174,al_c,lg_1,q_85,enc_auto/image.png",
     description:
-      "Cerâmicos, porcelanatos e vinílicos incríveis, que vão desde os mais simples até os mais sofisticados. Temos uma vasta lista de opções com um potencial incrível de transformar o ambiente de qualquer um.",
-    categories: [
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Cerâmicas",
-      },
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Porcelanatos",
-      },
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Vinílicos",
-      },
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Pastilhas",
-      },
-    ],
+      "Nosso paredão é o lugar perfeito pra você se inspirar! São diversos modelos de revestimentos expostos lado a lado, pra comparar cores, texturas e estilos com mais facilidade. Venha sentir de perto, imaginar seu ambiente dos sonhos e descobrir o que combina com o seu estilo.",
+  },
+  {
+    title: "Paredão de Revestimentos",
+    image:
+      "https://static.wixstatic.com/media/b98454_64b3e3258f474688a974e809fbce59d5~mv2.png/v1/fill/w_279,h_174,al_c,lg_1,q_85,enc_auto/image.png",
+    description:
+      "Nosso paredão é o lugar perfeito pra você se inspirar! São diversos modelos de revestimentos expostos lado a lado, pra comparar cores, texturas e estilos com mais facilidade. Venha sentir de perto, imaginar seu ambiente dos sonhos e descobrir o que combina com o seu estilo.",
   },
 ];
 
 function createCard(item) {
+  // Card Container
   const card = document.createElement("div");
   card.classList.add("card");
 
-  // Card Image
-  const cardImageContainer = document.createElement("div");
-  cardImageContainer.classList.add("card-image-container");
+  // Card header
+  const cardHeader = document.createElement("header");
+  cardHeader.classList.add("card-header");
 
+  // Card title
+  const cardTitle = document.createElement("h2");
+  cardTitle.textContent = item.title;
+  cardHeader.appendChild(cardTitle);
+
+  // Card Image
   const cardImage = document.createElement("img");
+  cardImage.classList.add("card-image");
   cardImage.src = item.image;
   cardImage.alt = item.title;
-
-  cardImageContainer.appendChild(cardImage);
-  card.appendChild(cardImageContainer);
 
   // Card Content
   const cardContent = document.createElement("div");
   cardContent.classList.add("card-content");
 
-  const cardTitle = document.createElement("h2");
-  cardTitle.classList.add("card-title");
-  cardTitle.textContent = item.title;
-
-  const cardSubtitle = document.createElement("h3");
-  cardSubtitle.classList.add("card-subtitle");
-  cardSubtitle.textContent = item.subTitle;
-
   const cardDescription = document.createElement("p");
   cardDescription.classList.add("card-description");
   cardDescription.textContent = item.description;
-
-  cardContent.appendChild(cardTitle);
-  cardContent.appendChild(cardSubtitle);
   cardContent.appendChild(cardDescription);
 
-  // Card Categories
-  const cardCategories = document.createElement("div");
-  cardCategories.classList.add("card-categories");
+  // Card footer
+  const cardFooter = document.createElement("footer");
+  cardFooter.classList.add("card-footer");
 
-  item.categories.forEach((category) => {
-    const categoryElement = document.createElement("div");
-    categoryElement.classList.add("category");
+  // Card button
+  const cardButton = document.createElement("button");
+  cardButton.classList.add("card-button");
+  cardButton.textContent = "Saber mais";
 
-    const categoryIconContainer = document.createElement("div");
-    categoryIconContainer.classList.add("category-icon");
+  cardFooter.appendChild(cardButton);
 
-    const categoryIcon = document.createElement("img");
-    categoryIcon.classList.add("category-icon-img");
-    categoryIcon.src = category.image;
-    categoryIcon.alt = category.title;
-
-    const categoryTitle = document.createElement("span");
-    categoryTitle.textContent = category.title;
-
-    categoryIconContainer.appendChild(categoryIcon);
-    categoryElement.appendChild(categoryIconContainer);
-    categoryElement.appendChild(categoryTitle);
-
-    cardCategories.appendChild(categoryElement);
-  });
-
-  // Add "Mais" Icon
-  const moreIconContainer = document.createElement("div");
-  moreIconContainer.classList.add("category");
-
-  const moreIcon = document.createElement("div");
-  moreIcon.classList.add("category-icon", "mais-icon");
-  moreIcon.appendChild(document.createTextNode("+"));
-
-  const moreText = document.createElement("span");
-  moreText.textContent = "Mais";
-
-  moreIconContainer.appendChild(moreIcon);
-  moreIconContainer.appendChild(moreText);
-
-  cardCategories.appendChild(moreIconContainer);
-
-  cardContent.appendChild(cardCategories);
-
+  // Append all elements to the card
+  card.appendChild(cardHeader);
+  card.appendChild(cardImage);
   card.appendChild(cardContent);
+  card.appendChild(cardFooter);
 
   return card;
 }
@@ -239,7 +96,7 @@ function createCarousel() {
   const container = document.querySelector(".carousel-container");
   const carousel = document.querySelector(".carousel");
 
-  cardsItemsInfo.forEach((item) => {
+  cardsSectionsInfo.forEach((item) => {
     const carouselItem = document.createElement("div");
     carouselItem.classList.add("carousel-item");
 
