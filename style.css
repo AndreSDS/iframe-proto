@@ -130,3 +130,25 @@
 .carousel-control:hover {
   background-color: rgba(255, 255, 255, 1);
 }
+
+@media (max-width: 768px) {
+  .carousel-container {
+    padding: 0 15px;
+    overflow: visible;
+  }
+
+  .carousel-item {
+    font-size: 20px;
+    min-width: calc(95% - 15px);
+  }
+
+  .carousel-control {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-item {
+    font-size: 18px;
+  }
+}
