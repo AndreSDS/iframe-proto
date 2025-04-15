@@ -108,7 +108,7 @@
   transform: translateY(-50%);
   width: 50px;
   height: 50px;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: #0078d780;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -123,6 +123,7 @@
 .carousel-control svg {
   width: 24px;
   height: 24px;
+  fill: #fff;
 }
 
 .carousel-control-prev {
@@ -135,7 +136,7 @@
 }
 
 .carousel-control:hover {
-  background-color: rgba(255, 255, 255, 1);
+  background-color: #0078d7;
 }
 
 @media (max-width: 768px) {
