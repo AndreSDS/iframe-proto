@@ -4,12 +4,12 @@ const cardsTestimonialsInfo = [
     text: "Sou cliente há muitos anos! E sempre fui muito bem atendido, com agilidade e auxílio na escolha dos produtos para que eu possa ter o melhor resultado no serviço. O atendimento pelo Whatsapp é também uma ferramenta que funciona perfeitamente!!",
   },
   {
-    nome: "Renato Neves",
-    text: "Sou cliente há muitos anos! E sempre fui muito bem atendido, com agilidade e auxílio na escolha dos produtos para que eu possa ter o melhor resultado no serviço. O atendimento pelo Whatsapp é também uma ferramenta que funciona perfeitamente!!",
+    nome: "Marcos Paulo",
+    text: "SExcelente atendimento ao cliente final, pontualidade nas entregas e qualidade nos produtos. Já comprei em várias lojas deste segmento mas desconheço alguma que possui o atendimento exclusivo como de vocês.",
   },
   {
-    nome: "Renato Neves",
-    text: "Sou cliente há muitos anos! E sempre fui muito bem atendido, com agilidade e auxílio na escolha dos produtos para que eu possa ter o melhor resultado no serviço. O atendimento pelo Whatsapp é também uma ferramenta que funciona perfeitamente!!",
+    nome: "Kelly Fernandes",
+    text: "Excelente atendimento do início da compra até a hora da entrega do material... Todos funcionários são bastante atenciosos e simpáticos... É a loja que compramos faz tempo, pois os preços são ótimos... Top!!! Recomendo!!!"
   },
   {
     nome: "Renato Neves",
