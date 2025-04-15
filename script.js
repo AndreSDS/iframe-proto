@@ -239,12 +239,23 @@ document.addEventListener("DOMContentLoaded", function () {
     if (isDragging) {
       const touch = event.type === "touchmove" ? event.touches[0] : event;
       const currentPosition = touch.clientX;
-
-      // Calculate distance moved
-      currentTranslate = prevTranslate + currentPosition - startPos;
+      
+      // Calculate potential new position
+      const potentialTranslate = prevTranslate + currentPosition - startPos;
+      
+      // Get current dimensions
+      const { itemWidth, maxIndex } = calculateDimensions();
+      
+      // Prevent moving beyond boundaries
+      if (potentialTranslate > 0 || potentialTranslate < -itemWidth * maxIndex) {
+        return; // Don't update position if trying to move beyond limits
+      }
+      
+      // Apply the translation if within bounds
+      currentTranslate = potentialTranslate;
     }
   }
-
+  
   function touchEnd() {
     cancelAnimationFrame(animationID);
     isDragging = false;
