@@ -145,20 +145,27 @@
   transform: translateY(-50%);
   width: 50px;
   height: 50px;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: #0078d780;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  font-size: 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   z-index: 10;
   border: none;
+  color: #0078d7;
+}
+
+.carousel-control svg {
+  width: 24px;
+  height: 24px;
+  fill: #fff;
 }
 
 .carousel-control-prev {
   left: 10px;
+  transform: rotate(180deg);
 }
 
 .carousel-control-next {
@@ -166,7 +173,7 @@
 }
 
 .carousel-control:hover {
-  background-color: rgba(255, 255, 255, 1);
+  background-color: #0078d7;
 }
 
 .title {
