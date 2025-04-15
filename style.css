@@ -88,16 +88,25 @@
   border-top-right-radius: 25px;
   border-bottom-left-radius: 45px;
   border-bottom-right-radius: 45px;
-  height: 614px;
+  height: 100%;
 }
 
 .card-header {
   background-color: white;
   color: #0078c8;
-  height: 65px;
+  min-height: 70px;
   display: flex;
   align-items: center;
   padding-left: 20px;
+}
+
+.card-header-icon {
+  margin-right: 10px;
+}
+
+.card-header-icon svg {
+  width: 26px;
+  height: 26px;
 }
 
 .card-header h2 {
@@ -115,7 +124,6 @@
 
 .card-content {
   padding: 0 30px;
-  height: 215px;
   margin-bottom: 16px;
 }
 
