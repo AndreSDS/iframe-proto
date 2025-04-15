@@ -7,39 +7,39 @@ const cardsSectionsInfo = [
       "Nosso paredão é o lugar perfeito pra você se inspirar! São diversos modelos de revestimentos expostos lado a lado, pra comparar cores, texturas e estilos com mais facilidade. Venha sentir de perto, imaginar seu ambiente dos sonhos e descobrir o que combina com o seu estilo.",
   },
   {
-    title: "Paredão de Revestimentos",
+    title: "Seção de Pintura",
     image:
-      "https://static.wixstatic.com/media/b98454_64b3e3258f474688a974e809fbce59d5~mv2.png/v1/fill/w_279,h_174,al_c,lg_1,q_85,enc_auto/image.png",
+      "https://static.wixstatic.com/media/b98454_23a82c9a05814f39b649aee26b82675f~mv2.png/v1/fill/w_279,h_174,al_c,lg_1,q_85,enc_avif,quality_auto/image.png",
     description:
-      "Nosso paredão é o lugar perfeito pra você se inspirar! São diversos modelos de revestimentos expostos lado a lado, pra comparar cores, texturas e estilos com mais facilidade. Venha sentir de perto, imaginar seu ambiente dos sonhos e descobrir o que combina com o seu estilo.",
+      "Cores que transformam ambientes! Aqui você encontra tintas para todos os estilos e superfícies, além de acessórios que facilitam cada etapa da pintura. Das paredes internas ao retoque externo, tem sempre uma tonalidade esperando pra deixar seu espaço com a sua cara!",
   },
   {
-    title: "Paredão de Revestimentos",
+    title: "Seção de Ferramentas",
     image:
-      "https://static.wixstatic.com/media/b98454_64b3e3258f474688a974e809fbce59d5~mv2.png/v1/fill/w_279,h_174,al_c,lg_1,q_85,enc_auto/image.png",
+      "https://static.wixstatic.com/media/b98454_5a2fca9ed7d443dc830c9ca86825e392~mv2.png/v1/fill/w_279,h_174,al_c,lg_1,q_85,enc_avif,quality_auto/image.png",
     description:
-      "Nosso paredão é o lugar perfeito pra você se inspirar! São diversos modelos de revestimentos expostos lado a lado, pra comparar cores, texturas e estilos com mais facilidade. Venha sentir de perto, imaginar seu ambiente dos sonhos e descobrir o que combina com o seu estilo.",
+      'Ajudamos quem faz! Aqui você encontra desde ferramentas manuais até elétricas, com opções para iniciantes, profissionais e aventureiros do "faça você mesmo".',
   },
   {
-    title: "Paredão de Revestimentos",
+    title: "Seção de Hidráulica",
     image:
-      "https://static.wixstatic.com/media/b98454_64b3e3258f474688a974e809fbce59d5~mv2.png/v1/fill/w_279,h_174,al_c,lg_1,q_85,enc_auto/image.png",
+      "https://static.wixstatic.com/media/b98454_c256bdad4bb74b9c83e6abb7a74fec89~mv2.png/v1/fill/w_279,h_174,al_c,lg_1,q_85,enc_avif,quality_auto/image.png",
     description:
-      "Nosso paredão é o lugar perfeito pra você se inspirar! São diversos modelos de revestimentos expostos lado a lado, pra comparar cores, texturas e estilos com mais facilidade. Venha sentir de perto, imaginar seu ambiente dos sonhos e descobrir o que combina com o seu estilo.",
+      "Tudo que passa por água começa aqui! Nossa seção hidráulica tem tubos, conexões, registros, caixas d'água e muito mais pra garantir um sistema bem feito e duradouro.Tá construindo ou só fazendo manutenção? Vem conferir de perto e garantir qualidade sem complicação.",
   },
   {
-    title: "Paredão de Revestimentos",
+    title: "Gabinetes para Cozinhas",
     image:
       "https://static.wixstatic.com/media/b98454_64b3e3258f474688a974e809fbce59d5~mv2.png/v1/fill/w_279,h_174,al_c,lg_1,q_85,enc_auto/image.png",
     description:
-      "Nosso paredão é o lugar perfeito pra você se inspirar! São diversos modelos de revestimentos expostos lado a lado, pra comparar cores, texturas e estilos com mais facilidade. Venha sentir de perto, imaginar seu ambiente dos sonhos e descobrir o que combina com o seu estilo.",
+      "Praticidade com estilo! Temos gabinetes prontos pra instalação, com diferentes tamanhos, cores e acabamentos, perfeitos pra valorizar sua cozinha sem dor de cabeça.",
   },
   {
-    title: "Paredão de Revestimentos",
+    title: "Kits para Banheiros",
     image:
-      "https://static.wixstatic.com/media/b98454_64b3e3258f474688a974e809fbce59d5~mv2.png/v1/fill/w_279,h_174,al_c,lg_1,q_85,enc_auto/image.png",
+      "https://static.wixstatic.com/media/b98454_370b543e3ffd4dbfbf6315bbeb2cdb83~mv2.png/v1/fill/w_279,h_174,al_c,lg_1,q_85,enc_avif,quality_auto/image.png",
     description:
-      "Nosso paredão é o lugar perfeito pra você se inspirar! São diversos modelos de revestimentos expostos lado a lado, pra comparar cores, texturas e estilos com mais facilidade. Venha sentir de perto, imaginar seu ambiente dos sonhos e descobrir o que combina com o seu estilo.",
+      "Aqui você encontra pias, armários, assentos sanitários e kits completos pra montar ou renovar seu banheiro com facilidade. Tudo combinando, com opções que vão do básico ao moderno — é só escolher e levar!",
   },
 ];
 
@@ -79,7 +79,7 @@ function createCard(item) {
   // Card button
   const cardButton = document.createElement("button");
   cardButton.classList.add("card-button");
-  cardButton.textContent = "Saber mais";
+  cardButton.textContent = "SAIBA MAIS";
 
   cardFooter.appendChild(cardButton);
 
