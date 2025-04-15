@@ -31,7 +31,7 @@ main div.teste {
   // estado inicial da animacao
   opacity: 0;
   transform: translateY(50px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transition: opacity 1.5s ease, transform 1.5s ease;
 }
 
 .carousel-container.showCarousel {

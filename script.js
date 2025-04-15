@@ -259,8 +259,8 @@ function observeIframeVisibility() {
   // Configuração do Intersection Observer
   const options = {
     root: null, // viewport
-    rootMargin: '20px 0px',
-    threshold: 0// 15% do elemento visível
+    rootMargin: '20px 0px', // margem adicional
+    threshold: 0 // % do elemento visível
   };
   
   const observer = new IntersectionObserver((entries) => {
