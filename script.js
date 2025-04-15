@@ -160,24 +160,24 @@ document.addEventListener("DOMContentLoaded", function () {
     const firstItemStyle = getComputedStyle(items[0]);
     const marginRight = parseInt(firstItemStyle.marginRight);
 
-    const itemWidth = items[0].offsetWidth + marginRight;
+    // Include the gap value from the carousel CSS
+    const carouselStyle = getComputedStyle(carousel);
+    const gapSize = parseInt(carouselStyle.gap) || 40; // Default to 40px if not set
+
+    const itemWidth = items[0].offsetWidth + gapSize;
     const containerWidth = container.offsetWidth;
 
-    // For mobile, we show part of the next item as a visual cue
+    // Rest of the function remains the same
     let visibleItems;
     if (isMobile()) {
-      // We only show about 85% of the container width for the main item
-      // This makes part of the next item visible
       visibleItems = 1;
     } else {
-      // Calculate how many whole items fit in the container
       visibleItems = Math.floor(containerWidth / itemWidth);
     }
 
-    // Calculate the max index considering the full visibility of the last item
     const maxIndex = Math.max(0, items.length - visibleItems);
 
-    return { itemWidth, maxIndex, containerWidth, visibleItems };
+    return { itemWidth, maxIndex, containerWidth, visibleItems, gapSize };
   }
 
   let { itemWidth, maxIndex } = calculateDimensions();
@@ -235,12 +235,29 @@ document.addEventListener("DOMContentLoaded", function () {
     if (isDragging) {
       const touch = event.type === "touchmove" ? event.touches[0] : event;
       const currentPosition = touch.clientX;
-
-      // Calculate distance moved
-      currentTranslate = prevTranslate + currentPosition - startPos;
+      
+      // Calculate potential new position
+      const potentialTranslate = prevTranslate + currentPosition - startPos;
+      
+      // Get current dimensions
+      const { itemWidth, maxIndex, containerWidth } = calculateDimensions();
+      
+      // Prevent moving beyond boundaries with strict enforcement
+      const minTranslate = -itemWidth * maxIndex;
+      
+      if (potentialTranslate > 0) {
+        currentTranslate = 0; // Hard stop at beginning
+        return;
+      } else if (potentialTranslate < minTranslate) {
+        currentTranslate = minTranslate; // Hard stop at end
+        return;
+      }
+      
+      // Apply the translation if within bounds
+      currentTranslate = potentialTranslate;
     }
   }
-
+  
   function touchEnd() {
     cancelAnimationFrame(animationID);
     isDragging = false;
@@ -248,7 +265,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const movedBy = currentTranslate - prevTranslate;
     const { maxIndex } = calculateDimensions();
 
-    // If moved enough in negative direction
+    // If moved enough in negative direction and not at max index
     if (movedBy < -100 && currentIndex < maxIndex) {
       currentIndex++;
     }
@@ -270,11 +287,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function setPositionByIndex() {
     const { itemWidth, maxIndex } = calculateDimensions();
-
+  
     // Enforce boundaries
     if (currentIndex < 0) currentIndex = 0;
     if (currentIndex > maxIndex) currentIndex = maxIndex;
-
+  
     currentTranslate = currentIndex * -itemWidth;
     prevTranslate = currentTranslate;
     setCarouselPosition();
@@ -283,14 +300,16 @@ document.addEventListener("DOMContentLoaded", function () {
   function setCarouselPosition() {
     const { itemWidth, maxIndex } = calculateDimensions();
 
-    // Apply boundaries to prevent dragging beyond the first and last items
+    // Apply strict boundaries
+    const minTranslate = -itemWidth * maxIndex;
+    
     if (currentTranslate > 0) {
       currentTranslate = 0;
       prevTranslate = 0;
       currentIndex = 0;
-    } else if (currentTranslate < -itemWidth * maxIndex) {
-      currentTranslate = -itemWidth * maxIndex;
-      prevTranslate = -itemWidth * maxIndex;
+    } else if (currentTranslate < minTranslate) {
+      currentTranslate = minTranslate;
+      prevTranslate = minTranslate;
       currentIndex = maxIndex;
     }
 
