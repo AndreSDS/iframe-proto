@@ -125,7 +125,43 @@ function createCarousel() {
   return { container, carousel };
 }
 
+function observeIframeVisibility() {
+  const carouselContainer = document.querySelector('.carousel-container');
+  
+  // Configuração do Intersection Observer
+  const options = {
+    root: null, // viewport
+    rootMargin: '0px 0px', // margem adicional
+    threshold: 0 // % do elemento visível
+  };
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Adiciona a classe para iniciar a animação
+        carouselContainer.classList.add('showCarousel');
+
+        const items = document.querySelectorAll('.carousel-item');
+        items.forEach((item, index) => {
+          // Atrasa a animação de cada item com base em seu índice
+          setTimeout(() => {
+            item.classList.add('showItem');
+          }, 300 + (index * 150)); // 300ms de atraso inicial + 150ms para cada item
+        });
+        
+        // Opcional: parar de observar após a primeira detecção
+        observer.unobserve(entry.target);
+      }
+    });
+  }, options);
+  
+  // Começar a observar o elemento
+  observer.observe(carouselContainer);
+}
+
 document.addEventListener("DOMContentLoaded", function () {
+  observeIframeVisibility();
+
   const prevButton = document.querySelector(".carousel-control-prev");
   const nextButton = document.querySelector(".carousel-control-next");
 
