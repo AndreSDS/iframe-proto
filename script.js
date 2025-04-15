@@ -164,24 +164,24 @@ document.addEventListener("DOMContentLoaded", function () {
     const firstItemStyle = getComputedStyle(items[0]);
     const marginRight = parseInt(firstItemStyle.marginRight);
 
-    const itemWidth = items[0].offsetWidth + marginRight;
+    // Include the gap value from the carousel CSS
+    const carouselStyle = getComputedStyle(carousel);
+    const gapSize = parseInt(carouselStyle.gap) || 40; // Default to 40px if not set
+
+    const itemWidth = items[0].offsetWidth + gapSize;
     const containerWidth = container.offsetWidth;
 
-    // For mobile, we show part of the next item as a visual cue
+    // Rest of the function remains the same
     let visibleItems;
     if (isMobile()) {
-      // We only show about 85% of the container width for the main item
-      // This makes part of the next item visible
       visibleItems = 1;
     } else {
-      // Calculate how many whole items fit in the container
       visibleItems = Math.floor(containerWidth / itemWidth);
     }
 
-    // Calculate the max index considering the full visibility of the last item
     const maxIndex = Math.max(0, items.length - visibleItems);
 
-    return { itemWidth, maxIndex, containerWidth, visibleItems };
+    return { itemWidth, maxIndex, containerWidth, visibleItems, gapSize };
   }
 
   let { itemWidth, maxIndex } = calculateDimensions();
@@ -274,11 +274,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function setPositionByIndex() {
     const { itemWidth, maxIndex } = calculateDimensions();
-
+  
     // Enforce boundaries
     if (currentIndex < 0) currentIndex = 0;
     if (currentIndex > maxIndex) currentIndex = maxIndex;
-
+  
     currentTranslate = currentIndex * -itemWidth;
     prevTranslate = currentTranslate;
     setCarouselPosition();
