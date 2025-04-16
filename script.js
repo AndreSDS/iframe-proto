@@ -244,6 +244,41 @@ const cardsItemsInfo = [
       },
     ],
   },
+  {
+    image:
+      "https://static.wixstatic.com/media/b98454_227b60aca1b44a3198c60ec9486dd62e~mv2.png",
+    title: "Linha Industrial",
+    subTitle: "Você merece seu negócio decolando.",
+    description:
+      "Equipamentos pensados pra dar agilidade, eficiência e qualidade ao seu dia a dia. Tudo pra sua estrutura funcionar melhor, seu atendimento render mais e seu negócio crescer com força.",
+    categories: [
+      {
+        image:
+          "https://static.wixstatic.com/media/b98454_c1c05931310646ddab5f4b4f47b26879~mv2.png",
+        title: "Refrigeradores",
+      },
+      {
+        image:
+          "https://static.wixstatic.com/media/b98454_94c1ea1eb8e6413cb85af04c01130df1~mv2.png",
+        title: "Liquidificadores",
+      },
+      {
+        image:
+          "https://static.wixstatic.com/media/b98454_12c339dd827e4bb4b22544507afa510d~mv2.png",
+        title: "Bebedouros",
+      },
+      {
+        image:
+          "https://static.wixstatic.com/media/b98454_22432b8f4dd948abbc7bf619a0e24b5f~mv2.png",
+        title: "Lava Louças",
+      },
+      {
+        image:
+          "https://static.wixstatic.com/media/b98454_073b5fa8e6ac46deac879a925c347d88~mv2.png",
+        title: "Fornos",
+      },
+    ],
+  },
 ];
 
 const plusButton = `<svg preserveAspectRatio="none" data-bbox="20.5 20.5 159 159" viewBox="20.5 20.5 159 159" height="200" width="200" xmlns="http://www.w3.org/2000/svg" data-type="shape" role="presentation" aria-hidden="true" aria-label="">
