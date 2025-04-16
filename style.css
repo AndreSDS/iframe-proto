@@ -130,7 +130,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
   text-align: center;
   color: #0078d7;
   font-size: 12px;
@@ -152,9 +151,16 @@
 }
 
 .mais-icon {
-  font-size: 30px;
-  font-weight: bold;
-  color: #0078d7;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  box-shadow: 0 3px 6px rgba(0, 120, 215, 0.3);
+}
+
+.mais-icon svg {
+  width: 20px;
+  height: 20px;
+  fill: #0078d7;
 }
 
 .carousel-control {

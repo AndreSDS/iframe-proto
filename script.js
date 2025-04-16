@@ -211,7 +211,7 @@ const cardsItemsInfo = [
   },
   {
     image:
-      "https://static.wixstatic.com/media/b98454_687d8af3ee034d24bcc4aa2eb0c86b3f~mv2.png",
+      "https://static.wixstatic.com/media/b98454_763f8e127edd48049b03765337ab007a~mv2.png",
     title: "Casa e Jardim",
     subTitle: "Detalhes que fazem a casa mais viva.",
     description:
@@ -245,6 +245,12 @@ const cardsItemsInfo = [
     ],
   },
 ];
+
+const plusButton = `<svg preserveAspectRatio="none" data-bbox="20.5 20.5 159 159" viewBox="20.5 20.5 159 159" height="200" width="200" xmlns="http://www.w3.org/2000/svg" data-type="shape" role="presentation" aria-hidden="true" aria-label="">
+    <g>
+        <path d="M165.056 85.556h-50.612V34.944c0-7.973-6.471-14.444-14.444-14.444-7.973 0-14.444 6.471-14.444 14.444v50.612H34.944C26.971 85.556 20.5 92.027 20.5 100c0 7.973 6.471 14.444 14.444 14.444h50.612v50.612c0 7.973 6.471 14.444 14.444 14.444s14.444-6.471 14.444-14.444v-50.612h50.612c7.973 0 14.444-6.471 14.444-14.444.057-7.915-6.471-14.444-14.444-14.444z"></path>
+    </g>
+</svg>`;
 
 function createCard(item) {
   const card = document.createElement("div");
@@ -313,10 +319,10 @@ function createCard(item) {
 
   const moreIcon = document.createElement("div");
   moreIcon.classList.add("category-icon", "mais-icon");
-  moreIcon.appendChild(document.createTextNode("+"));
+  moreIcon.innerHTML = plusButton;
 
   const moreText = document.createElement("span");
-  moreText.textContent = "Mais";
+  moreText.textContent = "Ver Mais";
 
   moreIconContainer.appendChild(moreIcon);
   moreIconContainer.appendChild(moreText);
