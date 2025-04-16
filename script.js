@@ -75,7 +75,7 @@ const cardsItemsInfo = [
     title: "Pintura",
     subTitle: "Cor e vida nas paredes!",
     description:
-      "Tinta não é tudo igual – e a gente prova isso com uma seleção caprichada de cores, texturas, acabamen-tos e acessórios. Tem opção pra todo tipo de gosto, parede e projeto criativo.",
+      "Tinta não é tudo igual – e a gente prova isso com uma seleção caprichada de cores, texturas, acabamentos e acessórios. Tem opção pra todo tipo de gosto, parede e projeto criativo.",
     categories: [
       {
         image:
@@ -108,7 +108,7 @@ const cardsItemsInfo = [
     image:
       "https://static.wixstatic.com/media/b98454_a37d55007b4242e7b90434225a40507f~mv2.png",
     title: "Ferramentas",
-    subTitle: 'Sua obra na palma da mão.',
+    subTitle: "Sua obra na palma da mão.",
     description:
       "Manuais ou elétricas, aqui tem ferramentas pra facilitar cada etapa do trabalho – seja profissional ou do tipo “faça você mesmo”.",
     categories: [
@@ -143,7 +143,7 @@ const cardsItemsInfo = [
     image:
       "https://static.wixstatic.com/media/b98454_cfd8ab6bf3864954a50bde95756e77f7~mv2.png",
     title: "Hidráulica",
-    subTitle: 'Do cano à torneira.',
+    subTitle: "Do cano à torneira.",
     description:
       "Aqui tem tudo pra água circular bem na sua casa: tubos, conexões, torneiras, vasos sanitários, cubas e acessórios. Qualidade, durabilidade e praticidade pra sua obra ou reforma fluir sem estresse.",
     categories: [
@@ -171,6 +171,41 @@ const cardsItemsInfo = [
         image:
           "https://static.wixstatic.com/media/b98454_d8de94d4916d4b91bf7883fe3b9b9762~mv2.png",
         title: "Conexões",
+      },
+    ],
+  },
+  {
+    image:
+      "https://static.wixstatic.com/media/b98454_62634f74a50a4707864b24c86e5641e9~mv2.png",
+    title: "Iluminação e Elétrica",
+    subTitle: "Conforto, segurança e design.",
+    description:
+      "Cabos, tomadas, lâmpadas e luminárias que fazem seu projeto funcionar e valorizam cada ambiente. Tudo pra sua casa ser mais prática, acolhedora e cheia de vida.",
+    categories: [
+      {
+        image:
+          "https://static.wixstatic.com/media/b98454_57e9b1240748449b8f5b5d5f9df9ac3f~mv2.png",
+        title: "Luminárias",
+      },
+      {
+        image:
+          "https://static.wixstatic.com/media/b98454_afa8b482705746f28be83f9999c43933~mv2.png",
+        title: "Tomadas",
+      },
+      {
+        image:
+          "https://static.wixstatic.com/media/b98454_a5396a9c900b4e74a208b34347b61acf~mv2.png",
+        title: "Lâmpadas",
+      },
+      {
+        image:
+          "https://static.wixstatic.com/media/b98454_51a60732dc4b4ca3864a72d9791dabd5~mv2.png",
+        title: "Isolantes",
+      },
+      {
+        image:
+          "https://static.wixstatic.com/media/b98454_46ed15816ad2487fbb3a82224b9297f0~mv2.png",
+        title: "Cabos",
       },
     ],
   },
