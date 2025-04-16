@@ -194,18 +194,34 @@ footer {
     overflow: visible;
   }
 
+  .carousel {
+    gap: 26px;
+  }
+
   .carousel-item {
-    font-size: 20px;
+    font-size: 16px;
     min-width: calc(95% - 15px);
+  }
+
+  .card {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .card-image {
+    margin-bottom: 10px;
+  }
+
+  .card-content {
+    padding: 0 20px;
+    margin-bottom: 0px;
+  }
+
+  .card-description {
+    font-size: 14px;
   }
 
   .carousel-control {
     display: none;
-  }
-}
-
-@media (max-width: 480px) {
-  .carousel-item {
-    font-size: 18px;
   }
 }
