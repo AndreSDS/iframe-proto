@@ -5,7 +5,7 @@ const cardsTestimonialsInfo = [
   },
   {
     nome: "Marcos Paulo",
-    text: "SExcelente atendimento ao cliente final, pontualidade nas entregas e qualidade nos produtos. Já comprei em várias lojas deste segmento mas desconheço alguma que possui o atendimento exclusivo como de vocês.",
+    text: "Excelente atendimento ao cliente final, pontualidade nas entregas e qualidade nos produtos. Já comprei em várias lojas deste segmento mas desconheço alguma que possui o atendimento exclusivo como de vocês.",
   },
   {
     nome: "Kelly Fernandes",
