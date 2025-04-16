@@ -23,6 +23,7 @@ main div.teste {
 }
 
 .carousel-container {
+  display: none;
   position: relative;
   width: 100%;
   margin: 0 auto;
@@ -224,22 +225,39 @@ footer {
 
 @media (max-width: 768px) {
   .carousel-container {
+    display: block;
     padding: 0 15px;
     overflow: visible;
   }
 
+  .carousel {
+    gap: 28px;
+  }
+
   .carousel-item {
-    font-size: 20px;
-    min-width: calc(95% - 15px);
+    font-size: 14px;
+    min-width: calc(95% - 10px);
+  }
+
+  .card {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .card-image {
+    margin-bottom: 12px;
+  }
+
+  .card-content {
+    margin-bottom: 0px;
+    padding-bottom: 22px;
+  }
+
+  .card-description {
+    font-size: 14px;
   }
 
   .carousel-control {
     display: none;
-  }
-}
-
-@media (max-width: 480px) {
-  .carousel-item {
-    font-size: 18px;
   }
 }
