@@ -108,9 +108,9 @@ const cardsItemsInfo = [
     image:
       "https://static.wixstatic.com/media/b98454_a37d55007b4242e7b90434225a40507f~mv2.png",
     title: "Ferramentas",
-    subTitle: 'O nosso "carro-chefe"',
+    subTitle: 'Sua obra na palma da mão.',
     description:
-      "Cerâmicos, porcelanatos e vinílicos incríveis, que vão desde os mais simples até os mais sofisticados. Temos uma vasta lista de opções com um potencial incrível de transformar o ambiente de qualquer um.",
+      "Manuais ou elétricas, aqui tem ferramentas pra facilitar cada etapa do trabalho – seja profissional ou do tipo “faça você mesmo”.",
     categories: [
       {
         image:
@@ -143,9 +143,9 @@ const cardsItemsInfo = [
     image:
       "https://static.wixstatic.com/media/b98454_cfd8ab6bf3864954a50bde95756e77f7~mv2.png",
     title: "Hidráulica",
-    subTitle: 'O nosso "carro-chefe"',
+    subTitle: 'Do cano à torneira.',
     description:
-      "Cerâmicos, porcelanatos e vinílicos incríveis, que vão desde os mais simples até os mais sofisticados. Temos uma vasta lista de opções com um potencial incrível de transformar o ambiente de qualquer um.",
+      "Aqui tem tudo pra água circular bem na sua casa: tubos, conexões, torneiras, vasos sanitários, cubas e acessórios. Qualidade, durabilidade e praticidade pra sua obra ou reforma fluir sem estresse.",
     categories: [
       {
         image:
