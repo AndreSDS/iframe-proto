@@ -77,7 +77,12 @@
   height: 190px;
 }
 
-.name {
+.name {Política de privacidade
+
+Política de cookies
+
+© 2035 por Nome do site. Orgulhosamente criado com Wix.com
+
   color: #0078d7;
   font-size: 15px;
   margin-bottom: 5px;
@@ -145,19 +150,46 @@
     overflow: visible;
   }
 
+  .carousel {
+    display: flex;
+    gap: 15px;
+  }
+
   .carousel-item {
-    font-size: 20px;
     width: auto;
-    min-width: calc(95% - 15px);
+    height: auto;
+    min-width: calc(95% - 10px);
+  }
+
+  .card {
+    padding: 16px 10px 16px 16px;
+	height: 330px;
+  }
+
+  .avatar {
+    width: 60px;
+    height: 60px;
+  }
+
+  .name {
+    margin-bottom: 3px;
+    font-size: 14px;
+  }
+
+  .stars {
+    margin-bottom: 5px;
+    font-size: 14px;
+  }
+
+  .content {
+    height: auto;
+  }
+
+  .text {
+    line-height: 1.35;
   }
 
   .carousel-control {
     display: none;
-  }
-}
-
-@media (max-width: 480px) {
-  .carousel-item {
-    font-size: 18px;
   }
 }
