@@ -209,6 +209,41 @@ const cardsItemsInfo = [
       },
     ],
   },
+  {
+    image:
+      "https://static.wixstatic.com/media/b98454_687d8af3ee034d24bcc4aa2eb0c86b3f~mv2.png",
+    title: "Casa e Jardim",
+    subTitle: "Detalhes que fazem a casa mais viva.",
+    description:
+      "Gabinetes, espelhos, esquadrias e acessórios de jardinagem que trazem beleza, organização e bem-estar pro seu lar — dentro e fora de casa. Seu projeto fica mais completo, com personalidade e cuidado em cada canto.",
+    categories: [
+      {
+        image:
+          "https://static.wixstatic.com/media/b98454_ae92805c28d54c9caf2b56fcbcaf5bcf~mv2.png",
+        title: "Portas",
+      },
+      {
+        image:
+          "https://static.wixstatic.com/media/b98454_77f84d8354554fe392a5e7b110ca0a8f~mv2.png",
+        title: "Pas",
+      },
+      {
+        image:
+          "https://static.wixstatic.com/media/b98454_b369259cf29a40c987f28279ce323784~mv2.png",
+        title: "Gabinetes",
+      },
+      {
+        image:
+          "https://static.wixstatic.com/media/b98454_7a642c1b564348d8a2385d571d0b58a8~mv2.png",
+        title: "Janelas",
+      },
+      {
+        image:
+          "https://static.wixstatic.com/media/b98454_1535b1c6e3e944098f91891a97b77e63~mv2.png",
+        title: "Espelhos",
+      },
+    ],
+  },
 ];
 
 function createCard(item) {
