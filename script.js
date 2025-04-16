@@ -1,7 +1,7 @@
 const cardsItemsInfo = [
   {
     image:
-      "https://static.wixstatic.com/media/b98454_203daa3560e34a0d8410d32e2c5bb457~mv2.png",
+      "https://static.wixstatic.com/media/b98454_bef3eb37e75844d1bc7b286bd197f2e9~mv2.png",
     title: "Revestimentos",
     subTitle: 'O nosso "carro-chefe"',
     description:
@@ -9,143 +9,168 @@ const cardsItemsInfo = [
     categories: [
       {
         image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
+          "https://static.wixstatic.com/media/b98454_9e997e6526004950883304239e6bb60a~mv2.png",
         title: "Cerâmicas",
       },
       {
         image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
+          "https://static.wixstatic.com/media/b98454_1ca0232fd38e4344b520c467603fe5cf~mv2.png",
         title: "Porcelanatos",
       },
       {
         image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
+          "https://static.wixstatic.com/media/b98454_f331b886655b4044af9978f30f9396bc~mv2.png",
         title: "Vinílicos",
       },
       {
         image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
+          "https://static.wixstatic.com/media/b98454_cd4cdd524f6f445bb5346deb7937187a~mv2.png",
         title: "Pastilhas",
+      },
+      {
+        image:
+          "https://static.wixstatic.com/media/b98454_99e7f33fc3c6410c949fe201e13a3a40~mv2.png",
+        title: "Rodapés",
       },
     ],
   },
   {
     image:
-      "https://static.wixstatic.com/media/b98454_203daa3560e34a0d8410d32e2c5bb457~mv2.png",
-    title: "Revestimentos",
-    subTitle: 'O nosso "carro-chefe"',
+      "https://static.wixstatic.com/media/b98454_d3479617109645b6a29b3d3d96554c43~mv2.png",
+    title: "Materiais Brutos",
+    subTitle: "A base de tudo!",
     description:
-      "Cerâmicos, porcelanatos e vinílicos incríveis, que vão desde os mais simples até os mais sofisticados. Temos uma vasta lista de opções com um potencial incrível de transformar o ambiente de qualquer um.",
+      "Cimento, areia, blocos, vergalhões e muito mais pra quem está começando do zero ou encarando aquela reforma de respeito. É aqui que o alicerce ganha forma (e força!).",
     categories: [
       {
         image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Cerâmicas",
+          "https://static.wixstatic.com/media/b98454_be3e3a939e6545fab780869d2103a338~mv2.png",
+        title: "Pedras",
       },
       {
         image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Porcelanatos",
+          "https://static.wixstatic.com/media/b98454_93cc6859cb264ebf8bdbb6cfef265860~mv2.png",
+        title: "Ferragens",
       },
       {
         image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Vinílicos",
+          "https://static.wixstatic.com/media/b98454_8a1d89b14d584a71aad04538dde96a68~mv2.png",
+        title: "Blocos",
       },
       {
         image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Pastilhas",
+          "https://static.wixstatic.com/media/b98454_9b31211d8440478486c03ec300e5c1e7~mv2.png",
+        title: "Areias",
+      },
+      {
+        image:
+          "https://static.wixstatic.com/media/b98454_20e68663d49d49a98bfa75a3e802c73b~mv2.png",
+        title: "Cimentos",
       },
     ],
   },
   {
     image:
-      "https://static.wixstatic.com/media/b98454_203daa3560e34a0d8410d32e2c5bb457~mv2.png",
-    title: "Revestimentos",
-    subTitle: 'O nosso "carro-chefe"',
+      "https://static.wixstatic.com/media/b98454_14094889bf314d2599810a5fa6d99840~mv2.png",
+    title: "Pintura",
+    subTitle: "Cor e vida nas paredes!",
     description:
-      "Cerâmicos, porcelanatos e vinílicos incríveis, que vão desde os mais simples até os mais sofisticados. Temos uma vasta lista de opções com um potencial incrível de transformar o ambiente de qualquer um.",
+      "Tinta não é tudo igual – e a gente prova isso com uma seleção caprichada de cores, texturas, acabamen-tos e acessórios. Tem opção pra todo tipo de gosto, parede e projeto criativo.",
     categories: [
       {
         image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Cerâmicas",
+          "https://static.wixstatic.com/media/b98454_41fd9fb0e4e64e25af3031e9697d71ae~mv2.png",
+        title: "Vernizes",
       },
       {
         image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Porcelanatos",
+          "https://static.wixstatic.com/media/b98454_6ea7d12f333e45cfafa67cda577cb9df~mv2.png",
+        title: "Tintas",
       },
       {
         image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Vinílicos",
+          "https://static.wixstatic.com/media/b98454_96cae1cc3b804551acb4f92c3a4da594~mv2.png",
+        title: "Massas",
       },
       {
         image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Pastilhas",
+          "https://static.wixstatic.com/media/b98454_a245ad1d7e2949d28bdb42d883703dcd~mv2.png",
+        title: "Rolos",
+      },
+      {
+        image:
+          "https://static.wixstatic.com/media/b98454_e4a02ba3dae444d4a76298fc4b6fe03f~mv2.png",
+        title: "Pincéis",
       },
     ],
   },
   {
     image:
-      "https://static.wixstatic.com/media/b98454_203daa3560e34a0d8410d32e2c5bb457~mv2.png",
-    title: "Revestimentos",
+      "https://static.wixstatic.com/media/b98454_a37d55007b4242e7b90434225a40507f~mv2.png",
+    title: "Ferramentas",
     subTitle: 'O nosso "carro-chefe"',
     description:
       "Cerâmicos, porcelanatos e vinílicos incríveis, que vão desde os mais simples até os mais sofisticados. Temos uma vasta lista de opções com um potencial incrível de transformar o ambiente de qualquer um.",
     categories: [
       {
         image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Cerâmicas",
+          "https://static.wixstatic.com/media/b98454_6704c472fb6f45309de2ca478d14a8c2~mv2.png",
+        title: "Pregos",
       },
       {
         image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Porcelanatos",
+          "https://static.wixstatic.com/media/b98454_6456d03f4899416c8451a43100f16c95~mv2.png",
+        title: "Ferramentas Manuais",
       },
       {
         image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Vinílicos",
+          "https://static.wixstatic.com/media/b98454_6ea0ed5cae994d7999853e5ecc2a6b03~mv2.png",
+        title: "Discos",
       },
       {
         image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Pastilhas",
+          "https://static.wixstatic.com/media/b98454_92aa5a03f5ef42fb8112cc5214d90202~mv2.png",
+        title: "Ferramentas Elétricas",
+      },
+      {
+        image:
+          "https://static.wixstatic.com/media/b98454_60d1e4e48a7d444aa1d68662f4b4dbc6~mv2.png",
+        title: "EPIs",
       },
     ],
   },
   {
     image:
-      "https://static.wixstatic.com/media/b98454_203daa3560e34a0d8410d32e2c5bb457~mv2.png",
-    title: "Revestimentos",
+      "https://static.wixstatic.com/media/b98454_cfd8ab6bf3864954a50bde95756e77f7~mv2.png",
+    title: "Hidráulica",
     subTitle: 'O nosso "carro-chefe"',
     description:
       "Cerâmicos, porcelanatos e vinílicos incríveis, que vão desde os mais simples até os mais sofisticados. Temos uma vasta lista de opções com um potencial incrível de transformar o ambiente de qualquer um.",
     categories: [
       {
         image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Cerâmicas",
+          "https://static.wixstatic.com/media/b98454_c5767bf8af354901ba4ab0896144890c~mv2.png",
+        title: "Tubos",
       },
       {
         image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Porcelanatos",
+          "https://static.wixstatic.com/media/b98454_47f04927b1964329a5700fd513b5d677~mv2.png",
+        title: "Torneiras",
       },
       {
         image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Vinílicos",
+          "https://static.wixstatic.com/media/b98454_07dbbc69f16b49a495d7cd2855a2a429~mv2.png",
+        title: "Chuveiros",
       },
       {
         image:
-          "https://static.wixstatic.com/media/b98454_3417738d6e664f9892c6045a6e6520ad~mv2.png",
-        title: "Pastilhas",
+          "https://static.wixstatic.com/media/b98454_b30e8bee0cfd46828a522e6010377c2d~mv2.png",
+        title: "Louças",
+      },
+      {
+        image:
+          "https://static.wixstatic.com/media/b98454_d8de94d4916d4b91bf7883fe3b9b9762~mv2.png",
+        title: "Conexões",
       },
     ],
   },
@@ -254,35 +279,35 @@ function createCarousel() {
 }
 
 function observeIframeVisibility() {
-  const carouselContainer = document.querySelector('.carousel-container');
-  
+  const carouselContainer = document.querySelector(".carousel-container");
+
   // Configuração do Intersection Observer
   const options = {
     root: null, // viewport
-    rootMargin: '20px 0px', // margem adicional
-    threshold: 0 // % do elemento visível
+    rootMargin: "20px 0px",
+    threshold: 0, // 15% do elemento visível
   };
-  
+
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
+    entries.forEach((entry) => {
       if (entry.isIntersecting) {
         // Adiciona a classe para iniciar a animação
-        carouselContainer.classList.add('showCarousel');
+        carouselContainer.classList.add("showCarousel");
 
-        const items = document.querySelectorAll('.carousel-item');
+        const items = document.querySelectorAll(".carousel-item");
         items.forEach((item, index) => {
           // Atrasa a animação de cada item com base em seu índice
           setTimeout(() => {
-            item.classList.add('showItem');
-          }, 300 + (index * 150)); // 300ms de atraso inicial + 150ms para cada item
+            item.classList.add("showItem");
+          }, 300 + index * 150); // 300ms de atraso inicial + 150ms para cada item
         });
-        
+
         // Opcional: parar de observar após a primeira detecção
         observer.unobserve(entry.target);
       }
     });
   }, options);
-  
+
   // Começar a observar o elemento
   observer.observe(carouselContainer);
 }

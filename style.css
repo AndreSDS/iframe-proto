@@ -26,6 +26,7 @@
 
 .carousel {
   display: flex;
+  align-items: flex-start;
   transition: transform 0.3s ease-out;
   cursor: grab;
   gap: 20px;
@@ -72,7 +73,7 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 30px 0;
+  padding: 0 0 30px 0;
 }
 
 .card-image-container {
@@ -201,12 +202,6 @@
   margin-bottom: 20px;
 }
 
-.instructions {
-  text-align: center;
-  margin: 20px 0;
-  color: #666;
-}
-
 @media (max-width: 768px) {
   .carousel-container {
     padding: 0 15px;
@@ -219,25 +214,11 @@
 
   .carousel-item {
     margin-right: 15px;
-    font-size: 20px;
-    min-width: calc(90% - 15px);
+    font-size: 18px;
+    min-width: calc(95% - 15px);
   }
 
   .carousel-control {
     display: none; /* Hide controls on mobile */
-  }
-
-  .instructions {
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 480px) {
-  .carousel-item {
-    font-size: 18px;
-  }
-
-  .title {
-    font-size: 24px;
   }
 }
