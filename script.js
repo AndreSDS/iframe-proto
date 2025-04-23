@@ -40,8 +40,23 @@ const cardsItemsInfo = [
     title: "Materiais Brutos",
     subTitle: "A base de tudo!",
     description:
-      "Cimento, areia, blocos, vergalhões e muito mais pra quem está começando do zero ou encarando aquela reforma de respeito. É aqui que o alicerce ganha forma (e força!).",
+      "Cimento, areia, blocos, vergalhões e muito mais para quem está começando do zero ou encarando aquela reforma de respeito. É aqui que o alicerce ganha forma (e força!).",
     categories: [
+      {
+        image:
+          "https://static.wixstatic.com/media/b98454_8a1d89b14d584a71aad04538dde96a68~mv2.png",
+        title: "Blocos",
+      },
+      {
+        image:
+          "https://static.wixstatic.com/media/b98454_20e68663d49d49a98bfa75a3e802c73b~mv2.png",
+        title: "Cimentos",
+      },
+      {
+        image:
+          "https://static.wixstatic.com/media/b98454_9b31211d8440478486c03ec300e5c1e7~mv2.png",
+        title: "Areias",
+      },
       {
         image:
           "https://static.wixstatic.com/media/b98454_be3e3a939e6545fab780869d2103a338~mv2.png",
@@ -52,21 +67,6 @@ const cardsItemsInfo = [
           "https://static.wixstatic.com/media/b98454_93cc6859cb264ebf8bdbb6cfef265860~mv2.png",
         title: "Ferragens",
       },
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_8a1d89b14d584a71aad04538dde96a68~mv2.png",
-        title: "Blocos",
-      },
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_9b31211d8440478486c03ec300e5c1e7~mv2.png",
-        title: "Areias",
-      },
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_20e68663d49d49a98bfa75a3e802c73b~mv2.png",
-        title: "Cimentos",
-      },
     ],
   },
   {
@@ -75,13 +75,8 @@ const cardsItemsInfo = [
     title: "Pintura",
     subTitle: "Cor e vida nas paredes!",
     description:
-      "Tinta não é tudo igual – e a gente prova isso com uma seleção caprichada de cores, texturas, acabamentos e acessórios. Tem opção pra todo tipo de gosto, parede e projeto criativo.",
+      "Tinta não é tudo igual – e a gente prova isso com uma seleção caprichada de cores, texturas, acabamentos e acessórios. Tem opção para todo tipo de gosto, parede e projeto criativo.",
     categories: [
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_41fd9fb0e4e64e25af3031e9697d71ae~mv2.png",
-        title: "Vernizes",
-      },
       {
         image:
           "https://static.wixstatic.com/media/b98454_6ea7d12f333e45cfafa67cda577cb9df~mv2.png",
@@ -91,6 +86,11 @@ const cardsItemsInfo = [
         image:
           "https://static.wixstatic.com/media/b98454_96cae1cc3b804551acb4f92c3a4da594~mv2.png",
         title: "Massas",
+      },
+      {
+        image:
+          "https://static.wixstatic.com/media/b98454_41fd9fb0e4e64e25af3031e9697d71ae~mv2.png",
+        title: "Vernizes",
       },
       {
         image:
@@ -110,17 +110,17 @@ const cardsItemsInfo = [
     title: "Ferramentas",
     subTitle: "Sua obra na palma da mão.",
     description:
-      "Manuais ou elétricas, aqui tem ferramentas pra facilitar cada etapa do trabalho – seja profissional ou do tipo “faça você mesmo”.",
+      'Manuais ou elétricas, aqui tem ferramentas para facilitar cada etapa do trabalho – seja profissional ou do tipo "faça você mesmo".',
     categories: [
       {
         image:
-          "https://static.wixstatic.com/media/b98454_6704c472fb6f45309de2ca478d14a8c2~mv2.png",
-        title: "Pregos",
+          "https://static.wixstatic.com/media/b98454_6456d03f4899416c8451a43100f16c95~mv2.png",
+        title: "Manuais",
       },
       {
         image:
-          "https://static.wixstatic.com/media/b98454_6456d03f4899416c8451a43100f16c95~mv2.png",
-        title: "Ferramentas Manuais",
+          "https://static.wixstatic.com/media/b98454_92aa5a03f5ef42fb8112cc5214d90202~mv2.png",
+        title: "Elétricas",
       },
       {
         image:
@@ -129,8 +129,8 @@ const cardsItemsInfo = [
       },
       {
         image:
-          "https://static.wixstatic.com/media/b98454_92aa5a03f5ef42fb8112cc5214d90202~mv2.png",
-        title: "Ferramentas Elétricas",
+          "https://static.wixstatic.com/media/b98454_6704c472fb6f45309de2ca478d14a8c2~mv2.png",
+        title: "Pregos",
       },
       {
         image:
@@ -145,12 +145,22 @@ const cardsItemsInfo = [
     title: "Hidráulica",
     subTitle: "Do cano à torneira.",
     description:
-      "Aqui tem tudo pra água circular bem na sua casa: tubos, conexões, torneiras, vasos sanitários, cubas e acessórios. Qualidade, durabilidade e praticidade pra sua obra ou reforma fluir sem estresse.",
+      "Aqui tem tudo para água circular bem na sua casa: tubos, conexões, torneiras, vasos sanitários, cubas e acessórios. Qualidade, durabilidade e praticidade para sua obra ou reforma fluir sem estresse.",
     categories: [
       {
         image:
           "https://static.wixstatic.com/media/b98454_c5767bf8af354901ba4ab0896144890c~mv2.png",
         title: "Tubos",
+      },
+      {
+        image:
+          "https://static.wixstatic.com/media/b98454_d8de94d4916d4b91bf7883fe3b9b9762~mv2.png",
+        title: "Conexões",
+      },
+      {
+        image:
+          "https://static.wixstatic.com/media/b98454_b30e8bee0cfd46828a522e6010377c2d~mv2.png",
+        title: "Louças",
       },
       {
         image:
@@ -162,16 +172,6 @@ const cardsItemsInfo = [
           "https://static.wixstatic.com/media/b98454_07dbbc69f16b49a495d7cd2855a2a429~mv2.png",
         title: "Chuveiros",
       },
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_b30e8bee0cfd46828a522e6010377c2d~mv2.png",
-        title: "Louças",
-      },
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_d8de94d4916d4b91bf7883fe3b9b9762~mv2.png",
-        title: "Conexões",
-      },
     ],
   },
   {
@@ -180,12 +180,12 @@ const cardsItemsInfo = [
     title: "Iluminação e Elétrica",
     subTitle: "Conforto, segurança e design.",
     description:
-      "Cabos, tomadas, lâmpadas e luminárias que fazem seu projeto funcionar e valorizam cada ambiente. Tudo pra sua casa ser mais prática, acolhedora e cheia de vida.",
+      "Cabos, tomadas, lâmpadas e luminárias que fazem seu projeto funcionar e valorizam cada ambiente. Tudo para sua casa ser mais prática, acolhedora e cheia de vida.",
     categories: [
       {
         image:
-          "https://static.wixstatic.com/media/b98454_57e9b1240748449b8f5b5d5f9df9ac3f~mv2.png",
-        title: "Luminárias",
+          "https://static.wixstatic.com/media/b98454_46ed15816ad2487fbb3a82224b9297f0~mv2.png",
+        title: "Cabos",
       },
       {
         image:
@@ -204,8 +204,8 @@ const cardsItemsInfo = [
       },
       {
         image:
-          "https://static.wixstatic.com/media/b98454_46ed15816ad2487fbb3a82224b9297f0~mv2.png",
-        title: "Cabos",
+          "https://static.wixstatic.com/media/b98454_57e9b1240748449b8f5b5d5f9df9ac3f~mv2.png",
+        title: "Luminárias",
       },
     ],
   },
@@ -215,22 +215,22 @@ const cardsItemsInfo = [
     title: "Casa e Jardim",
     subTitle: "Detalhes que fazem a casa mais viva.",
     description:
-      "Gabinetes, espelhos, esquadrias e acessórios de jardinagem que trazem beleza, organização e bem-estar pro seu lar — dentro e fora de casa. Seu projeto fica mais completo, com personalidade e cuidado em cada canto.",
+      "Gabinetes, espelhos, esquadrias e acessórios de jardinagem que trazem beleza, organização e bem-estar para o seu lar — dentro e fora de casa. Seu projeto fica mais completo, com personalidade e cuidado em cada canto.",
     categories: [
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_ae92805c28d54c9caf2b56fcbcaf5bcf~mv2.png",
-        title: "Portas",
-      },
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_77f84d8354554fe392a5e7b110ca0a8f~mv2.png",
-        title: "Pas",
-      },
       {
         image:
           "https://static.wixstatic.com/media/b98454_b369259cf29a40c987f28279ce323784~mv2.png",
         title: "Gabinetes",
+      },
+      {
+        image:
+          "https://static.wixstatic.com/media/b98454_1535b1c6e3e944098f91891a97b77e63~mv2.png",
+        title: "Espelhos",
+      },
+      {
+        image:
+          "https://static.wixstatic.com/media/b98454_ae92805c28d54c9caf2b56fcbcaf5bcf~mv2.png",
+        title: "Portas",
       },
       {
         image:
@@ -239,8 +239,8 @@ const cardsItemsInfo = [
       },
       {
         image:
-          "https://static.wixstatic.com/media/b98454_1535b1c6e3e944098f91891a97b77e63~mv2.png",
-        title: "Espelhos",
+          "https://static.wixstatic.com/media/b98454_77f84d8354554fe392a5e7b110ca0a8f~mv2.png",
+        title: "Pás",
       },
     ],
   },
@@ -250,17 +250,22 @@ const cardsItemsInfo = [
     title: "Linha Industrial",
     subTitle: "Você merece seu negócio decolando.",
     description:
-      "Equipamentos pensados pra dar agilidade, eficiência e qualidade ao seu dia a dia. Tudo pra sua estrutura funcionar melhor, seu atendimento render mais e seu negócio crescer com força.",
+      "Equipamentos pensados para dar agilidade, eficiência e qualidade ao seu dia a dia. Tudo para sua estrutura funcionar melhor, seu atendimento render mais e seu negócio crescer com força.",
     categories: [
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_c1c05931310646ddab5f4b4f47b26879~mv2.png",
-        title: "Refrigeradores",
-      },
       {
         image:
           "https://static.wixstatic.com/media/b98454_94c1ea1eb8e6413cb85af04c01130df1~mv2.png",
         title: "Liquidificadores",
+      },
+      {
+        image:
+          "https://static.wixstatic.com/media/b98454_073b5fa8e6ac46deac879a925c347d88~mv2.png",
+        title: "Fornos",
+      },
+      {
+        image:
+          "https://static.wixstatic.com/media/b98454_22432b8f4dd948abbc7bf619a0e24b5f~mv2.png",
+        title: "Lava-Louças",
       },
       {
         image:
@@ -269,13 +274,8 @@ const cardsItemsInfo = [
       },
       {
         image:
-          "https://static.wixstatic.com/media/b98454_22432b8f4dd948abbc7bf619a0e24b5f~mv2.png",
-        title: "Lava Louças",
-      },
-      {
-        image:
-          "https://static.wixstatic.com/media/b98454_073b5fa8e6ac46deac879a925c347d88~mv2.png",
-        title: "Fornos",
+          "https://static.wixstatic.com/media/b98454_c1c05931310646ddab5f4b4f47b26879~mv2.png",
+        title: "Refrigeradores",
       },
     ],
   },
@@ -389,43 +389,7 @@ function createCarousel() {
   return { container, carousel };
 }
 
-function observeIframeVisibility() {
-  const carouselContainer = document.querySelector(".carousel-container");
-
-  // Configuração do Intersection Observer
-  const options = {
-    root: null, // viewport
-    rootMargin: "20px 0px",
-    threshold: 0, // 15% do elemento visível
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        // Adiciona a classe para iniciar a animação
-        carouselContainer.classList.add("showCarousel");
-
-        const items = document.querySelectorAll(".carousel-item");
-        items.forEach((item, index) => {
-          // Atrasa a animação de cada item com base em seu índice
-          setTimeout(() => {
-            item.classList.add("showItem");
-          }, 300 + index * 150); // 300ms de atraso inicial + 150ms para cada item
-        });
-
-        // Opcional: parar de observar após a primeira detecção
-        observer.unobserve(entry.target);
-      }
-    });
-  }, options);
-
-  // Começar a observar o elemento
-  observer.observe(carouselContainer);
-}
-
 document.addEventListener("DOMContentLoaded", function () {
-  observeIframeVisibility();
-
   const prevButton = document.querySelector(".carousel-control-prev");
   const nextButton = document.querySelector(".carousel-control-next");
 
@@ -462,7 +426,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!isMobile()) {
       const extraPadding = Math.max(
         0,
-        containerWidth - (totalItemsWidth - lastItemWidth)
+        containerWidth - (totalItemsWidth - lastItemWidth),
       );
       carousel.style.paddingRight = extraPadding + "px";
     } else {
@@ -563,21 +527,24 @@ document.addEventListener("DOMContentLoaded", function () {
   function touchEnd() {
     cancelAnimationFrame(animationID);
     isDragging = false;
-
-    const movedBy = currentTranslate - prevTranslate;
-    const { maxIndex } = calculateDimensions();
-
-    // If moved enough in negative direction
-    if (movedBy < -100 && currentIndex < maxIndex) {
-      currentIndex++;
+    
+    // Armazena a posição atual como a posição anterior
+    prevTranslate = currentTranslate;
+    
+    // Verifica limites para não ultrapassar o primeiro ou último item
+    const { itemWidth, maxIndex } = calculateDimensions();
+    if (currentTranslate > 0) {
+      currentTranslate = 0;
+      prevTranslate = 0;
+    } else if (currentTranslate < -itemWidth * maxIndex) {
+      currentTranslate = -itemWidth * maxIndex;
+      prevTranslate = -itemWidth * maxIndex;
     }
-
-    // If moved enough in positive direction
-    if (movedBy > 100 && currentIndex > 0) {
-      currentIndex--;
-    }
-
-    setPositionByIndex();
+    
+    // Atualiza o índice atual com base na posição
+    currentIndex = Math.round(Math.abs(currentTranslate) / itemWidth);
+    
+    // Atualiza o estado dos botões
     updateButtonStates();
     carousel.classList.remove("grabbing");
   }
@@ -605,12 +572,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // Apply boundaries to prevent dragging beyond the first and last items
     if (currentTranslate > 0) {
       currentTranslate = 0;
-      prevTranslate = 0;
-      currentIndex = 0;
     } else if (currentTranslate < -itemWidth * maxIndex) {
       currentTranslate = -itemWidth * maxIndex;
-      prevTranslate = -itemWidth * maxIndex;
-      currentIndex = maxIndex;
     }
 
     carousel.style.transform = `translateX(${currentTranslate}px)`;
