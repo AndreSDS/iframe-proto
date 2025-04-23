@@ -244,82 +244,65 @@ document.addEventListener("DOMContentLoaded", function () {
       const touch = event.type === "touchmove" ? event.touches[0] : event;
       const currentPosition = touch.clientX;
       
-      // Calcular a nova posição sem restrições rígidas para mobile
-      if (isMobile()) {
-        currentTranslate = prevTranslate + currentPosition - startPos;
-      } else {
-        // Manter o comportamento original para desktop
-        const potentialTranslate = prevTranslate + currentPosition - startPos;
-        const { itemWidth, maxIndex } = calculateDimensions();
-  
-        // Prevenir movimento além dos limites no desktop
-        if (potentialTranslate > 0 || potentialTranslate < -itemWidth * maxIndex) {
-          return;
-        }
-        currentTranslate = potentialTranslate;
+      // Remover atraso aplicando diretamente a transformação
+      currentTranslate = prevTranslate + currentPosition - startPos;
+      
+      // Adicionar resistência quando tentar arrastar além dos limites
+      const { itemWidth, maxIndex } = calculateDimensions();
+      if (currentTranslate > 0) {
+        currentTranslate = currentTranslate * 0.3; // Resistência no início
+      } else if (currentTranslate < -itemWidth * maxIndex) {
+        const overscroll = currentTranslate + itemWidth * maxIndex;
+        currentTranslate = -itemWidth * maxIndex + overscroll * 0.3; // Resistência no fim
       }
+      
+      // Aplicar transformação diretamente sem esperar pela animação
+      carousel.style.transform = `translateX(${currentTranslate}px)`;
     }
   }
+  
 
   function touchEnd(event) {
     cancelAnimationFrame(animationID);
     isDragging = false;
-    endTime = Date.now(); // Registrar o tempo final
+    endTime = Date.now();
     
-    // Calcular a velocidade do arraste
+    // Calcular velocidade do arraste
     const timeElapsed = endTime - startTime;
     const distance = currentTranslate - prevTranslate;
-    dragVelocity = Math.abs(distance / timeElapsed);
+    dragVelocity = distance / timeElapsed;
     
-    // Comportamento mais suave para mobile com inércia baseada na velocidade
-    if (isMobile()) {
-      const { itemWidth, maxIndex } = calculateDimensions();
-      const direction = distance < 0 ? -1 : 1;
-      
-      // Aplicar inércia baseada na velocidade do arraste
-      if (dragVelocity > 0.5) { // Ajuste este valor conforme necessário
-        // Quanto maior a velocidade, maior o deslocamento
-        const momentum = Math.min(dragVelocity * 300, itemWidth * 2) * direction;
-        currentTranslate = prevTranslate + momentum;
-      }
-      
-      // Verificar limites para evitar scroll além do primeiro/último item
-      if (currentTranslate > 0) {
-        currentTranslate = 0;
-      } else if (currentTranslate < -itemWidth * maxIndex) {
-        currentTranslate = -itemWidth * maxIndex;
-      }
-      
-      prevTranslate = currentTranslate;
-      
-      // Aplicar a transição suave após o arraste
-      carousel.style.transition = "transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)";
-      setCarouselPosition();
-      
-      // Restaurar a configuração de transição após a animação
-      setTimeout(() => {
-        carousel.style.transition = "";
-      }, 500);
-    } else {
-      // Manter comportamento original para desktop
-      const movedBy = currentTranslate - prevTranslate;
-      const { maxIndex } = calculateDimensions();
-  
-      if (movedBy < -100 && currentIndex < maxIndex) {
-        currentIndex++;
-      }
-      if (movedBy > 100 && currentIndex > 0) {
-        currentIndex--;
-      }
-  
-      setPositionByIndex();
-      updateButtonStates();
+    // Aplicar inércia baseada na velocidade
+    const { itemWidth, maxIndex } = calculateDimensions();
+    
+    // Adicionar momentum baseado na velocidade
+    if (Math.abs(dragVelocity) > 0.5) {
+      // Quanto maior a velocidade, maior o deslocamento
+      const momentum = Math.min(Math.abs(dragVelocity) * 300, itemWidth * 2) * Math.sign(dragVelocity);
+      currentTranslate = prevTranslate + momentum;
     }
+    
+    // Ajustar para o item mais próximo após o momentum
+    const itemPosition = Math.round(currentTranslate / -itemWidth);
+    currentIndex = Math.max(0, Math.min(maxIndex, itemPosition));
+    
+    // Aplicar transição suave
+    carousel.style.transition = "transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)";
+    currentTranslate = -currentIndex * itemWidth;
+    carousel.style.transform = `translateX(${currentTranslate}px)`;
+    
+    // Restaurar configuração após a animação
+    setTimeout(() => {
+      carousel.style.transition = "";
+      prevTranslate = currentTranslate;
+      updateButtonStates();
+    }, 400);
     
     carousel.classList.remove("grabbing");
   }
 
   function animation() {
+    // Usar requestAnimationFrame para animação mais suave
     setCarouselPosition();
     if (isDragging) requestAnimationFrame(animation);
   }
@@ -337,19 +320,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function setCarouselPosition() {
-    const { itemWidth, maxIndex } = calculateDimensions();
-
-    // Apply boundaries to prevent dragging beyond the first and last items
-    if (currentTranslate > 0) {
-      currentTranslate = 0;
-      prevTranslate = 0;
-      currentIndex = 0;
-    } else if (currentTranslate < -itemWidth * maxIndex) {
-      currentTranslate = -itemWidth * maxIndex;
-      prevTranslate = -itemWidth * maxIndex;
-      currentIndex = maxIndex;
-    }
-
+    // Aplicar transformação diretamente sem cálculos adicionais durante o arraste
     carousel.style.transform = `translateX(${currentTranslate}px)`;
   }
 
