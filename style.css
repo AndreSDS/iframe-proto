@@ -27,27 +27,20 @@ main div.teste {
   width: 100%;
   margin: 0 auto;
   overflow: hidden;
-  // estado inicial da animacao
-  opacity: 0;
-  transform: translateY(50px);
-  transition: opacity 1.5s ease, transform 1.5s ease;
-}
-
-.carousel-container.showCarousel {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .carousel {
   display: flex;
-  transition: transform 0.3s ease-out;
+  align-items: flex-start;
   cursor: grab;
   gap: 40px;
   padding-right: 0;
+  transition: transform 0.3s ease;
 }
 
 .carousel:active {
   cursor: grabbing;
+  transition: none;
 }
 
 .carousel-item {
@@ -58,17 +51,6 @@ main div.teste {
   font-size: 24px;
   color: #333;
   user-select: none;
-
-  /* Configuração inicial para animação */
-  opacity: 0;
-  transform: scale(0.8) rotateY(-90deg);
-  transform-origin: left center;
-  transition: opacity 1.5s ease, transform 1.5s ease;
-}
-
-.carousel-item.showItem {
-  opacity: 1;
-  transform: scale(1) rotateY(0);
 }
 
 .carousel-item:last-child {
@@ -101,7 +83,7 @@ main div.teste {
 
 .carousel-control-prev {
   left: 10px;
-  transform: rotate(180deg);
+  transform: translateY(-50%) rotate(180deg);
 }
 
 .carousel-control-next {
@@ -118,18 +100,18 @@ main div.teste {
   background-color: #3687c3;
   overflow: hidden;
   color: white;
-  padding-bottom: 18px;
-  border-top-left-radius: 25px;
-  border-top-right-radius: 25px;
-  border-bottom-left-radius: 45px;
-  border-bottom-right-radius: 45px;
-  height: 614px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-left-radius: 35px;
+  border-bottom-right-radius: 35px;
+  height: 580px;
+  position: relative;
 }
 
 .card-header {
   background-color: white;
-  color: #0078c8;
-  height: 65px;
+  color: #0071c4;
+  height: 56px;
   display: flex;
   align-items: center;
   padding-left: 20px;
@@ -138,44 +120,46 @@ main div.teste {
 .card-header h2 {
   font-size: 20px;
   font-weight: 500;
+  line-height: 1.4em;
 }
 
 .card-image {
   width: 100%;
-  height: 220px;
   object-fit: cover;
   object-position: center;
   margin-bottom: 20px;
 }
 
 .card-content {
-  padding: 0 30px;
-  height: 215px;
-  margin-bottom: 16px;
+  width: 290px;
+  margin: 0 auto;
 }
 
 .card-description {
   font-size: 16px;
-}
-
-footer {
-  width: 100%;
-  display: flex;
-  align-items: baseline;
-  justify-content: flex-end;
+  line-height: 1.4em;
+  color: #fafafa;
+  margin-bottom: 16px;
 }
 
 .card-button {
+  width: 132px;
+  height: 38px;
   background-color: white;
   color: #0078c8;
-  padding: 10px 25px;
-  border: 2px solid transparent;
+  border: 2px solid #ffffff;
   text-decoration: none;
-  font-size: 12px;
   font-style: normal;
   cursor: pointer;
   transition: all 0.2s ease, visibility 0s;
   border-radius: 100px;
+
+  letter-spacing: 0.1em;
+  text-shadow: none;
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 500;
+  color: #0071c4;
 }
 
 .card-button:hover {
@@ -184,37 +168,50 @@ footer {
 }
 
 .card-footer {
-  padding: 0 30px 10px;
+  width: 100%;
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  margin-bottom: 28px;
+  padding: 0 30px;
   overflow: hidden;
+  position: absolute;
+  bottom: 0;
 }
 
 @media (max-width: 768px) {
-  .carousel-container {
-    padding: 0 15px;
-    overflow: visible;
-  }
-
   .carousel {
-    gap: 26px;
+    gap: 20px;
+    transition: transform 0.2s ease;
+    padding-left: 16px;
   }
 
   .carousel-item {
     font-size: 16px;
-    min-width: calc(95% - 15px);
+    min-width: calc(95% - 10px);
   }
 
   .card {
     max-width: 100%;
-    height: auto;
+    height: 530px;
+  }
+
+  .card-header {
+    padding-left: 14px;
+  }
+
+  .card-header h2 {
+    font-size: 18px;
   }
 
   .card-image {
     margin-bottom: 10px;
+    height: auto;
   }
 
   .card-content {
+    width: 100%;
     padding: 0 20px;
-    margin-bottom: 0px;
   }
 
   .card-description {

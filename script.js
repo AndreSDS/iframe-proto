@@ -2,44 +2,44 @@ const cardsSectionsInfo = [
   {
     title: "Paredão de Revestimentos",
     image:
-      "https://static.wixstatic.com/media/b98454_64b3e3258f474688a974e809fbce59d5~mv2.png/v1/fill/w_279,h_174,al_c,lg_1,q_85,enc_auto/image.png",
+      "https://static.wixstatic.com/media/b98454_d931ce5f7d274d45bd3cdc33b9ba2aa6~mv2.png",
     description:
-      "Nosso paredão é o lugar perfeito pra você se inspirar! São diversos modelos de revestimentos expostos lado a lado, pra comparar cores, texturas e estilos com mais facilidade. Venha sentir de perto, imaginar seu ambiente dos sonhos e descobrir o que combina com o seu estilo.",
+      "Nosso paredão é o lugar perfeito para você se inspirar! São diversos modelos de revestimentos expostos lado a lado, para comparar cores, texturas e estilos com mais facilidade. Venha sentir de perto, imaginar seu ambiente dos sonhos e descobrir o que combina com o seu estilo.",
   },
   {
     title: "Seção de Pintura",
     image:
-      "https://static.wixstatic.com/media/b98454_23a82c9a05814f39b649aee26b82675f~mv2.png/v1/fill/w_279,h_174,al_c,lg_1,q_85,enc_avif,quality_auto/image.png",
+      "https://static.wixstatic.com/media/b98454_1fc8c24f8bad41edb09bdd0be25ec2b7~mv2.png",
     description:
-      "Cores que transformam ambientes! Aqui você encontra tintas para todos os estilos e superfícies, além de acessórios que facilitam cada etapa da pintura. Das paredes internas ao retoque externo, tem sempre uma tonalidade esperando pra deixar seu espaço com a sua cara!",
+      "Cores que transformam ambientes! Aqui você encontra tintas para todos os estilos e superfícies, além de acessórios que facilitam cada etapa da pintura. Das paredes internas ao retoque externo, tem sempre uma tonalidade esperando para deixar seu espaço com a sua cara!",
   },
   {
     title: "Seção de Ferramentas",
     image:
-      "https://static.wixstatic.com/media/b98454_5a2fca9ed7d443dc830c9ca86825e392~mv2.png/v1/fill/w_279,h_174,al_c,lg_1,q_85,enc_avif,quality_auto/image.png",
+      "https://static.wixstatic.com/media/b98454_e068e984de784277b5408bdf465e923a~mv2.png",
     description:
       'Ajudamos quem faz! Aqui você encontra desde ferramentas manuais até elétricas, com opções para iniciantes, profissionais e aventureiros do "faça você mesmo".',
   },
   {
     title: "Seção de Hidráulica",
     image:
-      "https://static.wixstatic.com/media/b98454_c256bdad4bb74b9c83e6abb7a74fec89~mv2.png/v1/fill/w_279,h_174,al_c,lg_1,q_85,enc_avif,quality_auto/image.png",
+      "https://static.wixstatic.com/media/b98454_9ec9189120624d12a5fc420eac8592d6~mv2.png",
     description:
-      "Tudo que passa por água começa aqui! Nossa seção hidráulica tem tubos, conexões, registros, caixas d'água e muito mais pra garantir um sistema bem feito e duradouro.Tá construindo ou só fazendo manutenção? Vem conferir de perto e garantir qualidade sem complicação.",
+      "Tudo que passa por água começa aqui! Nossa seção hidráulica tem tubos, conexões, registros, caixas d'água e muito mais para garantir um sistema bem feito e duradouro. Está construindo ou só fazendo manutenção? Venha conferir de perto e garantir qualidade sem complicação.",
   },
   {
     title: "Gabinetes para Cozinhas",
     image:
-      "https://static.wixstatic.com/media/b98454_64b3e3258f474688a974e809fbce59d5~mv2.png/v1/fill/w_279,h_174,al_c,lg_1,q_85,enc_auto/image.png",
+      "https://static.wixstatic.com/media/b98454_1a8e548a57f54a269992f95ea4669a99~mv2.png",
     description:
-      "Praticidade com estilo! Temos gabinetes prontos pra instalação, com diferentes tamanhos, cores e acabamentos, perfeitos pra valorizar sua cozinha sem dor de cabeça.",
+      "Praticidade com estilo! Temos gabinetes prontos para instalação, com diferentes tamanhos, cores e acabamentos, perfeitos para valorizar sua cozinha sem dor de cabeça.",
   },
   {
     title: "Kits para Banheiros",
     image:
-      "https://static.wixstatic.com/media/b98454_370b543e3ffd4dbfbf6315bbeb2cdb83~mv2.png/v1/fill/w_279,h_174,al_c,lg_1,q_85,enc_avif,quality_auto/image.png",
+      "https://static.wixstatic.com/media/b98454_4b36fa14bd7646379fc8eb4635ca050f~mv2.png",
     description:
-      "Aqui você encontra pias, armários, assentos sanitários e kits completos pra montar ou renovar seu banheiro com facilidade. Tudo combinando, com opções que vão do básico ao moderno — é só escolher e levar!",
+      "Aqui você encontra pias, armários, assentos sanitários e kits completos para montar ou renovar seu banheiro com facilidade. Tudo combinando, com opções que vão do básico ao moderno — é só escolher e levar!",
   },
 ];
 
@@ -110,43 +110,7 @@ function createCarousel() {
   return { container, carousel };
 }
 
-function observeIframeVisibility() {
-  const carouselContainer = document.querySelector('.carousel-container');
-  
-  // Configuração do Intersection Observer
-  const options = {
-    root: null, // viewport
-    rootMargin: '0px 0px', // margem adicional
-    threshold: 0 // % do elemento visível
-  };
-  
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        // Adiciona a classe para iniciar a animação
-        carouselContainer.classList.add('showCarousel');
-
-        const items = document.querySelectorAll('.carousel-item');
-        items.forEach((item, index) => {
-          // Atrasa a animação de cada item com base em seu índice
-          setTimeout(() => {
-            item.classList.add('showItem');
-          }, 300 + (index * 150)); // 300ms de atraso inicial + 150ms para cada item
-        });
-        
-        // Opcional: parar de observar após a primeira detecção
-        observer.unobserve(entry.target);
-      }
-    });
-  }, options);
-  
-  // Começar a observar o elemento
-  observer.observe(carouselContainer);
-}
-
 document.addEventListener("DOMContentLoaded", function () {
-  observeIframeVisibility();
-
   const prevButton = document.querySelector(".carousel-control-prev");
   const nextButton = document.querySelector(".carousel-control-next");
 
@@ -159,6 +123,9 @@ document.addEventListener("DOMContentLoaded", function () {
   let prevTranslate = 0;
   let animationID = 0;
   let currentIndex = 0;
+  let startTime = 0;
+  let endTime = 0;
+  let dragVelocity = 0;
 
   // Check if we're on mobile
   const isMobile = () => window.innerWidth <= 768;
@@ -265,8 +232,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     const touch = event.type === "touchstart" ? event.touches[0] : event;
     startPos = touch.clientX;
+    startTime = Date.now(); // Registrar o tempo inicial
     isDragging = true;
-
+  
     animationID = requestAnimationFrame(animation);
     carousel.classList.add("grabbing");
   }
@@ -276,41 +244,78 @@ document.addEventListener("DOMContentLoaded", function () {
       const touch = event.type === "touchmove" ? event.touches[0] : event;
       const currentPosition = touch.clientX;
       
-      // Calculate potential new position
-      const potentialTranslate = prevTranslate + currentPosition - startPos;
-      
-      // Get current dimensions
-      const { itemWidth, maxIndex } = calculateDimensions();
-      
-      // Prevent moving beyond boundaries
-      if (potentialTranslate > 0 || potentialTranslate < -itemWidth * maxIndex) {
-        return; // Don't update position if trying to move beyond limits
+      // Calcular a nova posição sem restrições rígidas para mobile
+      if (isMobile()) {
+        currentTranslate = prevTranslate + currentPosition - startPos;
+      } else {
+        // Manter o comportamento original para desktop
+        const potentialTranslate = prevTranslate + currentPosition - startPos;
+        const { itemWidth, maxIndex } = calculateDimensions();
+  
+        // Prevenir movimento além dos limites no desktop
+        if (potentialTranslate > 0 || potentialTranslate < -itemWidth * maxIndex) {
+          return;
+        }
+        currentTranslate = potentialTranslate;
       }
-      
-      // Apply the translation if within bounds
-      currentTranslate = potentialTranslate;
     }
   }
-  
-  function touchEnd() {
+
+  function touchEnd(event) {
     cancelAnimationFrame(animationID);
     isDragging = false;
-
-    const movedBy = currentTranslate - prevTranslate;
-    const { maxIndex } = calculateDimensions();
-
-    // If moved enough in negative direction
-    if (movedBy < -100 && currentIndex < maxIndex) {
-      currentIndex++;
+    endTime = Date.now(); // Registrar o tempo final
+    
+    // Calcular a velocidade do arraste
+    const timeElapsed = endTime - startTime;
+    const distance = currentTranslate - prevTranslate;
+    dragVelocity = Math.abs(distance / timeElapsed);
+    
+    // Comportamento mais suave para mobile com inércia baseada na velocidade
+    if (isMobile()) {
+      const { itemWidth, maxIndex } = calculateDimensions();
+      const direction = distance < 0 ? -1 : 1;
+      
+      // Aplicar inércia baseada na velocidade do arraste
+      if (dragVelocity > 0.5) { // Ajuste este valor conforme necessário
+        // Quanto maior a velocidade, maior o deslocamento
+        const momentum = Math.min(dragVelocity * 300, itemWidth * 2) * direction;
+        currentTranslate = prevTranslate + momentum;
+      }
+      
+      // Verificar limites para evitar scroll além do primeiro/último item
+      if (currentTranslate > 0) {
+        currentTranslate = 0;
+      } else if (currentTranslate < -itemWidth * maxIndex) {
+        currentTranslate = -itemWidth * maxIndex;
+      }
+      
+      prevTranslate = currentTranslate;
+      
+      // Aplicar a transição suave após o arraste
+      carousel.style.transition = "transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)";
+      setCarouselPosition();
+      
+      // Restaurar a configuração de transição após a animação
+      setTimeout(() => {
+        carousel.style.transition = "";
+      }, 500);
+    } else {
+      // Manter comportamento original para desktop
+      const movedBy = currentTranslate - prevTranslate;
+      const { maxIndex } = calculateDimensions();
+  
+      if (movedBy < -100 && currentIndex < maxIndex) {
+        currentIndex++;
+      }
+      if (movedBy > 100 && currentIndex > 0) {
+        currentIndex--;
+      }
+  
+      setPositionByIndex();
+      updateButtonStates();
     }
-
-    // If moved enough in positive direction
-    if (movedBy > 100 && currentIndex > 0) {
-      currentIndex--;
-    }
-
-    setPositionByIndex();
-    updateButtonStates();
+    
     carousel.classList.remove("grabbing");
   }
 
@@ -321,11 +326,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function setPositionByIndex() {
     const { itemWidth, maxIndex } = calculateDimensions();
-  
+
     // Enforce boundaries
     if (currentIndex < 0) currentIndex = 0;
     if (currentIndex > maxIndex) currentIndex = maxIndex;
-  
+
     currentTranslate = currentIndex * -itemWidth;
     prevTranslate = currentTranslate;
     setCarouselPosition();
