@@ -413,24 +413,21 @@ document.addEventListener("DOMContentLoaded", function () {
     const containerWidth = container.offsetWidth;
     const lastItem = items[items.length - 1];
     const lastItemWidth = lastItem.offsetWidth;
-
+    const gap = parseInt(getComputedStyle(carousel).gap) || 20;
+    
     // Calculate the total width of all items
-
     const totalItemsWidth = Array.from(items).reduce((total, item) => {
       const itemStyle = getComputedStyle(item);
-      const marginRight = parseInt(itemStyle.marginRight);
+      const marginRight = parseInt(itemStyle.marginRight) || 0;
       return total + item.offsetWidth + marginRight;
     }, 0);
-
+    
     // Add padding to ensure the last item is fully visible
-    if (!isMobile()) {
-      const extraPadding = Math.max(
-        0,
-        containerWidth - (totalItemsWidth - lastItemWidth),
-      );
+    const extraPadding = containerWidth - (totalItemsWidth - lastItemWidth - gap);
+    
+    // Only add positive padding
+    if (extraPadding > 0) {
       carousel.style.paddingRight = extraPadding + "px";
-    } else {
-      carousel.style.paddingRight = "0";
     }
   }
 
@@ -441,25 +438,24 @@ document.addEventListener("DOMContentLoaded", function () {
   function calculateDimensions() {
     // Get computed style to account for margin
     const firstItemStyle = getComputedStyle(items[0]);
-    const marginRight = parseInt(firstItemStyle.marginRight);
-
-    const itemWidth = items[0].offsetWidth + marginRight;
+    const marginRight = parseInt(firstItemStyle.marginRight) || 0;
+    const gap = parseInt(getComputedStyle(carousel).gap) || 20;
+  
+    const itemWidth = items[0].offsetWidth + marginRight + gap;
     const containerWidth = container.offsetWidth;
-
+  
     // For mobile, we show part of the next item as a visual cue
     let visibleItems;
     if (isMobile()) {
-      // We only show about 85% of the container width for the main item
-      // This makes part of the next item visible
       visibleItems = 1;
     } else {
       // Calculate how many whole items fit in the container
       visibleItems = Math.floor(containerWidth / itemWidth);
     }
-
+  
     // Calculate the max index considering the full visibility of the last item
     const maxIndex = Math.max(0, items.length - visibleItems);
-
+  
     return { itemWidth, maxIndex, containerWidth, visibleItems };
   }
 
@@ -509,16 +505,17 @@ document.addEventListener("DOMContentLoaded", function () {
     const touch = event.type === "touchstart" ? event.touches[0] : event;
     startPos = touch.clientX;
     isDragging = true;
-
+    startTime = Date.now(); // Registrar o tempo inicial do toque
+  
     animationID = requestAnimationFrame(animation);
     carousel.classList.add("grabbing");
   }
-
+  
   function touchMove(event) {
     if (isDragging) {
       const touch = event.type === "touchmove" ? event.touches[0] : event;
       const currentPosition = touch.clientX;
-
+  
       // Calculate distance moved
       currentTranslate = prevTranslate + currentPosition - startPos;
     }
@@ -527,26 +524,80 @@ document.addEventListener("DOMContentLoaded", function () {
   function touchEnd() {
     cancelAnimationFrame(animationID);
     isDragging = false;
+    const endTime = Date.now();
+    const timeElapsed = endTime - startTime;
     
-    // Armazena a posição atual como a posição anterior
-    prevTranslate = currentTranslate;
+    // Calcular a velocidade do movimento (pixels por milissegundo)
+    const moveDistance = currentTranslate - prevTranslate;
+    const velocity = moveDistance / timeElapsed;
     
-    // Verifica limites para não ultrapassar o primeiro ou último item
-    const { itemWidth, maxIndex } = calculateDimensions();
-    if (currentTranslate > 0) {
-      currentTranslate = 0;
-      prevTranslate = 0;
-    } else if (currentTranslate < -itemWidth * maxIndex) {
-      currentTranslate = -itemWidth * maxIndex;
-      prevTranslate = -itemWidth * maxIndex;
+    // Aplicar momentum se a velocidade for significativa
+    if (Math.abs(velocity) > 0.5) {
+      // Determinar a direção e quantidade de itens a mover com base na velocidade
+      const direction = velocity < 0 ? 1 : -1;
+      const moveItems = Math.min(3, Math.floor(Math.abs(velocity) * 3));
+      
+      // Atualizar o índice com base na velocidade
+      currentIndex = Math.max(0, Math.min(maxIndex, currentIndex + (direction * moveItems)));
+      
+      // Animar com easing para dar sensação de momentum
+      animateWithMomentum();
+    } else {
+      // Comportamento padrão para movimentos lentos
+      // Armazena a posição atual como a posição anterior
+      prevTranslate = currentTranslate;
+      
+      // Verifica limites para não ultrapassar o primeiro ou último item
+      const { itemWidth, maxIndex } = calculateDimensions();
+      if (currentTranslate > 0) {
+        currentTranslate = 0;
+        prevTranslate = 0;
+      } else if (currentTranslate < -itemWidth * maxIndex) {
+        currentTranslate = -itemWidth * maxIndex;
+        prevTranslate = -itemWidth * maxIndex;
+      }
+      
+      // Atualiza o índice atual com base na posição
+      currentIndex = Math.round(Math.abs(currentTranslate) / itemWidth);
+      setPositionByIndex();
     }
-    
-    // Atualiza o índice atual com base na posição
-    currentIndex = Math.round(Math.abs(currentTranslate) / itemWidth);
     
     // Atualiza o estado dos botões
     updateButtonStates();
     carousel.classList.remove("grabbing");
+  }
+
+  function animateWithMomentum() {
+    const { itemWidth } = calculateDimensions();
+    const targetTranslate = currentIndex * -itemWidth;
+    
+    // Usar uma animação com easing para simular momentum
+    const startTranslate = currentTranslate;
+    const distance = targetTranslate - startTranslate;
+    const startTime = Date.now();
+    const duration = 500; // Duração da animação em ms
+    
+    function momentumAnimation() {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      // Função de easing (ease-out cúbico)
+      const easeOut = 1 - Math.pow(1 - progress, 3);
+      
+      currentTranslate = startTranslate + (distance * easeOut);
+      setCarouselPosition();
+      
+      if (progress < 1) {
+        requestAnimationFrame(momentumAnimation);
+      } else {
+        // Finalizar a animação
+        currentTranslate = targetTranslate;
+        prevTranslate = currentTranslate;
+        setCarouselPosition();
+      }
+    }
+    
+    requestAnimationFrame(momentumAnimation);
   }
 
   function animation() {
@@ -567,15 +618,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function setCarouselPosition() {
-    const { itemWidth, maxIndex } = calculateDimensions();
-
-    // Apply boundaries to prevent dragging beyond the first and last items
-    if (currentTranslate > 0) {
-      currentTranslate = 0;
-    } else if (currentTranslate < -itemWidth * maxIndex) {
-      currentTranslate = -itemWidth * maxIndex;
-    }
-
     carousel.style.transform = `translateX(${currentTranslate}px)`;
   }
 
