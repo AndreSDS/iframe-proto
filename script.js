@@ -9,381 +9,334 @@ const cardsTestimonialsInfo = [
   },
   {
     nome: "Kelly Fernandes",
-    text: "Excelente atendimento do início da compra até a hora da entrega do material... Todos funcionários são bastante atenciosos e simpáticos... É a loja que compramos faz tempo, pois os preços são ótimos... Top!!! Recomendo!!!"
+    text: "Excelente atendimento do início da compra até a hora da entrega do material... Todos funcionários são bastante atenciosos e simpáticos... É a loja que compramos faz tempo, pois os preços são ótimos... Top!!! Recomendo!!!",
   },
   {
-    nome: "Renato Neves",
-    text: "Sou cliente há muitos anos! E sempre fui muito bem atendido, com agilidade e auxílio na escolha dos produtos para que eu possa ter o melhor resultado no serviço. O atendimento pelo Whatsapp é também uma ferramenta que funciona perfeitamente!!",
+    nome: "Tania Castro",
+    text: "Atendimento perfeito. Funcionários super atenciosos. Parabéns em especial para a Lurdinha e o Henrique.",
   },
   {
-    nome: "Renato Neves",
-    text: "Sou cliente há muitos anos! E sempre fui muito bem atendido, com agilidade e auxílio na escolha dos produtos para que eu possa ter o melhor resultado no serviço. O atendimento pelo Whatsapp é também uma ferramenta que funciona perfeitamente!!",
+    nome: "Luciana Sb",
+    text: "Fiz a compra de um kit churrasco, que foi muito recomendado. Repeti a compra. Logo após, me tornei cliente ao receber inúmeras recomendações em razão da rapidez na entrega e da infinidade de produtos que são comercializados, especialmente pisos e porcelanatos.",
   },
   {
-    nome: "Renato Neves",
-    text: "Sou cliente há muitos anos! E sempre fui muito bem atendido, com agilidade e auxílio na escolha dos produtos para que eu possa ter o melhor resultado no serviço. O atendimento pelo Whatsapp é também uma ferramenta que funciona perfeitamente!!",
+    nome: "Adm Redes",
+    text: "Parabéns pelo atendimento, e muito mais pelo pós vendas. Ao consultar um fornecedor no Google, entrei em contato, sendo gentilmente atendido, tive a sorte de encontrar uma empresa e pessoas que presam pelo bom atendimento, preço competitivo, entrega pontual.",
   },
 ];
 
+const starSvg = `<svg preserveAspectRatio="none" viewBox="25 29 150.346 142.783" height="200" width="200" xmlns="http://www.w3.org/2000/svg">
+    <g><path d="M174.479 82.542c-.833-3.334-3.333-5-6.666-5.834l-41.667-5.833-18.333-37.5c-2.5-5.833-12.5-5.833-15 0l-18.334 37.5-41.666 5.833c-3.334.834-5.834 2.5-7.5 5.834-.834 3.333 0 6.666 2.5 8.333l30 29.167-7.5 41.666c-.834 3.334.833 6.667 3.333 8.334 1.666.833 3.333 1.666 5 1.666 1.666 0 2.5 0 4.166-.833l37.501-20 37.5 20c2.5 1.667 5.833.833 9.166-.833 2.5-1.667 4.167-5 3.334-8.334l-7.5-41.666 30-29.167c2.5-1.667 3.333-5 1.666-8.333Z"></path></g>
+</svg>`;
+
 function createCard(item) {
+  const fragment = document.createDocumentFragment();
   const card = document.createElement("div");
-  card.classList.add("card");
+  card.className = "card";
 
-  const avatar = document.createElement("div");
-  avatar.classList.add("avatar");
+  // Criar estrutura do card usando template literal para reduzir manipulações DOM
+  card.innerHTML = `
+    <header class="card-header">
+      <div class="avatar"><span>${item.nome.charAt(0).toUpperCase()}</span></div>
+      <div>
+        <h2 class="name">${item.nome}</h2>
+        <div class="stars">${Array(5).fill(starSvg).join("")}</div>
+      </div>
+    </header>
+    <div class="content">
+      <p class="text">${item.text}</p>
+    </div>
+  `;
 
-  const avatarText = document.createElement("span");
-  avatarText.textContent = item.nome.charAt(0).toUpperCase();
-  avatar.appendChild(avatarText);
-
-  const content = document.createElement("div");
-  content.classList.add("content");
-  const name = document.createElement("h2");
-  name.classList.add("name");
-  name.textContent = item.nome;
-
-  const stars = document.createElement("div");
-  stars.classList.add("stars");
-
-  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-  svg.setAttribute("preserveAspectRatio", "none");
-  svg.setAttribute("viewBox", "25 29 150.346 142.783");
-  svg.setAttribute("height", "200");
-  svg.setAttribute("width", "200");
-  svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-  svg.setAttribute("role", "presentation");
-  svg.setAttribute("aria-hidden", "true");
-  svg.setAttribute("aria-label", "");
-  svg.setAttribute("data-type", "shape");
-  svg.setAttribute("data-bbox", "25 29 150.346 142.783");
-  svg.setAttribute("data-type", "shape");
-
-  const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
-
-  const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-  path.setAttribute(
-    "d",
-    "M174.479 82.542c-.833-3.334-3.333-5-6.666-5.834l-41.667-5.833-18.333-37.5c-2.5-5.833-12.5-5.833-15 0l-18.334 37.5-41.666 5.833c-3.334.834-5.834 2.5-7.5 5.834-.834 3.333 0 6.666 2.5 8.333l30 29.167-7.5 41.666c-.834 3.334.833 6.667 3.333 8.334 1.666.833 3.333 1.666 5 1.666 1.666 0 2.5 0 4.166-.833l37.501-20 37.5 20c2.5 1.667 5.833.833 9.166-.833 2.5-1.667 4.167-5 3.334-8.334l-7.5-41.666 30-29.167c2.5-1.667 3.333-5 1.666-8.333Z"
-  );
-
-  g.appendChild(path);
-  svg.appendChild(g);
-
-  Array.from({ length: 5 }, (_, i) => {
-    const svgClone = svg.cloneNode(true);
-    stars.appendChild(svgClone);
-  });
-
-  const text = document.createElement("p");
-  text.classList.add("text");
-  text.textContent = item.text;
-
-  content.appendChild(name);
-  content.appendChild(stars);
-  content.appendChild(text);
-
-  card.appendChild(avatar);
-  card.appendChild(content);
-
-  return card;
+  fragment.appendChild(card);
+  return fragment.firstChild;
 }
 
 function createCarousel() {
   const container = document.querySelector(".carousel-container");
   const carousel = document.querySelector(".carousel");
+  const fragment = document.createDocumentFragment();
 
   cardsTestimonialsInfo.forEach((item) => {
     const carouselItem = document.createElement("div");
-    carouselItem.classList.add("carousel-item");
-
-    const card = createCard(item);
-    carouselItem.appendChild(card);
-    carousel.appendChild(carouselItem);
+    carouselItem.className = "carousel-item";
+    carouselItem.appendChild(createCard(item));
+    fragment.appendChild(carouselItem);
   });
 
-  container.appendChild(carousel);
-
+  carousel.appendChild(fragment);
   return { container, carousel };
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+  // Cache de seletores DOM
   const prevButton = document.querySelector(".carousel-control-prev");
   const nextButton = document.querySelector(".carousel-control-next");
-
   const { container, carousel } = createCarousel();
 
-  // Variables
+  // Otimização 4: Usar WeakMap para armazenar dimensões calculadas
+  const dimensionsCache = new WeakMap();
+  
+  // Variáveis
   let isDragging = false;
   let startPos = 0;
   let currentTranslate = 0;
   let prevTranslate = 0;
   let animationID = 0;
   let currentIndex = 0;
+  let startTime = 0;
+  let endTime = 0;
+  let dragVelocity = 0;
+  let items;
+  
+  // Inicialização única de elementos
+  function initElements() {
+    items = document.querySelectorAll(".carousel-item");
+    ensureLastItemVisibility();
+    const { itemWidth, maxIndex } = calculateDimensions();
+    updateButtonStates(maxIndex);
+  }
 
-  // Check if we're on mobile
-  const isMobile = () => window.innerWidth <= 768;
+  // Otimização 5: Debounce para redimensionamento
+  function debounce(func, wait) {
+    let timeout;
+    return function(...args) {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(this, args), wait);
+    };
+  }
 
-  // Ensure last item is fully visible by adding padding to the carousel
-  const items = document.querySelectorAll(".carousel-item");
+  // Otimização 6: Memoização de isMobile
+  const isMobile = (() => {
+    let result;
+    let width = window.innerWidth;
+    
+    return () => {
+      if (window.innerWidth !== width) {
+        width = window.innerWidth;
+        result = width <= 768;
+      }
+      return result !== undefined ? result : (result = width <= 768);
+    };
+  })();
 
   function ensureLastItemVisibility() {
+    if (!items || !items.length) return;
+    
     const containerWidth = container.offsetWidth;
     const lastItem = items[items.length - 1];
-    const lastItemWidth = lastItem.offsetWidth;
-
-    // Calculate the total width of all items
-
-    const totalItemsWidth = Array.from(items).reduce((total, item) => {
-      const itemStyle = getComputedStyle(item);
-      const marginRight = parseInt(itemStyle.marginRight);
-      return total + item.offsetWidth + marginRight;
-    }, 0);
-
-    // Add padding to ensure the last item is fully visible
-    if (!isMobile()) {
-      const extraPadding = Math.max(
-        0,
-        containerWidth - (totalItemsWidth - lastItemWidth)
-      );
-      carousel.style.paddingRight = extraPadding + "px";
-    } else {
-      carousel.style.paddingRight = "0";
+    
+    // Otimização 7: Reduzir cálculos em loop
+    let totalItemsWidth = 0;
+    for (const item of items) {
+      const style = getComputedStyle(item);
+      totalItemsWidth += item.offsetWidth + parseInt(style.marginRight);
     }
+
+    carousel.style.paddingRight = !isMobile() 
+      ? `${Math.max(0, containerWidth - (totalItemsWidth - lastItem.offsetWidth))}px` 
+      : "0";
   }
 
-  // Call this function initially and on resize
-  ensureLastItemVisibility();
-
-  // Function to calculate item width and max items dynamically
   function calculateDimensions() {
-    // Get computed style to account for margin
+    if (!items || !items.length) return { itemWidth: 0, maxIndex: 0 };
+    
+    // Verificar cache primeiro
+    if (dimensionsCache.has(carousel)) {
+      const cached = dimensionsCache.get(carousel);
+      if (cached.containerWidth === container.offsetWidth) {
+        return cached;
+      }
+    }
+    
     const firstItemStyle = getComputedStyle(items[0]);
-    const marginRight = parseInt(firstItemStyle.marginRight);
-
-    // Include the gap value from the carousel CSS
     const carouselStyle = getComputedStyle(carousel);
-    const gapSize = parseInt(carouselStyle.gap) || 40; // Default to 40px if not set
-
+    const gapSize = parseInt(carouselStyle.gap) || 40;
     const itemWidth = items[0].offsetWidth + gapSize;
     const containerWidth = container.offsetWidth;
-
-    // Rest of the function remains the same
-    let visibleItems;
-    if (isMobile()) {
-      visibleItems = 1;
-    } else {
-      visibleItems = Math.floor(containerWidth / itemWidth);
-    }
-
+    const visibleItems = isMobile() ? 1 : Math.floor(containerWidth / itemWidth);
     const maxIndex = Math.max(0, items.length - visibleItems);
-
-    return { itemWidth, maxIndex, containerWidth, visibleItems, gapSize };
+    
+    const dimensions = { 
+      itemWidth, maxIndex, containerWidth, visibleItems, gapSize 
+    };
+    
+    // Armazenar no cache
+    dimensionsCache.set(carousel, dimensions);
+    return dimensions;
   }
 
-  let { itemWidth, maxIndex } = calculateDimensions();
-
-  // Update button states
-  function updateButtonStates() {
-    if (currentIndex <= 0) {
-      prevButton.classList.add("disabled");
-    } else {
-      prevButton.classList.remove("disabled");
-    }
-
-    if (currentIndex >= maxIndex) {
-      nextButton.classList.add("disabled");
-    } else {
-      nextButton.classList.remove("disabled");
-    }
+  function updateButtonStates(maxIndex) {
+    prevButton.classList.toggle("disabled", currentIndex <= 0);
+    nextButton.classList.toggle("disabled", currentIndex >= maxIndex);
   }
 
-  // Initialize buttons
-  updateButtonStates();
+  // Otimização 8: Usar passive listeners para eventos de toque
+  function addEventListeners() {
+    prevButton.addEventListener("click", handlePrevClick);
+    nextButton.addEventListener("click", handleNextClick);
+    
+    carousel.addEventListener("mousedown", touchStart);
+    carousel.addEventListener("touchstart", touchStart, { passive: true });
+    
+    window.addEventListener("mousemove", touchMove);
+    window.addEventListener("touchmove", touchMove, { passive: true });
+    
+    window.addEventListener("mouseup", touchEnd);
+    window.addEventListener("touchend", touchEnd);
+    
+    carousel.addEventListener("contextmenu", e => {
+      e.preventDefault();
+      e.stopPropagation();
+    });
+    
+    // Otimização 9: Usar delegação de eventos para imagens
+    carousel.addEventListener("dragstart", e => {
+      if (e.target.tagName === "IMG") e.preventDefault();
+    });
+    
+    window.addEventListener("resize", debounce(handleResize, 150));
+  }
 
-  // Button controls
-  prevButton.addEventListener("click", () => {
+  function handlePrevClick() {
     if (currentIndex > 0) {
       currentIndex--;
       setPositionByIndex();
-      updateButtonStates();
+      updateButtonStates(calculateDimensions().maxIndex);
     }
-  });
+  }
 
-  nextButton.addEventListener("click", () => {
+  function handleNextClick() {
     const { maxIndex } = calculateDimensions();
     if (currentIndex < maxIndex) {
       currentIndex++;
       setPositionByIndex();
-      updateButtonStates();
+      updateButtonStates(maxIndex);
     }
-  });
+  }
 
-  // Drag functionality
   function touchStart(event) {
     if (event.type === "mousedown") {
       event.preventDefault();
     }
     const touch = event.type === "touchstart" ? event.touches[0] : event;
     startPos = touch.clientX;
+    startTime = Date.now();
     isDragging = true;
-
+  
     animationID = requestAnimationFrame(animation);
     carousel.classList.add("grabbing");
   }
 
   function touchMove(event) {
-    if (isDragging) {
-      const touch = event.type === "touchmove" ? event.touches[0] : event;
-      const currentPosition = touch.clientX;
-      
-      // Calculate potential new position
-      const potentialTranslate = prevTranslate + currentPosition - startPos;
-      
-      // Get current dimensions
-      const { itemWidth, maxIndex, containerWidth } = calculateDimensions();
-      
-      // Prevent moving beyond boundaries with strict enforcement
-      const minTranslate = -itemWidth * maxIndex;
-      
-      if (potentialTranslate > 0) {
-        currentTranslate = 0; // Hard stop at beginning
-        return;
-      } else if (potentialTranslate < minTranslate) {
-        currentTranslate = minTranslate; // Hard stop at end
-        return;
-      }
-      
-      // Apply the translation if within bounds
-      currentTranslate = potentialTranslate;
+    if (!isDragging) return;
+    
+    const touch = event.type === "touchmove" ? event.touches[0] : event;
+    const currentPosition = touch.clientX;
+    
+    currentTranslate = prevTranslate + currentPosition - startPos;
+    
+    const { itemWidth, maxIndex } = calculateDimensions();
+    if (currentTranslate > 0) {
+      currentTranslate *= 0.3;
+    } else if (currentTranslate < -itemWidth * maxIndex) {
+      const overscroll = currentTranslate + itemWidth * maxIndex;
+      currentTranslate = -itemWidth * maxIndex + overscroll * 0.3;
     }
+    
+    setCarouselPosition();
   }
-  
+
   function touchEnd() {
     cancelAnimationFrame(animationID);
     isDragging = false;
-
-    const movedBy = currentTranslate - prevTranslate;
-    const { maxIndex } = calculateDimensions();
-
-    // If moved enough in negative direction and not at max index
-    if (movedBy < -100 && currentIndex < maxIndex) {
-      currentIndex++;
+    endTime = Date.now();
+    
+    const timeElapsed = endTime - startTime;
+    const distance = currentTranslate - prevTranslate;
+    dragVelocity = distance / timeElapsed;
+    
+    const { itemWidth, maxIndex } = calculateDimensions();
+    
+    if (Math.abs(dragVelocity) > 0.5) {
+      const momentum = Math.min(Math.abs(dragVelocity) * 300, itemWidth * 2) * Math.sign(dragVelocity);
+      currentTranslate = prevTranslate + momentum;
     }
-
-    // If moved enough in positive direction
-    if (movedBy > 100 && currentIndex > 0) {
-      currentIndex--;
-    }
-
-    setPositionByIndex();
-    updateButtonStates();
+    
+    const itemPosition = Math.round(currentTranslate / -itemWidth);
+    currentIndex = Math.max(0, Math.min(maxIndex, itemPosition));
+    
+    carousel.style.transition = "transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)";
+    currentTranslate = -currentIndex * itemWidth;
+    setCarouselPosition();
+    
+    setTimeout(() => {
+      carousel.style.transition = "";
+      prevTranslate = currentTranslate;
+      updateButtonStates(maxIndex);
+    }, 400);
+    
     carousel.classList.remove("grabbing");
   }
 
   function animation() {
-    setCarouselPosition();
     if (isDragging) requestAnimationFrame(animation);
   }
 
   function setPositionByIndex() {
     const { itemWidth, maxIndex } = calculateDimensions();
-  
-    // Enforce boundaries
-    if (currentIndex < 0) currentIndex = 0;
-    if (currentIndex > maxIndex) currentIndex = maxIndex;
-  
+    currentIndex = Math.max(0, Math.min(maxIndex, currentIndex));
     currentTranslate = currentIndex * -itemWidth;
     prevTranslate = currentTranslate;
     setCarouselPosition();
   }
 
   function setCarouselPosition() {
-    const { itemWidth, maxIndex } = calculateDimensions();
-
-    // Apply strict boundaries
-    const minTranslate = -itemWidth * maxIndex;
-    
-    if (currentTranslate > 0) {
-      currentTranslate = 0;
-      prevTranslate = 0;
-      currentIndex = 0;
-    } else if (currentTranslate < minTranslate) {
-      currentTranslate = minTranslate;
-      prevTranslate = minTranslate;
-      currentIndex = maxIndex;
-    }
-
     carousel.style.transform = `translateX(${currentTranslate}px)`;
   }
 
-  // Special handling for last item
   function handleLastItemVisibility() {
     const { maxIndex } = calculateDimensions();
     if (currentIndex === maxIndex) {
-      // If we're at the last index, make sure the last item is fully visible
-      const lastItem = items[items.length - 1];
       const containerWidth = container.offsetWidth;
-      const totalItemsWidth = Array.from(items).reduce((total, item) => {
-        return (
-          total +
-          item.offsetWidth +
-          parseInt(getComputedStyle(item).marginRight)
-        );
-      }, 0);
-
-      // Calculate the position needed to show the last item fully
+      let totalItemsWidth = 0;
+      
+      for (const item of items) {
+        totalItemsWidth += item.offsetWidth + parseInt(getComputedStyle(item).marginRight);
+      }
+      
       const lastItemPosition = totalItemsWidth - containerWidth;
-
-      // Only adjust if we need to show more of the last item
+      
       if (lastItemPosition > Math.abs(currentTranslate)) {
         currentTranslate = -lastItemPosition;
         prevTranslate = currentTranslate;
-        carousel.style.transform = `translateX(${currentTranslate}px)`;
+        setCarouselPosition();
       }
     }
   }
 
-  // Add event listeners for both mouse and touch events
-  carousel.addEventListener("mousedown", touchStart);
-  carousel.addEventListener("touchstart", touchStart, { passive: true });
-
-  window.addEventListener("mousemove", touchMove);
-  window.addEventListener("touchmove", touchMove, { passive: true });
-
-  window.addEventListener("mouseup", touchEnd);
-  window.addEventListener("touchend", touchEnd);
-
-  // Prevent context menu on long press
-  carousel.addEventListener("contextmenu", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-  });
-
-  // Prevent dragging images, which can interfere with carousel dragging
-  carousel.querySelectorAll("img").forEach((img) => {
-    img.addEventListener("dragstart", (e) => e.preventDefault());
-  });
-
-  // Handle resize
-  window.addEventListener("resize", () => {
+  function handleResize() {
+    dimensionsCache.delete(carousel); // Invalidar cache
     ensureLastItemVisibility();
     const { maxIndex } = calculateDimensions();
-
-    // If the current index is now out of bounds, adjust it
+    
     if (currentIndex > maxIndex) {
       currentIndex = maxIndex;
     }
-
+    
     setPositionByIndex();
-    updateButtonStates();
-
+    updateButtonStates(maxIndex);
+    
     if (!isMobile()) {
       handleLastItemVisibility();
     }
-  });
+  }
 
-  // Initial positioning
+  // Inicializar
+  initElements();
+  addEventListeners();
   setPositionByIndex();
+  
   if (!isMobile()) {
     handleLastItemVisibility();
   }

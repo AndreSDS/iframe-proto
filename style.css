@@ -7,6 +7,10 @@
   font-family: "Poppins", sans-serif;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 .carousel-container {
   position: relative;
   width: 100%;
@@ -25,6 +29,7 @@
 
 .carousel:active {
   cursor: grabbing;
+  overflow: hidden;
 }
 
 .carousel-item {
@@ -49,15 +54,22 @@
   border-radius: 30px;
   padding: 20px;
   display: flex;
-  gap: 15px;
+  flex-direction: column;
   border: 4px solid #0078d7;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: #0071c4;
+}
+
+.card-header {
+  width: 100%;
+  display: flex;
+  gap: 16px;
 }
 
 .avatar {
   width: 70px;
   height: 70px;
-  background-color: #0078d7;
+  background-color: #0071c4;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -73,32 +85,33 @@
 
 .content {
   width: 100%;
-  max-width: 255px;
-  height: 190px;
+  padding-left: 86px;
 }
 
 .name {
   color: #0078d7;
   font-size: 15px;
-  margin-bottom: 5px;
-  font-weight: 600;
+  margin-bottom: 10px;
+  font-weight: 500;
+  line-height: 1.4em;
 }
 
 .stars {
   height: 20px;
   margin-bottom: 10px;
-  font-size: 16px;
+  display: flex;
+  gap: 2px;
 }
 
 .stars svg {
-  fill: #0078d7;
+  fill: #0071c4;
   width: 20px;
   height: 20px;
 }
 
 .text {
-  color: #0078d7;
-  line-height: 1.5;
+  color: #0071c4;
+  line-height: 1.4em;
   font-size: 14px;
 }
 
@@ -145,43 +158,36 @@
     overflow: visible;
   }
 
-  .carousel {
-    display: flex;
-    gap: 15px;
-  }
-
   .carousel-item {
     width: auto;
-    height: auto;
-    min-width: calc(95% - 10px);
+    min-width: calc(90% - 15px);
+    height: 325px;
   }
 
   .card {
-    padding: 16px 10px 16px 16px;
-    height: 330px;
+    padding: 16px;
+    max-width: 260px;
   }
 
-  .avatar {
-    width: 60px;
-    height: 60px;
-  }
-
-  .name {
-    margin-bottom: 3px;
-    font-size: 14px;
-  }
-
-  .stars {
-    margin-bottom: 5px;
-    font-size: 14px;
+  .card-header {
+    margin-bottom: 20px;
   }
 
   .content {
-    height: auto;
+    padding-left: 0;
   }
 
-  .text {
-    line-height: 1.35;
+  .avatar {
+    width: 55px;
+    height: 55px;
+  }
+
+  .name {
+    margin-bottom: 7px;
+  }
+
+  .stars {
+    margin-bottom: 0;
   }
 
   .carousel-control {
