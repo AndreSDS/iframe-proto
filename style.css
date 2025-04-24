@@ -141,7 +141,7 @@ body {
 
 .carousel-control-prev {
   left: 10px;
-  transform: rotate(180deg);
+  transform: translateY(-50%) rotate(180deg);
 }
 
 .carousel-control-next {
@@ -161,7 +161,7 @@ body {
   .carousel-item {
     width: auto;
     min-width: calc(90% - 15px);
-    height: 325px;
+    height: 340px;
   }
 
   .card {
