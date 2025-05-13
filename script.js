@@ -287,84 +287,256 @@ const plusButton = `<svg preserveAspectRatio="none" data-bbox="20.5 20.5 159 159
     </g>
 </svg>`;
 
-function createCard(item) {
-  const card = document.createElement("div");
-  card.classList.add("card");
+// Cache de elementos DOM
+const domElements = {
+  // Card elements
+  card: null,
+  cardContent: null,
+  
+  // Image elements
+  cardImageContainer: null,
+  cardImage: null,
+  
+  // Header elements
+  cardTitle: null,
+  cardSubtitle: null,
+  cardDescription: null,
+  
+  // Categories elements
+  cardCategories: null,
+  
+  // Category elements
+  categoryElement: null,
+  categoryIconContainer: null,
+  categoryIcon: null,
+  categoryTitle: null,
+  
+  // More icon elements
+  moreIconContainer: null,
+  moreIcon: null,
+  moreText: null,
+  
+  // Button elements
+  buttonContainer: null,
+};
 
-  // Card Image
-  const cardImageContainer = document.createElement("div");
+// Inicializa os elementos DOM uma vez
+function initDomElements() {
+  // Usar createDocumentFragment para minimizar reflows
+  const fragment = document.createDocumentFragment();
+  
+  // Card elements
+  domElements.card = document.createElement("div");
+  domElements.cardContent = document.createElement("div");
+  
+  // Image elements
+  domElements.cardImageContainer = document.createElement("div");
+  domElements.cardImage = document.createElement("img");
+  
+  // Otimizar carregamento de imagens
+  domElements.cardImage.loading = "lazy";
+  domElements.cardImage.decoding = "async";
+  
+  // Header elements
+  domElements.cardTitle = document.createElement("h2");
+  domElements.cardSubtitle = document.createElement("h3");
+  domElements.cardDescription = document.createElement("p");
+  
+  // Categories elements
+  domElements.cardCategories = document.createElement("div");
+  
+  // Category elements
+  domElements.categoryElement = document.createElement("div");
+  domElements.categoryIconContainer = document.createElement("div");
+  domElements.categoryIcon = document.createElement("img");
+  
+  // Otimizar carregamento de ícones
+  domElements.categoryIcon.loading = "lazy";
+  domElements.categoryIcon.decoding = "async";
+  domElements.categoryIcon.width = 65;
+  domElements.categoryIcon.height = 45;
+  
+  domElements.categoryTitle = document.createElement("span");
+  
+  // More icon elements
+  domElements.moreIconContainer = document.createElement("div");
+  domElements.moreIcon = document.createElement("div");
+  domElements.moreText = document.createElement("span");
+  
+  // Button elements
+  domElements.buttonContainer = document.createElement("div");
+  
+  // Pré-criar botões para reutilização
+  domElements.button = document.createElement("button");
+  domElements.button.classList.add("button");
+  
+  // Usar IntersectionObserver para lazy loading
+  setupLazyLoading();
+}
+
+// Configurar lazy loading para imagens
+function setupLazyLoading() {
+  // Verificar se IntersectionObserver é suportado
+  if ('IntersectionObserver' in window) {
+    domElements.imageObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          if (img.dataset.src) {
+            img.src = img.dataset.src;
+            img.removeAttribute('data-src');
+          }
+          observer.unobserve(img);
+        }
+      });
+    }, {
+      rootMargin: '50px 0px',
+      threshold: 0.1
+    });
+  }
+}
+
+function createButtons() {
+  const buttonContainer = domElements.buttonContainer.cloneNode(false);
+  buttonContainer.classList.add("button-container");
+  
+  // Use DocumentFragment for better performance
+  const fragment = document.createDocumentFragment();
+  
+  // Create buttons using array and template literals
+  const buttonsText = ["Ver mais", "Abrir catálogos"];
+  
+  buttonsText.forEach(text => {
+    const button = domElements.button.cloneNode(true);
+    button.innerHTML = `<span>${text}</span>`;
+    fragment.appendChild(button);
+  });
+  
+  // Append all buttons at once
+  buttonContainer.appendChild(fragment);
+  
+  return buttonContainer;
+}
+
+function createCardImage(item) {
+  const cardImageContainer = domElements.cardImageContainer.cloneNode(false);
   cardImageContainer.classList.add("card-image-container");
 
-  const cardImage = document.createElement("img");
-  cardImage.src = item.image;
+  const cardImage = domElements.cardImage.cloneNode(false);
+  
+  // Usar data-src para lazy loading
+  if (domElements.imageObserver) {
+    cardImage.dataset.src = item.image;
+    cardImage.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"; // Placeholder transparente
+    domElements.imageObserver.observe(cardImage);
+  } else {
+    cardImage.src = item.image;
+  }
+  
   cardImage.alt = item.title;
-
   cardImageContainer.appendChild(cardImage);
-  card.appendChild(cardImageContainer);
+  return cardImageContainer;
+}
 
-  // Card Content
-  const cardContent = document.createElement("div");
-  cardContent.classList.add("card-content");
-
-  const cardTitle = document.createElement("h2");
+function createCardHeader(item) {
+  const cardTitle = domElements.cardTitle.cloneNode(false);
   cardTitle.classList.add("card-title");
   cardTitle.textContent = item.title;
 
-  const cardSubtitle = document.createElement("h3");
+  const cardSubtitle = domElements.cardSubtitle.cloneNode(false);
   cardSubtitle.classList.add("card-subtitle");
   cardSubtitle.textContent = item.subTitle;
 
-  const cardDescription = document.createElement("p");
+  const cardDescription = domElements.cardDescription.cloneNode(false);
   cardDescription.classList.add("card-description");
   cardDescription.textContent = item.description;
 
-  cardContent.appendChild(cardTitle);
-  cardContent.appendChild(cardSubtitle);
-  cardContent.appendChild(cardDescription);
+  return { cardTitle, cardSubtitle, cardDescription };
+}
 
-  // Card Categories
-  const cardCategories = document.createElement("div");
-  cardCategories.classList.add("card-categories");
+function createCategory(category) {
+  const categoryElement = domElements.categoryElement.cloneNode(false);
+  categoryElement.classList.add("category");
 
-  item.categories.forEach((category) => {
-    const categoryElement = document.createElement("div");
-    categoryElement.classList.add("category");
+  const categoryIconContainer = domElements.categoryIconContainer.cloneNode(false);
+  categoryIconContainer.classList.add("category-icon");
 
-    const categoryIconContainer = document.createElement("div");
-    categoryIconContainer.classList.add("category-icon");
-
-    const categoryIcon = document.createElement("img");
-    categoryIcon.classList.add("category-icon-img");
+  const categoryIcon = domElements.categoryIcon.cloneNode(false);
+  categoryIcon.classList.add("category-icon-img");
+  
+  // Usar data-src para lazy loading
+  if (domElements.imageObserver) {
+    categoryIcon.dataset.src = category.image;
+    categoryIcon.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"; // Placeholder transparente
+    domElements.imageObserver.observe(categoryIcon);
+  } else {
     categoryIcon.src = category.image;
-    categoryIcon.alt = category.title;
+  }
+  
+  categoryIcon.alt = category.title;
 
-    const categoryTitle = document.createElement("span");
-    categoryTitle.textContent = category.title;
+  const categoryTitle = domElements.categoryTitle.cloneNode(false);
+  categoryTitle.textContent = category.title;
 
-    categoryIconContainer.appendChild(categoryIcon);
-    categoryElement.appendChild(categoryIconContainer);
-    categoryElement.appendChild(categoryTitle);
+  categoryIconContainer.appendChild(categoryIcon);
+  categoryElement.appendChild(categoryIconContainer);
+  categoryElement.appendChild(categoryTitle);
 
-    cardCategories.appendChild(categoryElement);
-  });
+  return categoryElement;
+}
 
-  // Add "Mais" Icon
-  const moreIconContainer = document.createElement("div");
+function createMoreIcon() {
+  const moreIconContainer = domElements.moreIconContainer.cloneNode(false);
   moreIconContainer.classList.add("category");
 
-  const moreIcon = document.createElement("div");
+  const moreIcon = domElements.moreIcon.cloneNode(false);
   moreIcon.classList.add("category-icon", "mais-icon");
   moreIcon.innerHTML = plusButton;
 
-  const moreText = document.createElement("span");
+  const moreText = domElements.moreText.cloneNode(false);
   moreText.textContent = "Ver Mais";
 
   moreIconContainer.appendChild(moreIcon);
   moreIconContainer.appendChild(moreText);
 
-  cardCategories.appendChild(moreIconContainer);
+  return moreIconContainer;
+}
 
-  cardContent.appendChild(cardCategories);
+function createCardCategories(item) {
+  const cardCategories = domElements.cardCategories.cloneNode(false);
+  cardCategories.classList.add("card-categories");
+
+  item.categories.forEach((category) => {
+    cardCategories.appendChild(createCategory(category));
+  });
+
+  cardCategories.appendChild(createMoreIcon());
+  
+  return cardCategories;
+}
+
+function createCard(item) {
+  const card = domElements.card.cloneNode(false);
+  card.classList.add("card");
+
+  // Card Image
+  card.appendChild(createCardImage(item));
+
+  // Card Content
+  const cardContent = domElements.cardContent.cloneNode(false);
+  cardContent.classList.add("card-content");
+
+  // Card Header
+  const { cardTitle, cardSubtitle, cardDescription } = createCardHeader(item);
+  cardContent.appendChild(cardTitle);
+  cardContent.appendChild(cardSubtitle);
+  cardContent.appendChild(cardDescription);
+
+  // Card Categories
+  cardContent.appendChild(createCardCategories(item));
+
+  // Buttons
+  cardContent.appendChild(createButtons());
 
   card.appendChild(cardContent);
 
@@ -372,19 +544,32 @@ function createCard(item) {
 }
 
 function createCarousel() {
+  // Inicializa os elementos DOM antes de criar o carrossel
+  initDomElements();
+  
   const container = document.querySelector(".carousel-container");
   const carousel = document.querySelector(".carousel");
+  
+  // Usar DocumentFragment para minimizar reflows
+  const fragment = document.createDocumentFragment();
 
+  // Criar todos os itens de uma vez
   cardsItemsInfo.forEach((item) => {
     const carouselItem = document.createElement("div");
     carouselItem.classList.add("carousel-item");
 
     const card = createCard(item);
     carouselItem.appendChild(card);
-    carousel.appendChild(carouselItem);
+    fragment.appendChild(carouselItem);
   });
-
-  container.appendChild(carousel);
+  
+  // Adicionar todos os itens de uma vez
+  carousel.appendChild(fragment);
+  
+  // Usar requestAnimationFrame para operações visuais
+  requestAnimationFrame(() => {
+    container.appendChild(carousel);
+  });
 
   return { container, carousel };
 }
@@ -414,17 +599,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const lastItem = items[items.length - 1];
     const lastItemWidth = lastItem.offsetWidth;
     const gap = parseInt(getComputedStyle(carousel).gap) || 20;
-    
+
     // Calculate the total width of all items
     const totalItemsWidth = Array.from(items).reduce((total, item) => {
       const itemStyle = getComputedStyle(item);
       const marginRight = parseInt(itemStyle.marginRight) || 0;
       return total + item.offsetWidth + marginRight;
     }, 0);
-    
+
     // Add padding to ensure the last item is fully visible
-    const extraPadding = containerWidth - (totalItemsWidth - lastItemWidth - gap);
-    
+    const extraPadding =
+      containerWidth - (totalItemsWidth - lastItemWidth - gap);
+
     // Only add positive padding
     if (extraPadding > 0) {
       carousel.style.paddingRight = extraPadding + "px";
@@ -440,10 +626,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const firstItemStyle = getComputedStyle(items[0]);
     const marginRight = parseInt(firstItemStyle.marginRight) || 0;
     const gap = parseInt(getComputedStyle(carousel).gap) || 20;
-  
+
     const itemWidth = items[0].offsetWidth + marginRight + gap;
     const containerWidth = container.offsetWidth;
-  
+
     // For mobile, we show part of the next item as a visual cue
     let visibleItems;
     if (isMobile()) {
@@ -452,10 +638,10 @@ document.addEventListener("DOMContentLoaded", function () {
       // Calculate how many whole items fit in the container
       visibleItems = Math.floor(containerWidth / itemWidth);
     }
-  
+
     // Calculate the max index considering the full visibility of the last item
     const maxIndex = Math.max(0, items.length - visibleItems);
-  
+
     return { itemWidth, maxIndex, containerWidth, visibleItems };
   }
 
@@ -506,16 +692,16 @@ document.addEventListener("DOMContentLoaded", function () {
     startPos = touch.clientX;
     isDragging = true;
     startTime = Date.now(); // Registrar o tempo inicial do toque
-  
+
     animationID = requestAnimationFrame(animation);
     carousel.classList.add("grabbing");
   }
-  
+
   function touchMove(event) {
     if (isDragging) {
       const touch = event.type === "touchmove" ? event.touches[0] : event;
       const currentPosition = touch.clientX;
-  
+
       // Calculate distance moved
       currentTranslate = prevTranslate + currentPosition - startPos;
     }
@@ -526,27 +712,30 @@ document.addEventListener("DOMContentLoaded", function () {
     isDragging = false;
     const endTime = Date.now();
     const timeElapsed = endTime - startTime;
-    
+
     // Calcular a velocidade do movimento (pixels por milissegundo)
     const moveDistance = currentTranslate - prevTranslate;
     const velocity = moveDistance / timeElapsed;
-    
+
     // Aplicar momentum se a velocidade for significativa
     if (Math.abs(velocity) > 0.5) {
       // Determinar a direção e quantidade de itens a mover com base na velocidade
       const direction = velocity < 0 ? 1 : -1;
       const moveItems = Math.min(3, Math.floor(Math.abs(velocity) * 3));
-      
+
       // Atualizar o índice com base na velocidade
-      currentIndex = Math.max(0, Math.min(maxIndex, currentIndex + (direction * moveItems)));
-      
+      currentIndex = Math.max(
+        0,
+        Math.min(maxIndex, currentIndex + direction * moveItems)
+      );
+
       // Animar com easing para dar sensação de momentum
       animateWithMomentum();
     } else {
       // Comportamento padrão para movimentos lentos
       // Armazena a posição atual como a posição anterior
       prevTranslate = currentTranslate;
-      
+
       // Verifica limites para não ultrapassar o primeiro ou último item
       const { itemWidth, maxIndex } = calculateDimensions();
       if (currentTranslate > 0) {
@@ -556,12 +745,12 @@ document.addEventListener("DOMContentLoaded", function () {
         currentTranslate = -itemWidth * maxIndex;
         prevTranslate = -itemWidth * maxIndex;
       }
-      
+
       // Atualiza o índice atual com base na posição
       currentIndex = Math.round(Math.abs(currentTranslate) / itemWidth);
       setPositionByIndex();
     }
-    
+
     // Atualiza o estado dos botões
     updateButtonStates();
     carousel.classList.remove("grabbing");
@@ -570,23 +759,23 @@ document.addEventListener("DOMContentLoaded", function () {
   function animateWithMomentum() {
     const { itemWidth } = calculateDimensions();
     const targetTranslate = currentIndex * -itemWidth;
-    
+
     // Usar uma animação com easing para simular momentum
     const startTranslate = currentTranslate;
     const distance = targetTranslate - startTranslate;
     const startTime = Date.now();
     const duration = 500; // Duração da animação em ms
-    
+
     function momentumAnimation() {
       const elapsed = Date.now() - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      
+
       // Função de easing (ease-out cúbico)
       const easeOut = 1 - Math.pow(1 - progress, 3);
-      
-      currentTranslate = startTranslate + (distance * easeOut);
+
+      currentTranslate = startTranslate + distance * easeOut;
       setCarouselPosition();
-      
+
       if (progress < 1) {
         requestAnimationFrame(momentumAnimation);
       } else {
@@ -596,7 +785,7 @@ document.addEventListener("DOMContentLoaded", function () {
         setCarouselPosition();
       }
     }
-    
+
     requestAnimationFrame(momentumAnimation);
   }
 
