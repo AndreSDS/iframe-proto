@@ -1,17 +1,15 @@
 const cardsHistoriesInfo = [
   {
+    title: "Não entende de materiais",
+    image: "https://static.wixstatic.com/media/b98454_8ad05f8c97554423acda6685a470dae2~mv2.png",
+    description: "Janaína é muito ocupada e, como confia na Pirâmides, enviou a lista feita pelo seu pedreiro para que possamos indicar os materiais ideais e a quantidade necessária para sua reforma.",
+  },
+  {
     title: "Quer atendimento online",
     image:
       "https://static.wixstatic.com/media/b98454_4771a83a43c74bb286368cfc0c31363d~mv2.png",
     description:
       "Juliana trabalha em home-office e com a Pirâmides consegue um suporte virtual eficiente para sua reforma.",
-  },
-  {
-    title: "Não entende de materiais",
-    image:
-      "https://static.wixstatic.com/media/b98454_8ad05f8c97554423acda6685a470dae2~mv2.png",
-    description:
-      "Janaína é muito ocupada e, como confia na Pirâmides, enviou a lista feita pelo seu pedreiro para que possamos indicar os materiais ideais e a quantidade necessária para sua reforma.",
   },
   {
     title: "Precisa de uma solução rápida",
@@ -36,327 +34,276 @@ const cardsHistoriesInfo = [
   },
 ];
 
-function createCard(item) {
-  // Card Container
-  const card = document.createElement("div");
-  card.classList.add("card");
-  card.style.backgroundImage = `url(${item.image})`;
-
-  // Content wrapper for text (to ensure readability over image)
-  const contentWrapper = document.createElement("div");
-  contentWrapper.classList.add("card-content-wrapper");
-
-  // Card title
-  const cardTitle = document.createElement("h2");
-  cardTitle.classList.add("card-title");
-  cardTitle.textContent = item.title;
-
-  // Card description
-  const cardDescription = document.createElement("p");
-  cardDescription.classList.add("card-description");
-  cardDescription.textContent = item.description;
-
-  // Append elements to wrapper
-  contentWrapper.appendChild(cardTitle);
-  contentWrapper.appendChild(cardDescription);
-
-  // Append wrapper to card
-  card.appendChild(contentWrapper);
-
-  return card;
-}
-
-function createCarousel() {
+document.addEventListener("DOMContentLoaded", function() {
+  // Cache de elementos DOM e variáveis
   const container = document.querySelector(".carousel-container");
   const carousel = document.querySelector(".carousel");
-
-  cardsHistoriesInfo.forEach((item) => {
-    const carouselItem = document.createElement("div");
-    carouselItem.classList.add("carousel-item");
-
-    const card = createCard(item);
-    carouselItem.appendChild(card);
-    carousel.appendChild(carouselItem);
-  });
-
-  container.appendChild(carousel);
-
-  return { container, carousel };
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-  const { container, carousel } = createCarousel();
-
-  // Variables
-  let isDragging = false;
-  let startPos = 0;
-  let currentTranslate = 0;
-  let prevTranslate = 0;
-  let animationID = 0;
-  let currentIndex = 0;
-  let startTime = 0;
-  let endTime = 0;
-  let dragVelocity = 0;
+  let items;
+  
+  // Estado do carrossel
+  const state = {
+    isDragging: false,
+    startPos: 0,
+    currentTranslate: 0,
+    prevTranslate: 0,
+    animationID: 0,
+    currentIndex: 0,
+    startTime: 0,
+    endTime: 0,
+    dragVelocity: 0
+  };
   
   // Cache para dimensões
-  const dimensionsCache = new WeakMap();
+  const dimensionsCache = new Map();
   let resizeTimeout = null;
+  
+  // Utilitários
+  const utils = {
+    isMobile: () => window.innerWidth <= 768,
+    
+    debounce: (func, wait) => {
+      return function(...args) {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+          clearTimeout(resizeTimeout);
+          func(...args);
+        }, wait);
+      };
+    }
+  };
 
-  // Check if we're on mobile
-  const isMobile = () => window.innerWidth <= 768;
-
-  // Ensure last item is fully visible by adding padding to the carousel
-  const items = document.querySelectorAll(".carousel-item");
-
+  // Inicialização
+  function init() {
+    createCarousel();
+    items = document.querySelectorAll(".carousel-item");
+    
+    setupEventListeners();
+    ensureLastItemVisibility();
+    setPositionByIndex();
+    
+    if (!utils.isMobile()) {
+      handleLastItemVisibility();
+    }
+  }
+  
+  // Criação de elementos
+  function createCarousel() {
+    cardsHistoriesInfo.forEach(item => {
+      const carouselItem = document.createElement("div");
+      carouselItem.classList.add("carousel-item");
+      carouselItem.appendChild(createCard(item));
+      carousel.appendChild(carouselItem);
+    });
+  }
+  
+  function createCard(item) {
+    const card = document.createElement("div");
+    card.classList.add("card");
+    card.style.backgroundImage = `url(${item.image})`;
+    
+    const contentWrapper = document.createElement("div");
+    contentWrapper.classList.add("card-content-wrapper");
+    
+    const cardTitle = document.createElement("h2");
+    cardTitle.classList.add("card-title");
+    cardTitle.textContent = item.title;
+    
+    const cardDescription = document.createElement("p");
+    cardDescription.classList.add("card-description");
+    cardDescription.textContent = item.description;
+    
+    contentWrapper.append(cardTitle, cardDescription);
+    card.appendChild(contentWrapper);
+    
+    return card;
+  }
+  
+  // Cálculos de dimensões
+  function calculateDimensions() {
+    if (dimensionsCache.has("dimensions") && !utils.isMobile()) {
+      return dimensionsCache.get("dimensions");
+    }
+    
+    const firstItemStyle = getComputedStyle(items[0]);
+    const carouselStyle = getComputedStyle(carousel);
+    const gapSize = parseInt(carouselStyle.gap) || 40;
+    
+    const itemWidth = items[0].offsetWidth + gapSize;
+    const containerWidth = container.offsetWidth;
+    const visibleItems = utils.isMobile() ? 1 : Math.floor(containerWidth / itemWidth);
+    const maxIndex = Math.max(0, items.length - visibleItems);
+    
+    const dimensions = { itemWidth, maxIndex, containerWidth, visibleItems, gapSize };
+    dimensionsCache.set("dimensions", dimensions);
+    
+    return dimensions;
+  }
+  
   function ensureLastItemVisibility() {
     const containerWidth = container.offsetWidth;
     const lastItem = items[items.length - 1];
-    const lastItemWidth = lastItem.offsetWidth;
-
-    // Usar cache se disponível
-    let totalItemsWidth = dimensionsCache.get(carousel);
-    if (!totalItemsWidth) {
-      totalItemsWidth = Array.from(items).reduce((total, item) => {
-        const itemStyle = getComputedStyle(item);
-        const marginRight = parseInt(itemStyle.marginRight);
+    
+    if (!dimensionsCache.has("totalWidth")) {
+      const totalWidth = Array.from(items).reduce((total, item) => {
+        const marginRight = parseInt(getComputedStyle(item).marginRight);
         return total + item.offsetWidth + marginRight;
       }, 0);
-      dimensionsCache.set(carousel, totalItemsWidth);
+      dimensionsCache.set("totalWidth", totalWidth);
     }
-
-    // Add padding to ensure the last item is fully visible
-    if (!isMobile()) {
-      const extraPadding = Math.max(
-        0,
-        containerWidth - (totalItemsWidth - lastItemWidth)
-      );
-      carousel.style.paddingRight = extraPadding + "px";
+    
+    const totalWidth = dimensionsCache.get("totalWidth");
+    
+    if (!utils.isMobile()) {
+      const extraPadding = Math.max(0, containerWidth - (totalWidth - lastItem.offsetWidth));
+      carousel.style.paddingRight = `${extraPadding}px`;
     } else {
       carousel.style.paddingRight = "0";
     }
   }
-
-  // Call this function initially and on resize
-  ensureLastItemVisibility();
-
-  // Function to calculate item width and max items dynamically
-  function calculateDimensions() {
-    // Verificar cache primeiro
-    if (dimensionsCache.has(items[0]) && !isMobile()) {
-      return dimensionsCache.get(items[0]);
-    }
-    
-    // Get computed style to account for margin
-    const firstItemStyle = getComputedStyle(items[0]);
-    const marginRight = parseInt(firstItemStyle.marginRight);
-
-    // Include the gap value from the carousel CSS
-    const carouselStyle = getComputedStyle(carousel);
-    const gapSize = parseInt(carouselStyle.gap) || 40; // Default to 40px if not set
-
-    const itemWidth = items[0].offsetWidth + gapSize;
-    const containerWidth = container.offsetWidth;
-
-    let visibleItems;
-    if (isMobile()) {
-      visibleItems = 1;
-    } else {
-      visibleItems = Math.floor(containerWidth / itemWidth);
-    }
-
-    const maxIndex = Math.max(0, items.length - visibleItems);
-    
-    const dimensions = { itemWidth, maxIndex, containerWidth, visibleItems, gapSize };
-    dimensionsCache.set(items[0], dimensions);
-    
-    return dimensions;
+  
+  // Manipulação de posição
+  function setPositionByIndex() {
+    const { itemWidth, maxIndex } = calculateDimensions();
+    state.currentIndex = Math.max(0, Math.min(maxIndex, state.currentIndex));
+    state.currentTranslate = state.currentIndex * -itemWidth;
+    state.prevTranslate = state.currentTranslate;
+    setCarouselPosition();
   }
-
-  // Debounce para resize
-  function debounce(func, wait) {
-    return function executedFunction(...args) {
-      const later = () => {
-        clearTimeout(resizeTimeout);
-        func(...args);
-      };
-      clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(later, wait);
-    };
+  
+  function setCarouselPosition() {
+    carousel.style.transform = `translateX(${state.currentTranslate}px)`;
   }
-
-  // Handle resize with debounce
-  const handleResize = debounce(() => {
-    // Limpar cache ao redimensionar
-    dimensionsCache.delete(carousel);
-    dimensionsCache.delete(items[0]);
-    
-    ensureLastItemVisibility();
+  
+  function handleLastItemVisibility() {
     const { maxIndex } = calculateDimensions();
-
-    // If the current index is now out of bounds, adjust it
-    if (currentIndex > maxIndex) {
-      currentIndex = maxIndex;
+    if (state.currentIndex === maxIndex) {
+      const containerWidth = container.offsetWidth;
+      const totalWidth = dimensionsCache.get("totalWidth");
+      const lastItemPosition = totalWidth - containerWidth;
+      
+      if (lastItemPosition > Math.abs(state.currentTranslate)) {
+        state.currentTranslate = -lastItemPosition;
+        state.prevTranslate = state.currentTranslate;
+        setCarouselPosition();
+      }
     }
-
-    setPositionByIndex();
-    
-    if (!isMobile()) {
-      handleLastItemVisibility();
-    }
-  }, 150);
-
-  // Drag functionality
+  }
+  
+  // Manipuladores de eventos
   function touchStart(event) {
     if (event.type === "mousedown") {
       event.preventDefault();
     }
+    
     const touch = event.type === "touchstart" ? event.touches[0] : event;
-    startPos = touch.clientX;
-    startTime = Date.now(); // Registrar o tempo inicial
-    isDragging = true;
-  
-    animationID = requestAnimationFrame(animation);
+    state.startPos = touch.clientX;
+    state.startTime = Date.now();
+    state.isDragging = true;
+    
+    state.animationID = requestAnimationFrame(animation);
     carousel.classList.add("grabbing");
   }
-
+  
   function touchMove(event) {
-    if (isDragging) {
-      const touch = event.type === "touchmove" ? event.touches[0] : event;
-      const currentPosition = touch.clientX;
-      
-      // Remover atraso aplicando diretamente a transformação
-      currentTranslate = prevTranslate + currentPosition - startPos;
-      
-      // Adicionar resistência quando tentar arrastar além dos limites
-      const { itemWidth, maxIndex } = calculateDimensions();
-      if (currentTranslate > 0) {
-        currentTranslate = currentTranslate * 0.3; // Resistência no início
-      } else if (currentTranslate < -itemWidth * maxIndex) {
-        const overscroll = currentTranslate + itemWidth * maxIndex;
-        currentTranslate = -itemWidth * maxIndex + overscroll * 0.3; // Resistência no fim
-      }
-      
-      // Aplicar transformação diretamente sem esperar pela animação
-      carousel.style.transform = `translateX(${currentTranslate}px)`;
+    if (!state.isDragging) return;
+    
+    const touch = event.type === "touchmove" ? event.touches[0] : event;
+    const currentPosition = touch.clientX;
+    let moveTranslate = state.prevTranslate + currentPosition - state.startPos;
+    
+    // Adicionar resistência nos limites
+    const { itemWidth, maxIndex } = calculateDimensions();
+    if (moveTranslate > 0) {
+      moveTranslate *= 0.3;
+    } else if (moveTranslate < -itemWidth * maxIndex) {
+      const overscroll = moveTranslate + itemWidth * maxIndex;
+      moveTranslate = -itemWidth * maxIndex + overscroll * 0.3;
     }
+    
+    state.currentTranslate = moveTranslate;
+    setCarouselPosition();
   }
   
-
-  function touchEnd(event) {
-    cancelAnimationFrame(animationID);
-    isDragging = false;
-    endTime = Date.now();
+  function touchEnd() {
+    cancelAnimationFrame(state.animationID);
+    state.isDragging = false;
+    state.endTime = Date.now();
     
-    // Calcular velocidade do arraste
-    const timeElapsed = endTime - startTime;
-    const distance = currentTranslate - prevTranslate;
-    dragVelocity = distance / timeElapsed;
+    // Calcular velocidade e aplicar inércia
+    const timeElapsed = state.endTime - state.startTime;
+    const distance = state.currentTranslate - state.prevTranslate;
+    state.dragVelocity = distance / timeElapsed;
     
-    // Aplicar inércia baseada na velocidade
     const { itemWidth, maxIndex } = calculateDimensions();
     
-    // Adicionar momentum baseado na velocidade
-    if (Math.abs(dragVelocity) > 0.5) {
-      // Quanto maior a velocidade, maior o deslocamento
-      const momentum = Math.min(Math.abs(dragVelocity) * 300, itemWidth * 2) * Math.sign(dragVelocity);
-      currentTranslate = prevTranslate + momentum;
+    if (Math.abs(state.dragVelocity) > 0.5) {
+      const momentum = Math.min(Math.abs(state.dragVelocity) * 300, itemWidth * 2) * Math.sign(state.dragVelocity);
+      state.currentTranslate = state.prevTranslate + momentum;
     }
     
-    // Ajustar para o item mais próximo após o momentum
-    const itemPosition = Math.round(currentTranslate / -itemWidth);
-    currentIndex = Math.max(0, Math.min(maxIndex, itemPosition));
+    // Ajustar para o item mais próximo
+    state.currentIndex = Math.round(state.currentTranslate / -itemWidth);
+    state.currentIndex = Math.max(0, Math.min(maxIndex, state.currentIndex));
     
     // Aplicar transição suave
     carousel.style.transition = "transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)";
-    currentTranslate = -currentIndex * itemWidth;
-    carousel.style.transform = `translateX(${currentTranslate}px)`;
+    state.currentTranslate = -state.currentIndex * itemWidth;
+    setCarouselPosition();
     
-    // Restaurar configuração após a animação
     setTimeout(() => {
       carousel.style.transition = "";
-      prevTranslate = currentTranslate;
+      state.prevTranslate = state.currentTranslate;
     }, 400);
     
     carousel.classList.remove("grabbing");
   }
-
+  
   function animation() {
-    // Usar requestAnimationFrame para animação mais suave
-    setCarouselPosition();
-    if (isDragging) requestAnimationFrame(animation);
-  }
-
-  function setPositionByIndex() {
-    const { itemWidth, maxIndex } = calculateDimensions();
-
-    // Enforce boundaries
-    if (currentIndex < 0) currentIndex = 0;
-    if (currentIndex > maxIndex) currentIndex = maxIndex;
-
-    currentTranslate = currentIndex * -itemWidth;
-    prevTranslate = currentTranslate;
-    setCarouselPosition();
-  }
-
-  function setCarouselPosition() {
-    // Aplicar transformação diretamente sem cálculos adicionais durante o arraste
-    carousel.style.transform = `translateX(${currentTranslate}px)`;
-  }
-
-  // Special handling for last item
-  function handleLastItemVisibility() {
-    const { maxIndex } = calculateDimensions();
-    if (currentIndex === maxIndex) {
-      // If we're at the last index, make sure the last item is fully visible
-      const lastItem = items[items.length - 1];
-      const containerWidth = container.offsetWidth;
-      const totalItemsWidth = Array.from(items).reduce((total, item) => {
-        return (
-          total +
-          item.offsetWidth +
-          parseInt(getComputedStyle(item).marginRight)
-        );
-      }, 0);
-
-      // Calculate the position needed to show the last item fully
-      const lastItemPosition = totalItemsWidth - containerWidth;
-
-      // Only adjust if we need to show more of the last item
-      if (lastItemPosition > Math.abs(currentTranslate)) {
-        currentTranslate = -lastItemPosition;
-        prevTranslate = currentTranslate;
-        carousel.style.transform = `translateX(${currentTranslate}px)`;
-      }
+    if (state.isDragging) {
+      requestAnimationFrame(animation);
     }
   }
-
-  // Add event listeners for both mouse and touch events
-  carousel.addEventListener("mousedown", touchStart);
-  carousel.addEventListener("touchstart", touchStart, { passive: true });
-
-  window.addEventListener("mousemove", touchMove);
-  window.addEventListener("touchmove", touchMove, { passive: true });
-
-  window.addEventListener("mouseup", touchEnd);
-  window.addEventListener("touchend", touchEnd);
-
-  // Prevent context menu on long press
-  carousel.addEventListener("contextmenu", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-  });
-
-  // Prevent dragging images, which can interfere with carousel dragging
-  carousel.querySelectorAll("img").forEach((img) => {
-    img.addEventListener("dragstart", (e) => e.preventDefault());
-  });
-
-  // Handle resize
-  window.addEventListener("resize", handleResize);
-
-  // Initial positioning
-  setPositionByIndex();
-  if (!isMobile()) {
-    handleLastItemVisibility();
+  
+  // Configuração de event listeners
+  function setupEventListeners() {
+    // Touch/mouse events
+    carousel.addEventListener("mousedown", touchStart);
+    carousel.addEventListener("touchstart", touchStart, { passive: true });
+    
+    window.addEventListener("mousemove", touchMove);
+    window.addEventListener("touchmove", touchMove, { passive: true });
+    
+    window.addEventListener("mouseup", touchEnd);
+    window.addEventListener("touchend", touchEnd);
+    
+    // Prevent context menu and image dragging
+    carousel.addEventListener("contextmenu", e => {
+      e.preventDefault();
+      e.stopPropagation();
+    });
+    
+    carousel.querySelectorAll("img").forEach(img => {
+      img.addEventListener("dragstart", e => e.preventDefault());
+    });
+    
+    // Resize handling
+    window.addEventListener("resize", utils.debounce(() => {
+      dimensionsCache.clear();
+      ensureLastItemVisibility();
+      const { maxIndex } = calculateDimensions();
+      
+      if (state.currentIndex > maxIndex) {
+        state.currentIndex = maxIndex;
+      }
+      
+      setPositionByIndex();
+      
+      if (!utils.isMobile()) {
+        handleLastItemVisibility();
+      }
+    }, 150));
   }
+  
+  // Iniciar carrossel
+  init();
 });
