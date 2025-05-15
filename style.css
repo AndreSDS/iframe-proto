@@ -46,7 +46,7 @@ main div.teste {
 
 .carousel-item {
   min-width: 352px;
-  height: 580px;
+  height: 600px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -185,6 +185,7 @@ main div.teste {
   .carousel-item {
     font-size: 16px;
     min-width: calc(95% - 10px);
+    height: 620px;
   }
 
   .card {
