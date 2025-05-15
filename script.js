@@ -1,3 +1,5 @@
+import { createInnerCarousel } from './carousel.js';
+
 const cardsSectionsInfo = [
   {
     title: "Paredão de Revestimentos",
@@ -5,6 +7,12 @@ const cardsSectionsInfo = [
       "https://static.wixstatic.com/media/b98454_d931ce5f7d274d45bd3cdc33b9ba2aa6~mv2.png",
     description:
       "Nosso paredão é o lugar perfeito para você se inspirar! São diversos modelos de revestimentos expostos lado a lado, para comparar cores, texturas e estilos com mais facilidade. Venha sentir de perto, imaginar seu ambiente dos sonhos e descobrir o que combina com o seu estilo.",
+    sectionImages: [{
+      img: "https://static.wixstatic.com/media/b98454_d931ce5f7d274d45bd3cdc33b9ba2aa6~mv2.png",
+    },
+    {
+      img: "https://static.wixstatic.com/media/b98454_d931ce5f7d274d45bd3cdc33b9ba2aa6~mv2.png",
+    }]
   },
   {
     title: "Seção de Pintura",
@@ -12,6 +20,12 @@ const cardsSectionsInfo = [
       "https://static.wixstatic.com/media/b98454_1fc8c24f8bad41edb09bdd0be25ec2b7~mv2.png",
     description:
       "Cores que transformam ambientes! Aqui você encontra tintas para todos os estilos e superfícies, além de acessórios que facilitam cada etapa da pintura. Das paredes internas ao retoque externo, tem sempre uma tonalidade esperando para deixar seu espaço com a sua cara!",
+    sectionImages: [{
+      img: "https://static.wixstatic.com/media/b98454_1fc8c24f8bad41edb09bdd0be25ec2b7~mv2.png",
+    },
+    {
+      img: "https://static.wixstatic.com/media/b98454_1fc8c24f8bad41edb09bdd0be25ec2b7~mv2.png",
+    }]
   },
   {
     title: "Seção de Ferramentas",
@@ -19,6 +33,12 @@ const cardsSectionsInfo = [
       "https://static.wixstatic.com/media/b98454_e068e984de784277b5408bdf465e923a~mv2.png",
     description:
       'Ajudamos quem faz! Aqui você encontra desde ferramentas manuais até elétricas, com opções para iniciantes, profissionais e aventureiros do "faça você mesmo".',
+    sectionImages: [{
+      img: "https://static.wixstatic.com/media/b98454_e068e984de784277b5408bdf465e923a~mv2.png",
+    },
+    {
+      img: "https://static.wixstatic.com/media/b98454_e068e984de784277b5408bdf465e923a~mv2.png",
+    }]
   },
   {
     title: "Seção de Hidráulica",
@@ -26,6 +46,12 @@ const cardsSectionsInfo = [
       "https://static.wixstatic.com/media/b98454_9ec9189120624d12a5fc420eac8592d6~mv2.png",
     description:
       "Tudo que passa por água começa aqui! Nossa seção hidráulica tem tubos, conexões, registros, caixas d'água e muito mais para garantir um sistema bem feito e duradouro. Está construindo ou só fazendo manutenção? Venha conferir de perto e garantir qualidade sem complicação.",
+    sectionImages: [{
+      img: "https://static.wixstatic.com/media/b98454_9ec9189120624d12a5fc420eac8592d6~mv2.png",
+    },
+    {
+      img: "https://static.wixstatic.com/media/b98454_9ec9189120624d12a5fc420eac8592d6~mv2.png",
+    }]
   },
   {
     title: "Gabinetes para Cozinhas",
@@ -33,6 +59,12 @@ const cardsSectionsInfo = [
       "https://static.wixstatic.com/media/b98454_1a8e548a57f54a269992f95ea4669a99~mv2.png",
     description:
       "Praticidade com estilo! Temos gabinetes prontos para instalação, com diferentes tamanhos, cores e acabamentos, perfeitos para valorizar sua cozinha sem dor de cabeça.",
+    sectionImages: [{
+      img: "https://static.wixstatic.com/media/b98454_1a8e548a57f54a269992f95ea4669a99~mv2.png",
+    },
+    {
+      img: "https://static.wixstatic.com/media/b98454_1a8e548a57f54a269992f95ea4669a99~mv2.png",
+    }]
   },
   {
     title: "Kits para Banheiros",
@@ -40,6 +72,12 @@ const cardsSectionsInfo = [
       "https://static.wixstatic.com/media/b98454_4b36fa14bd7646379fc8eb4635ca050f~mv2.png",
     description:
       "Aqui você encontra pias, armários, assentos sanitários e kits completos para montar ou renovar seu banheiro com facilidade. Tudo combinando, com opções que vão do básico ao moderno — é só escolher e levar!",
+    sectionImages: [{
+      img: "https://static.wixstatic.com/media/b98454_4b36fa14bd7646379fc8eb4635ca050f~mv2.png",
+    },
+    {
+      img: "https://static.wixstatic.com/media/b98454_4b36fa14bd7646379fc8eb4635ca050f~mv2.png",
+    }]
   },
 ];
 
@@ -57,11 +95,8 @@ function createCard(item) {
   cardTitle.textContent = item.title;
   cardHeader.appendChild(cardTitle);
 
-  // Card Image
-  const cardImage = document.createElement("img");
-  cardImage.classList.add("card-image");
-  cardImage.src = item.image;
-  cardImage.alt = item.title;
+  // Card image carousel
+  const {carousel, controlsContainer} = createInnerCarousel(item.sectionImages.map(img => img.img));
 
   // Card Content
   const cardContent = document.createElement("div");
@@ -70,6 +105,9 @@ function createCard(item) {
   const cardDescription = document.createElement("p");
   cardDescription.classList.add("card-description");
   cardDescription.textContent = item.description;
+
+  // Append elements to card content
+  cardContent.appendChild(controlsContainer);
   cardContent.appendChild(cardDescription);
 
   // Card footer
@@ -85,7 +123,7 @@ function createCard(item) {
 
   // Append all elements to the card
   card.appendChild(cardHeader);
-  card.appendChild(cardImage);
+  card.appendChild(carousel);
   card.appendChild(cardContent);
   card.appendChild(cardFooter);
 
@@ -234,7 +272,7 @@ document.addEventListener("DOMContentLoaded", function () {
     startPos = touch.clientX;
     startTime = Date.now(); // Registrar o tempo inicial
     isDragging = true;
-  
+
     animationID = requestAnimationFrame(animation);
     carousel.classList.add("grabbing");
   }
@@ -243,10 +281,10 @@ document.addEventListener("DOMContentLoaded", function () {
     if (isDragging) {
       const touch = event.type === "touchmove" ? event.touches[0] : event;
       const currentPosition = touch.clientX;
-      
+
       // Remover atraso aplicando diretamente a transformação
       currentTranslate = prevTranslate + currentPosition - startPos;
-      
+
       // Adicionar resistência quando tentar arrastar além dos limites
       const { itemWidth, maxIndex } = calculateDimensions();
       if (currentTranslate > 0) {
@@ -255,49 +293,49 @@ document.addEventListener("DOMContentLoaded", function () {
         const overscroll = currentTranslate + itemWidth * maxIndex;
         currentTranslate = -itemWidth * maxIndex + overscroll * 0.3; // Resistência no fim
       }
-      
+
       // Aplicar transformação diretamente sem esperar pela animação
       carousel.style.transform = `translateX(${currentTranslate}px)`;
     }
   }
-  
+
 
   function touchEnd(event) {
     cancelAnimationFrame(animationID);
     isDragging = false;
     endTime = Date.now();
-    
+
     // Calcular velocidade do arraste
     const timeElapsed = endTime - startTime;
     const distance = currentTranslate - prevTranslate;
     dragVelocity = distance / timeElapsed;
-    
+
     // Aplicar inércia baseada na velocidade
     const { itemWidth, maxIndex } = calculateDimensions();
-    
+
     // Adicionar momentum baseado na velocidade
     if (Math.abs(dragVelocity) > 0.5) {
       // Quanto maior a velocidade, maior o deslocamento
       const momentum = Math.min(Math.abs(dragVelocity) * 300, itemWidth * 2) * Math.sign(dragVelocity);
       currentTranslate = prevTranslate + momentum;
     }
-    
+
     // Ajustar para o item mais próximo após o momentum
     const itemPosition = Math.round(currentTranslate / -itemWidth);
     currentIndex = Math.max(0, Math.min(maxIndex, itemPosition));
-    
+
     // Aplicar transição suave
     carousel.style.transition = "transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)";
     currentTranslate = -currentIndex * itemWidth;
     carousel.style.transform = `translateX(${currentTranslate}px)`;
-    
+
     // Restaurar configuração após a animação
     setTimeout(() => {
       carousel.style.transition = "";
       prevTranslate = currentTranslate;
       updateButtonStates();
     }, 400);
-    
+
     carousel.classList.remove("grabbing");
   }
 
