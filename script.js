@@ -292,30 +292,30 @@ const domElements = {
   // Card elements
   card: null,
   cardContent: null,
-  
+
   // Image elements
   cardImageContainer: null,
   cardImage: null,
-  
+
   // Header elements
   cardTitle: null,
   cardSubtitle: null,
   cardDescription: null,
-  
+
   // Categories elements
   cardCategories: null,
-  
+
   // Category elements
   categoryElement: null,
   categoryIconContainer: null,
   categoryIcon: null,
   categoryTitle: null,
-  
+
   // More icon elements
   moreIconContainer: null,
   moreIcon: null,
   moreText: null,
-  
+
   // Button elements
   buttonContainer: null,
 };
@@ -324,52 +324,52 @@ const domElements = {
 function initDomElements() {
   // Usar createDocumentFragment para minimizar reflows
   const fragment = document.createDocumentFragment();
-  
+
   // Card elements
   domElements.card = document.createElement("div");
   domElements.cardContent = document.createElement("div");
-  
+
   // Image elements
   domElements.cardImageContainer = document.createElement("div");
   domElements.cardImage = document.createElement("img");
-  
+
   // Otimizar carregamento de imagens
   domElements.cardImage.loading = "lazy";
   domElements.cardImage.decoding = "async";
-  
+
   // Header elements
   domElements.cardTitle = document.createElement("h2");
   domElements.cardSubtitle = document.createElement("h3");
   domElements.cardDescription = document.createElement("p");
-  
+
   // Categories elements
   domElements.cardCategories = document.createElement("div");
-  
+
   // Category elements
   domElements.categoryElement = document.createElement("div");
   domElements.categoryIconContainer = document.createElement("div");
   domElements.categoryIcon = document.createElement("img");
-  
+
   // Otimizar carregamento de ícones
   domElements.categoryIcon.loading = "lazy";
   domElements.categoryIcon.decoding = "async";
   domElements.categoryIcon.width = 65;
   domElements.categoryIcon.height = 45;
-  
+
   domElements.categoryTitle = document.createElement("span");
-  
+
   // More icon elements
   domElements.moreIconContainer = document.createElement("div");
   domElements.moreIcon = document.createElement("div");
   domElements.moreText = document.createElement("span");
-  
+
   // Button elements
   domElements.buttonContainer = document.createElement("div");
-  
+
   // Pré-criar botões para reutilização
   domElements.button = document.createElement("button");
   domElements.button.classList.add("button");
-  
+
   // Usar IntersectionObserver para lazy loading
   setupLazyLoading();
 }
@@ -399,22 +399,26 @@ function setupLazyLoading() {
 function createButtons() {
   const buttonContainer = domElements.buttonContainer.cloneNode(false);
   buttonContainer.classList.add("button-container");
+
+  const item = this; // 'this' refers to the card item data in this context
   
   // Use DocumentFragment for better performance
   const fragment = document.createDocumentFragment();
-  
-  // Create buttons using array and template literals
-  const buttonsText = ["Ver mais", "Abrir catálogos"];
-  
-  buttonsText.forEach(text => {
-    const button = domElements.button.cloneNode(true);
-    button.innerHTML = `<span>${text}</span>`;
-    fragment.appendChild(button);
-  });
-  
+
+  const verMaisButton = domElements.button.cloneNode(true);
+  verMaisButton.innerHTML = `<span>Ver mais</span>`;
+  fragment.appendChild(verMaisButton);
+
+  // Conditionally add "Abrir catálogo" button for "Revestimentos"
+  if (item.title === "Revestimentos") {
+    const abrirCatalogoButton = domElements.button.cloneNode(true);
+    abrirCatalogoButton.innerHTML = `<span>Abrir catálogo</span>`;
+    fragment.appendChild(abrirCatalogoButton);
+  };
+
   // Append all buttons at once
   buttonContainer.appendChild(fragment);
-  
+
   return buttonContainer;
 }
 
@@ -423,7 +427,7 @@ function createCardImage(item) {
   cardImageContainer.classList.add("card-image-container");
 
   const cardImage = domElements.cardImage.cloneNode(false);
-  
+
   // Usar data-src para lazy loading
   if (domElements.imageObserver) {
     cardImage.dataset.src = item.image;
@@ -432,7 +436,7 @@ function createCardImage(item) {
   } else {
     cardImage.src = item.image;
   }
-  
+
   cardImage.alt = item.title;
   cardImageContainer.appendChild(cardImage);
   return cardImageContainer;
@@ -463,7 +467,7 @@ function createCategory(category) {
 
   const categoryIcon = domElements.categoryIcon.cloneNode(false);
   categoryIcon.classList.add("category-icon-img");
-  
+
   // Usar data-src para lazy loading
   if (domElements.imageObserver) {
     categoryIcon.dataset.src = category.image;
@@ -472,7 +476,7 @@ function createCategory(category) {
   } else {
     categoryIcon.src = category.image;
   }
-  
+
   categoryIcon.alt = category.title;
 
   const categoryTitle = domElements.categoryTitle.cloneNode(false);
@@ -494,7 +498,7 @@ function createMoreIcon() {
   moreIcon.innerHTML = plusButton;
 
   const moreText = domElements.moreText.cloneNode(false);
-  moreText.textContent = "Ver Mais";
+  moreText.textContent = "E mais...";
 
   moreIconContainer.appendChild(moreIcon);
   moreIconContainer.appendChild(moreText);
@@ -511,7 +515,7 @@ function createCardCategories(item) {
   });
 
   cardCategories.appendChild(createMoreIcon());
-  
+
   return cardCategories;
 }
 
@@ -536,7 +540,7 @@ function createCard(item) {
   cardContent.appendChild(createCardCategories(item));
 
   // Buttons
-  cardContent.appendChild(createButtons());
+  cardContent.appendChild(createButtons.call(item)); // Pass item data to createButtons
 
   card.appendChild(cardContent);
 
@@ -546,10 +550,10 @@ function createCard(item) {
 function createCarousel() {
   // Inicializa os elementos DOM antes de criar o carrossel
   initDomElements();
-  
+
   const container = document.querySelector(".carousel-container");
   const carousel = document.querySelector(".carousel");
-  
+
   // Usar DocumentFragment para minimizar reflows
   const fragment = document.createDocumentFragment();
 
@@ -562,10 +566,10 @@ function createCarousel() {
     carouselItem.appendChild(card);
     fragment.appendChild(carouselItem);
   });
-  
+
   // Adicionar todos os itens de uma vez
   carousel.appendChild(fragment);
-  
+
   // Usar requestAnimationFrame para operações visuais
   requestAnimationFrame(() => {
     container.appendChild(carousel);

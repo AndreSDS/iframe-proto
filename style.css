@@ -31,7 +31,7 @@
 }
 
 .carousel-item {
-  min-width: 300px;
+  min-width: 260px;
   max-width: 320px;
   display: flex;
   justify-content: center;
@@ -43,7 +43,7 @@
 .card {
   width: 100%;
   background-color: white;
-  border-radius: 33px;
+  border-radius: 16px;
   overflow: hidden;
   border: 2px solid #0078d7;
   display: flex;
@@ -67,7 +67,7 @@
 }
 
 .card-content {
-  padding: 0 25px 25px;
+  padding: 0 25px 2rem;
   text-align: left;
 }
 
@@ -97,7 +97,7 @@
 .card-categories {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 
 .category {
@@ -115,7 +115,7 @@
 }
 
 .category-icon {
-  max-width: 65px;
+  max-width: 50px;
   max-height: 45px;
   margin-bottom: 7px;
   display: flex;
@@ -125,7 +125,7 @@
 
 .category-icon-img {
   width: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .mais-icon {
@@ -212,20 +212,62 @@
 @media (max-width: 768px) {
   .carousel-container {
     padding: 0 15px;
-    overflow: hidden; /* Ensure overflow is hidden on mobile too */
+    overflow: hidden;
   }
 
   .carousel {
-    gap: 20px; /* Maintain consistent gap on mobile */
+    gap: 0px;
   }
 
   .carousel-item {
     margin-right: 0;
     font-size: 18px;
-    min-width: calc(95% - 15px);
+  }
+
+  .card {
+    max-width: 226px;
+  }
+
+  .card-image-container {
+    margin-bottom: 12px;
+  }
+
+  .card-title {
+    margin-bottom: 6px;
+  }
+
+  .card-subtitle {
+    margin-bottom: 5px;
+  }
+
+  .card-content {
+    padding: 0 16px;
+    padding-bottom: 2rem;
+    text-align: left;
+  }
+
+  .card-title {
+    font-size: 18px;
+  }
+
+  .card-description {
+    font-size: 13px;
+    margin-bottom: 1rem;
+  }
+
+  .category {
+    width: 45px;
+    margin-bottom: 5px;
+    font-size: 10px;
   }
 
   .carousel-control {
     display: none; /* Hide controls on mobile */
   }
+
+  .button-container {
+    margin-top: 12px;
+  }
 }
+
+
