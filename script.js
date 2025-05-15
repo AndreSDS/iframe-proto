@@ -1,7 +1,7 @@
 const cardsItemsInfo = [
   {
     image:
-      "https://static.wixstatic.com/media/b98454_bef3eb37e75844d1bc7b286bd197f2e9~mv2.png",
+      "https://static.wixstatic.com/media/b98454_a764b683732c4edeba1f4928d53c902f~mv2.png",
     title: "Revestimentos",
     subTitle: 'O nosso "carro-chefe"',
     description:
@@ -36,7 +36,7 @@ const cardsItemsInfo = [
   },
   {
     image:
-      "https://static.wixstatic.com/media/b98454_d3479617109645b6a29b3d3d96554c43~mv2.png",
+      "https://static.wixstatic.com/media/b98454_b63a7e9ffe194ce88add907097d95548~mv2.png",
     title: "Materiais Brutos",
     subTitle: "A base de tudo!",
     description:
@@ -71,7 +71,7 @@ const cardsItemsInfo = [
   },
   {
     image:
-      "https://static.wixstatic.com/media/b98454_14094889bf314d2599810a5fa6d99840~mv2.png",
+      "https://static.wixstatic.com/media/b98454_db85f3427c9d4505b0f368d947ed8ab1~mv2.png",
     title: "Pintura",
     subTitle: "Cor e vida nas paredes!",
     description:
@@ -106,7 +106,7 @@ const cardsItemsInfo = [
   },
   {
     image:
-      "https://static.wixstatic.com/media/b98454_a37d55007b4242e7b90434225a40507f~mv2.png",
+      "https://static.wixstatic.com/media/b98454_df97aeb32bd64adbabfc97a1745201d3~mv2.png",
     title: "Ferramentas",
     subTitle: "Sua obra na palma da mão.",
     description:
@@ -141,7 +141,7 @@ const cardsItemsInfo = [
   },
   {
     image:
-      "https://static.wixstatic.com/media/b98454_cfd8ab6bf3864954a50bde95756e77f7~mv2.png",
+      "https://static.wixstatic.com/media/b98454_00cc902ddde54fbf8cfcf7629e567226~mv2.png",
     title: "Hidráulica",
     subTitle: "Do cano à torneira.",
     description:
@@ -176,7 +176,7 @@ const cardsItemsInfo = [
   },
   {
     image:
-      "https://static.wixstatic.com/media/b98454_62634f74a50a4707864b24c86e5641e9~mv2.png",
+      "https://static.wixstatic.com/media/b98454_15c2c0c62a0248da81f34a6fe6200938~mv2.png",
     title: "Iluminação e Elétrica",
     subTitle: "Conforto, segurança e design.",
     description:
@@ -211,7 +211,7 @@ const cardsItemsInfo = [
   },
   {
     image:
-      "https://static.wixstatic.com/media/b98454_763f8e127edd48049b03765337ab007a~mv2.png",
+      "https://static.wixstatic.com/media/b98454_56d54cc1af89438e8d7c94271faa908d~mv2.png",
     title: "Casa e Jardim",
     subTitle: "Detalhes que fazem a casa mais viva.",
     description:
@@ -246,7 +246,7 @@ const cardsItemsInfo = [
   },
   {
     image:
-      "https://static.wixstatic.com/media/b98454_227b60aca1b44a3198c60ec9486dd62e~mv2.png",
+      "https://static.wixstatic.com/media/b98454_5490e575ec564cadade6132bde7be3c3~mv2.png",
     title: "Linha Industrial",
     subTitle: "Você merece seu negócio decolando.",
     description:
