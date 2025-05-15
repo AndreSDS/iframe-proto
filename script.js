@@ -164,7 +164,13 @@ document.addEventListener("DOMContentLoaded", function () {
   let startTime = 0;
   let endTime = 0;
   let dragVelocity = 0;
+  let dragDistance = 0; // Para rastrear a distância do arrasto
+  let hasMoved = false; // Flag para verificar se houve movimento significativo
 
+  // Configurações para melhorar a performance no mobile
+  const DRAG_THRESHOLD = 10; // Pixel mínimo para considerar como arrasto
+  const VELOCITY_THRESHOLD = 0.2; // Velocidade mínima para mudar de slide
+  
   // Check if we're on mobile
   const isMobile = () => window.innerWidth <= 768;
 
@@ -177,7 +183,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const lastItemWidth = lastItem.offsetWidth;
 
     // Calculate the total width of all items
-
     const totalItemsWidth = Array.from(items).reduce((total, item) => {
       const itemStyle = getComputedStyle(item);
       const marginRight = parseInt(itemStyle.marginRight);
@@ -212,7 +217,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const itemWidth = items[0].offsetWidth + gapSize;
     const containerWidth = container.offsetWidth;
 
-    // Rest of the function remains the same
     let visibleItems;
     if (isMobile()) {
       visibleItems = 1;
@@ -249,7 +253,7 @@ document.addEventListener("DOMContentLoaded", function () {
   prevButton.addEventListener("click", () => {
     if (currentIndex > 0) {
       currentIndex--;
-      setPositionByIndex();
+      setPositionByIndex(true);
       updateButtonStates();
     }
   });
@@ -258,94 +262,137 @@ document.addEventListener("DOMContentLoaded", function () {
     const { maxIndex } = calculateDimensions();
     if (currentIndex < maxIndex) {
       currentIndex++;
-      setPositionByIndex();
+      setPositionByIndex(true);
       updateButtonStates();
     }
   });
 
-  // Drag functionality
+  // Otimizar performance no mobile com passive event listeners
+  const passiveSupported = () => {
+    let passive = false;
+    try {
+      const options = Object.defineProperty({}, "passive", {
+        get: function() {
+          passive = true;
+          return true;
+        }
+      });
+      window.addEventListener("test", null, options);
+      window.removeEventListener("test", null, options);
+    } catch (err) {}
+    return passive;
+  };
+
+  const passiveOptions = passiveSupported() ? { passive: true } : false;
+
+  // Melhorar a manipulação de eventos touch
   function touchStart(event) {
+    // Cancelar qualquer animação pendente
+    if (animationID) {
+      cancelAnimationFrame(animationID);
+    }
+    
+    // Resetar o carousel para estado padrão
+    carousel.style.transition = "";
+    
+    const touch = event.type.includes("touch") ? event.touches[0] : event;
+    startPos = touch.clientX;
+    startTime = Date.now();
+    isDragging = true;
+    hasMoved = false;
+    dragDistance = 0;
+    
+    // Armazenar a posição atual antes de iniciar o arrasto
+    prevTranslate = currentTranslate;
+    
+    // Iniciar a animação
+    animationID = requestAnimationFrame(animation);
+    carousel.classList.add("grabbing");
+    
+    // Prevenir o comportamento padrão apenas para eventos de mouse
     if (event.type === "mousedown") {
       event.preventDefault();
     }
-    const touch = event.type === "touchstart" ? event.touches[0] : event;
-    startPos = touch.clientX;
-    startTime = Date.now(); // Registrar o tempo inicial
-    isDragging = true;
-
-    animationID = requestAnimationFrame(animation);
-    carousel.classList.add("grabbing");
   }
 
   function touchMove(event) {
-    if (isDragging) {
-      const touch = event.type === "touchmove" ? event.touches[0] : event;
-      const currentPosition = touch.clientX;
-
-      // Remover atraso aplicando diretamente a transformação
-      currentTranslate = prevTranslate + currentPosition - startPos;
-
-      // Adicionar resistência quando tentar arrastar além dos limites
+    if (!isDragging) return;
+    
+    const touch = event.type.includes("touch") ? event.touches[0] : event;
+    const currentPosition = touch.clientX;
+    const diff = currentPosition - startPos;
+    dragDistance = diff;
+    
+    // Verificar se o movimento é significativo antes de considerar como arrasto
+    if (Math.abs(dragDistance) > DRAG_THRESHOLD) {
+      hasMoved = true;
+      
+      // Atualizar posição com resistência nos limites
       const { itemWidth, maxIndex } = calculateDimensions();
+      currentTranslate = prevTranslate + diff;
+      
+      // Adicionar resistência quando tentar arrastar além dos limites
       if (currentTranslate > 0) {
         currentTranslate = currentTranslate * 0.3; // Resistência no início
       } else if (currentTranslate < -itemWidth * maxIndex) {
         const overscroll = currentTranslate + itemWidth * maxIndex;
         currentTranslate = -itemWidth * maxIndex + overscroll * 0.3; // Resistência no fim
       }
-
-      // Aplicar transformação diretamente sem esperar pela animação
-      carousel.style.transform = `translateX(${currentTranslate}px)`;
+    }
+    
+    // Prevenir scroll da página em dispositivos touch quando arrastar horizontalmente
+    if (hasMoved && event.type === "touchmove" && Math.abs(dragDistance) > Math.abs(touch.clientY - (event.touches[0].clientY || 0))) {
+      event.preventDefault();
     }
   }
 
-
-  function touchEnd(event) {
+  function touchEnd() {
+    if (!isDragging) return;
+    
     cancelAnimationFrame(animationID);
     isDragging = false;
     endTime = Date.now();
-
-    // Calcular velocidade do arraste
-    const timeElapsed = endTime - startTime;
-    const distance = currentTranslate - prevTranslate;
-    dragVelocity = distance / timeElapsed;
-
-    // Aplicar inércia baseada na velocidade
-    const { itemWidth, maxIndex } = calculateDimensions();
-
-    // Adicionar momentum baseado na velocidade
-    if (Math.abs(dragVelocity) > 0.5) {
-      // Quanto maior a velocidade, maior o deslocamento
-      const momentum = Math.min(Math.abs(dragVelocity) * 300, itemWidth * 2) * Math.sign(dragVelocity);
-      currentTranslate = prevTranslate + momentum;
+    
+    // Se não houve movimento significativo, não faça nada
+    if (!hasMoved) {
+      return;
     }
-
-    // Ajustar para o item mais próximo após o momentum
-    const itemPosition = Math.round(currentTranslate / -itemWidth);
-    currentIndex = Math.max(0, Math.min(maxIndex, itemPosition));
-
-    // Aplicar transição suave
-    carousel.style.transition = "transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)";
-    currentTranslate = -currentIndex * itemWidth;
-    carousel.style.transform = `translateX(${currentTranslate}px)`;
-
-    // Restaurar configuração após a animação
+    
+    // Calcular velocidade do arraste
+    const timeElapsed = Math.max(10, endTime - startTime); // Evitar divisão por zero
+    dragVelocity = dragDistance / timeElapsed;
+    
+    const { itemWidth, maxIndex } = calculateDimensions();
+    
+    // Determinar a direção e quanto mover baseado na velocidade e distância
+    if (Math.abs(dragVelocity) > VELOCITY_THRESHOLD || Math.abs(dragDistance) > itemWidth / 3) {
+      // Decidir qual direção baseada na velocidade ou distância de arrasto
+      if (dragDistance < 0) {
+        // Mover para o próximo item
+        currentIndex = Math.min(maxIndex, currentIndex + 1);
+      } else {
+        // Mover para o item anterior
+        currentIndex = Math.max(0, currentIndex - 1);
+      }
+    }
+    
+    // Aplicar transição suave com easing melhorado
+    setPositionByIndex(true);
+    updateButtonStates();
+    
     setTimeout(() => {
-      carousel.style.transition = "";
-      prevTranslate = currentTranslate;
-      updateButtonStates();
-    }, 400);
-
-    carousel.classList.remove("grabbing");
+      carousel.classList.remove("grabbing");
+    }, 50);
   }
 
   function animation() {
-    // Usar requestAnimationFrame para animação mais suave
     setCarouselPosition();
-    if (isDragging) requestAnimationFrame(animation);
+    if (isDragging) {
+      animationID = requestAnimationFrame(animation);
+    }
   }
 
-  function setPositionByIndex() {
+  function setPositionByIndex(animate = false) {
     const { itemWidth, maxIndex } = calculateDimensions();
 
     // Enforce boundaries
@@ -353,13 +400,24 @@ document.addEventListener("DOMContentLoaded", function () {
     if (currentIndex > maxIndex) currentIndex = maxIndex;
 
     currentTranslate = currentIndex * -itemWidth;
+    
+    // Aplicar transição apenas quando solicitado
+    if (animate) {
+      carousel.style.transition = "transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)";
+      setTimeout(() => {
+        carousel.style.transition = "";
+      }, 400);
+    } else {
+      carousel.style.transition = "";
+    }
+    
     prevTranslate = currentTranslate;
     setCarouselPosition();
   }
 
   function setCarouselPosition() {
-    // Aplicar transformação diretamente sem cálculos adicionais durante o arraste
-    carousel.style.transform = `translateX(${currentTranslate}px)`;
+    // Usar transform3d para melhor desempenho (hardware acceleration)
+    carousel.style.transform = `translate3d(${currentTranslate}px, 0, 0)`;
   }
 
   // Special handling for last item
@@ -384,20 +442,30 @@ document.addEventListener("DOMContentLoaded", function () {
       if (lastItemPosition > Math.abs(currentTranslate)) {
         currentTranslate = -lastItemPosition;
         prevTranslate = currentTranslate;
-        carousel.style.transform = `translateX(${currentTranslate}px)`;
+        setCarouselPosition();
       }
     }
   }
 
-  // Add event listeners for both mouse and touch events
+  // Melhorar a gestão de eventos touch
   carousel.addEventListener("mousedown", touchStart);
-  carousel.addEventListener("touchstart", touchStart, { passive: true });
+  carousel.addEventListener("touchstart", touchStart, passiveOptions);
 
+  // Usar apropriadamente passive: false apenas quando necessário
   window.addEventListener("mousemove", touchMove);
-  window.addEventListener("touchmove", touchMove, { passive: true });
+  window.addEventListener("touchmove", touchMove, { 
+    passive: false, 
+    capture: true 
+  });
 
+  // Capturar eventos de fim de arrasto em todo o document para melhor UX
   window.addEventListener("mouseup", touchEnd);
   window.addEventListener("touchend", touchEnd);
+  window.addEventListener("touchcancel", touchEnd);
+  
+  // Adicionar eventos para lidar com casos de saída da tela
+  document.addEventListener("mouseleave", touchEnd);
+  carousel.addEventListener("mouseleave", touchEnd);
 
   // Prevent context menu on long press
   carousel.addEventListener("contextmenu", (e) => {
@@ -410,22 +478,26 @@ document.addEventListener("DOMContentLoaded", function () {
     img.addEventListener("dragstart", (e) => e.preventDefault());
   });
 
-  // Handle resize
+  // Handle resize - usar debounce para melhor performance
+  let resizeTimer;
   window.addEventListener("resize", () => {
-    ensureLastItemVisibility();
-    const { maxIndex } = calculateDimensions();
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      ensureLastItemVisibility();
+      const { maxIndex } = calculateDimensions();
 
-    // If the current index is now out of bounds, adjust it
-    if (currentIndex > maxIndex) {
-      currentIndex = maxIndex;
-    }
+      // If the current index is now out of bounds, adjust it
+      if (currentIndex > maxIndex) {
+        currentIndex = maxIndex;
+      }
 
-    setPositionByIndex();
-    updateButtonStates();
+      setPositionByIndex();
+      updateButtonStates();
 
-    if (!isMobile()) {
-      handleLastItemVisibility();
-    }
+      if (!isMobile()) {
+        handleLastItemVisibility();
+      }
+    }, 100);
   });
 
   // Initial positioning
