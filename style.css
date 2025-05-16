@@ -228,8 +228,8 @@
   }
 
   .card-content {
-    padding: 0 16px;
-    padding-bottom: 2rem;
+    padding: 0 1rem;
+    padding-bottom: 1rem;
     text-align: left;
   }
 
@@ -241,7 +241,18 @@
   .category {
     width: 45px;
     margin-bottom: 5px;
-    font-size: 10px;
+    font-size: 0.55rem;
+  }
+
+  .category-icon {
+    max-width: 40px;
+    max-height: 35px;
+  }
+
+  .button {
+    padding: 7px 16px;
+    border: none;
+    font-size: 14px;
   }
 
   .button-container {
