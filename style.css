@@ -7,52 +7,117 @@
   font-family: "Poppins", sans-serif;
 }
 
-main {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  background-color: #f5f5f5;
-  height: 100vh;
-}
-
-main div.teste {
-  height: 100vh;
-  width: 100%;
-  background: orange;
-}
-
-.carousel-container {
+.inner-carousel {
   position: relative;
-  width: 100%;
-  margin: 0 auto;
   overflow: hidden;
+  width: 100%;
+  max-height: 192px;
 }
 
-.carousel {
+.inner-carousel-container {
   display: flex;
-  align-items: flex-start;
-  cursor: grab;
-  gap: 40px;
-  padding-right: 0;
-  transition: transform 0.3s ease;
-}
-
-.carousel:active {
-  cursor: grabbing;
-  transition: none;
+  transition: transform 0.5s ease;
 }
 
 .carousel-item {
-  min-width: 352px;
-  height: 600px;
+  min-width: 100%;
+  max-height: 192px;
+}
+
+.carousel-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.controls-container {
+  position: absolute;
+  top: 175px;
+  left: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1rem 0;
+}
+
+.carousel-button {
+  background-color: rgba(255, 255, 255, 0.7);
+  color: #333;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  z-index: 10;
+}
+
+.carousel-button:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.prev svg,
+.next svg {
+  stroke: #0078d7;
+  height: 34px;
+  width: 34px;
+}
+
+.carousel-dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.carousel-dot {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.4);
+  border: none;
+  transition: width 0.5s, height 0.5s, background-color 0.5s;
+  cursor: pointer;
+}
+
+.carousel-dot.active {
+  background-color: white;
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.container {
+  margin: 0 auto;
+  height: 100%;
+  padding: 0 15px;
+  overflow: hidden;
+  max-width: 1200px;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.swiper-slide {
+  max-width: 352px;
+  min-height: 600px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 24px;
   color: #333;
   user-select: none;
+}
+
+.swiper-slide-last,
+.swiper-slide:last-child {
+  margin-right: 0 !important;
 }
 
 .carousel-item:last-child {
@@ -98,8 +163,8 @@ main div.teste {
 
 .card {
   width: 100%;
-  max-width: 375px;
-  height: 100%;
+  max-width: 100%;
+  min-height: 600px;
   background-color: #3687c3;
   overflow: hidden;
   color: white;
@@ -175,21 +240,16 @@ main div.teste {
   bottom: 0;
 }
 
-@media (max-width: 768px) {
-  .carousel {
-    gap: 20px;
-    transition: transform 0.2s ease;
-    padding-left: 16px;
-  }
-
-  .carousel-item {
+@media (max-width: 480px) {
+  .swiper-slide {
+    min-width: calc(90% - 1rem);
+    max-width: calc(90% - 1rem);
     font-size: 16px;
-    min-width: calc(95% - 10px);
-    height: 620px;
   }
 
   .card {
-    max-width: 100%;
+    width: 100%;
+    height: 620px;
   }
 
   .card-header {
@@ -211,7 +271,16 @@ main div.teste {
   }
 
   .card-description {
-    font-size: 14px;
+    font-size: 13px;
+  }
+
+  .carousel-item {
+    min-width: 352px;
+    max-height: 192px;
+  }
+
+  .controls-container {
+    position: inherit;
   }
 
   .carousel-control {
