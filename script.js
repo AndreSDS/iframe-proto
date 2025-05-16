@@ -1,3 +1,5 @@
+import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs'
+
 const cardsItemsInfo = [
   {
     image:
@@ -322,9 +324,6 @@ const domElements = {
 
 // Inicializa os elementos DOM uma vez
 function initDomElements() {
-  // Usar createDocumentFragment para minimizar reflows
-  const fragment = document.createDocumentFragment();
-
   // Card elements
   domElements.card = document.createElement("div");
   domElements.cardContent = document.createElement("div");
@@ -401,7 +400,7 @@ function createButtons() {
   buttonContainer.classList.add("button-container");
 
   const item = this; // 'this' refers to the card item data in this context
-  
+
   // Use DocumentFragment for better performance
   const fragment = document.createDocumentFragment();
 
@@ -551,8 +550,7 @@ function createCarousel() {
   // Inicializa os elementos DOM antes de criar o carrossel
   initDomElements();
 
-  const container = document.querySelector(".carousel-container");
-  const carousel = document.querySelector(".carousel");
+  const carousel = document.querySelector(".swiper-wrapper");
 
   // Usar DocumentFragment para minimizar reflows
   const fragment = document.createDocumentFragment();
@@ -560,7 +558,7 @@ function createCarousel() {
   // Criar todos os itens de uma vez
   cardsItemsInfo.forEach((item) => {
     const carouselItem = document.createElement("div");
-    carouselItem.classList.add("carousel-item");
+    carouselItem.classList.add("swiper-slide");
 
     const card = createCard(item);
     carouselItem.appendChild(card);
@@ -569,320 +567,36 @@ function createCarousel() {
 
   // Adicionar todos os itens de uma vez
   carousel.appendChild(fragment);
-
-  // Usar requestAnimationFrame para operações visuais
-  requestAnimationFrame(() => {
-    container.appendChild(carousel);
-  });
-
-  return { container, carousel };
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  const prevButton = document.querySelector(".carousel-control-prev");
-  const nextButton = document.querySelector(".carousel-control-next");
+  createCarousel();
 
-  const { container, carousel } = createCarousel();
-
-  // Variables
-  let isDragging = false;
-  let startPos = 0;
-  let currentTranslate = 0;
-  let prevTranslate = 0;
-  let animationID = 0;
-  let currentIndex = 0;
-
-  // Check if we're on mobile
-  const isMobile = () => window.innerWidth <= 768;
-
-  // Ensure last item is fully visible by adding padding to the carousel
-  const items = document.querySelectorAll(".carousel-item");
-
-  function ensureLastItemVisibility() {
-    const containerWidth = container.offsetWidth;
-    const lastItem = items[items.length - 1];
-    const lastItemWidth = lastItem.offsetWidth;
-    const gap = parseInt(getComputedStyle(carousel).gap) || 20;
-
-    // Calculate the total width of all items
-    const totalItemsWidth = Array.from(items).reduce((total, item) => {
-      const itemStyle = getComputedStyle(item);
-      const marginRight = parseInt(itemStyle.marginRight) || 0;
-      return total + item.offsetWidth + marginRight;
-    }, 0);
-
-    // Add padding to ensure the last item is fully visible
-    const extraPadding =
-      containerWidth - (totalItemsWidth - lastItemWidth - gap);
-
-    // Only add positive padding
-    if (extraPadding > 0) {
-      carousel.style.paddingRight = extraPadding + "px";
-    }
-  }
-
-  // Call this function initially and on resize
-  ensureLastItemVisibility();
-
-  // Function to calculate item width and max items dynamically
-  function calculateDimensions() {
-    // Get computed style to account for margin
-    const firstItemStyle = getComputedStyle(items[0]);
-    const marginRight = parseInt(firstItemStyle.marginRight) || 0;
-    const gap = parseInt(getComputedStyle(carousel).gap) || 20;
-
-    const itemWidth = items[0].offsetWidth + marginRight + gap;
-    const containerWidth = container.offsetWidth;
-
-    // For mobile, we show part of the next item as a visual cue
-    let visibleItems;
-    if (isMobile()) {
-      visibleItems = 1;
-    } else {
-      // Calculate how many whole items fit in the container
-      visibleItems = Math.floor(containerWidth / itemWidth);
-    }
-
-    // Calculate the max index considering the full visibility of the last item
-    const maxIndex = Math.max(0, items.length - visibleItems);
-
-    return { itemWidth, maxIndex, containerWidth, visibleItems };
-  }
-
-  let { itemWidth, maxIndex } = calculateDimensions();
-
-  // Update button states
-  function updateButtonStates() {
-    if (currentIndex <= 0) {
-      prevButton.classList.add("disabled");
-    } else {
-      prevButton.classList.remove("disabled");
-    }
-
-    if (currentIndex >= maxIndex) {
-      nextButton.classList.add("disabled");
-    } else {
-      nextButton.classList.remove("disabled");
-    }
-  }
-
-  // Initialize buttons
-  updateButtonStates();
-
-  // Button controls
-  prevButton.addEventListener("click", () => {
-    if (currentIndex > 0) {
-      currentIndex--;
-      setPositionByIndex();
-      updateButtonStates();
-    }
+  // Swiper: Slider
+  new Swiper('.swiper', {
+    // Optional parameters
+    direction: 'horizontal',
+    grabCursor: true,
+    loop: false,
+    slidesPerView: 'auto',
+    spaceBetween: 20,
+    // Navigation arrows
+    navigation: {
+      nextEl: "carousel-control-next",
+      prevEl: "carousel-control-prev",
+    },
   });
 
-  nextButton.addEventListener("click", () => {
-    const { maxIndex } = calculateDimensions();
-    if (currentIndex < maxIndex) {
-      currentIndex++;
-      setPositionByIndex();
-      updateButtonStates();
-    }
+  const buttonNext = document.querySelector(".carousel-control-next");
+  const buttonPrev = document.querySelector(".carousel-control-prev");
+
+  buttonNext.addEventListener("click", function () {
+    const swiper = document.querySelector(".swiper");
+    swiper.swiper.slideNext();
   });
 
-  // Drag functionality
-  function touchStart(event) {
-    if (event.type === "mousedown") {
-      event.preventDefault();
-    }
-    const touch = event.type === "touchstart" ? event.touches[0] : event;
-    startPos = touch.clientX;
-    isDragging = true;
-    startTime = Date.now(); // Registrar o tempo inicial do toque
-
-    animationID = requestAnimationFrame(animation);
-    carousel.classList.add("grabbing");
-  }
-
-  function touchMove(event) {
-    if (isDragging) {
-      const touch = event.type === "touchmove" ? event.touches[0] : event;
-      const currentPosition = touch.clientX;
-
-      // Calculate distance moved
-      currentTranslate = prevTranslate + currentPosition - startPos;
-    }
-  }
-
-  function touchEnd() {
-    cancelAnimationFrame(animationID);
-    isDragging = false;
-    const endTime = Date.now();
-    const timeElapsed = endTime - startTime;
-
-    // Calcular a velocidade do movimento (pixels por milissegundo)
-    const moveDistance = currentTranslate - prevTranslate;
-    const velocity = moveDistance / timeElapsed;
-
-    // Aplicar momentum se a velocidade for significativa
-    if (Math.abs(velocity) > 0.5) {
-      // Determinar a direção e quantidade de itens a mover com base na velocidade
-      const direction = velocity < 0 ? 1 : -1;
-      const moveItems = Math.min(3, Math.floor(Math.abs(velocity) * 3));
-
-      // Atualizar o índice com base na velocidade
-      currentIndex = Math.max(
-        0,
-        Math.min(maxIndex, currentIndex + direction * moveItems)
-      );
-
-      // Animar com easing para dar sensação de momentum
-      animateWithMomentum();
-    } else {
-      // Comportamento padrão para movimentos lentos
-      // Armazena a posição atual como a posição anterior
-      prevTranslate = currentTranslate;
-
-      // Verifica limites para não ultrapassar o primeiro ou último item
-      const { itemWidth, maxIndex } = calculateDimensions();
-      if (currentTranslate > 0) {
-        currentTranslate = 0;
-        prevTranslate = 0;
-      } else if (currentTranslate < -itemWidth * maxIndex) {
-        currentTranslate = -itemWidth * maxIndex;
-        prevTranslate = -itemWidth * maxIndex;
-      }
-
-      // Atualiza o índice atual com base na posição
-      currentIndex = Math.round(Math.abs(currentTranslate) / itemWidth);
-      setPositionByIndex();
-    }
-
-    // Atualiza o estado dos botões
-    updateButtonStates();
-    carousel.classList.remove("grabbing");
-  }
-
-  function animateWithMomentum() {
-    const { itemWidth } = calculateDimensions();
-    const targetTranslate = currentIndex * -itemWidth;
-
-    // Usar uma animação com easing para simular momentum
-    const startTranslate = currentTranslate;
-    const distance = targetTranslate - startTranslate;
-    const startTime = Date.now();
-    const duration = 500; // Duração da animação em ms
-
-    function momentumAnimation() {
-      const elapsed = Date.now() - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-
-      // Função de easing (ease-out cúbico)
-      const easeOut = 1 - Math.pow(1 - progress, 3);
-
-      currentTranslate = startTranslate + distance * easeOut;
-      setCarouselPosition();
-
-      if (progress < 1) {
-        requestAnimationFrame(momentumAnimation);
-      } else {
-        // Finalizar a animação
-        currentTranslate = targetTranslate;
-        prevTranslate = currentTranslate;
-        setCarouselPosition();
-      }
-    }
-
-    requestAnimationFrame(momentumAnimation);
-  }
-
-  function animation() {
-    setCarouselPosition();
-    if (isDragging) requestAnimationFrame(animation);
-  }
-
-  function setPositionByIndex() {
-    const { itemWidth, maxIndex } = calculateDimensions();
-
-    // Enforce boundaries
-    if (currentIndex < 0) currentIndex = 0;
-    if (currentIndex > maxIndex) currentIndex = maxIndex;
-
-    currentTranslate = currentIndex * -itemWidth;
-    prevTranslate = currentTranslate;
-    setCarouselPosition();
-  }
-
-  function setCarouselPosition() {
-    carousel.style.transform = `translateX(${currentTranslate}px)`;
-  }
-
-  // Special handling for last item
-  function handleLastItemVisibility() {
-    const { maxIndex } = calculateDimensions();
-    if (currentIndex === maxIndex) {
-      // If we're at the last index, make sure the last item is fully visible
-      const lastItem = items[items.length - 1];
-      const containerWidth = container.offsetWidth;
-      const totalItemsWidth = Array.from(items).reduce((total, item) => {
-        return (
-          total +
-          item.offsetWidth +
-          parseInt(getComputedStyle(item).marginRight)
-        );
-      }, 0);
-
-      // Calculate the position needed to show the last item fully
-      const lastItemPosition = totalItemsWidth - containerWidth;
-
-      // Only adjust if we need to show more of the last item
-      if (lastItemPosition > Math.abs(currentTranslate)) {
-        currentTranslate = -lastItemPosition;
-        prevTranslate = currentTranslate;
-        carousel.style.transform = `translateX(${currentTranslate}px)`;
-      }
-    }
-  }
-
-  // Add event listeners for both mouse and touch events
-  carousel.addEventListener("mousedown", touchStart);
-  carousel.addEventListener("touchstart", touchStart, { passive: true });
-
-  window.addEventListener("mousemove", touchMove);
-  window.addEventListener("touchmove", touchMove, { passive: true });
-
-  window.addEventListener("mouseup", touchEnd);
-  window.addEventListener("touchend", touchEnd);
-
-  // Prevent context menu on long press
-  carousel.addEventListener("contextmenu", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+  buttonPrev.addEventListener("click", function () {
+    const swiper = document.querySelector(".swiper");
+    swiper.swiper.slidePrev();
   });
-
-  // Prevent dragging images, which can interfere with carousel dragging
-  carousel.querySelectorAll("img").forEach((img) => {
-    img.addEventListener("dragstart", (e) => e.preventDefault());
-  });
-
-  // Handle resize
-  window.addEventListener("resize", () => {
-    ensureLastItemVisibility();
-    const { maxIndex } = calculateDimensions();
-
-    // If the current index is now out of bounds, adjust it
-    if (currentIndex > maxIndex) {
-      currentIndex = maxIndex;
-    }
-
-    setPositionByIndex();
-    updateButtonStates();
-
-    if (!isMobile()) {
-      handleLastItemVisibility();
-    }
-  });
-
-  // Initial positioning
-  setPositionByIndex();
-  if (!isMobile()) {
-    handleLastItemVisibility();
-  }
 });
