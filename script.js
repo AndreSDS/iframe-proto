@@ -21,7 +21,7 @@ const cardsItemsInfo = [
       },
       {
         image:
-          "https://static.wixstatic.com/media/b98454_f331b886655b4044af9978f30f9396bc~mv2.png",
+          "https://wixstatic.com/media/b98454_f331b886655b4044af9978f30f9396bc~mv2.png",
         title: "Vinílicos",
       },
       {
@@ -289,7 +289,6 @@ const plusButton = `<svg preserveAspectRatio="none" data-bbox="20.5 20.5 159 159
     </g>
 </svg>`;
 
-// Cache de elementos DOM
 const domElements = {
   // Card elements
   card: null,
@@ -322,7 +321,6 @@ const domElements = {
   buttonContainer: null,
 };
 
-// Inicializa os elementos DOM uma vez
 function initDomElements() {
   // Card elements
   domElements.card = document.createElement("div");
@@ -373,7 +371,6 @@ function initDomElements() {
   setupLazyLoading();
 }
 
-// Configurar lazy loading para imagens
 function setupLazyLoading() {
   // Verificar se IntersectionObserver é suportado
   if ('IntersectionObserver' in window) {
@@ -399,65 +396,61 @@ function createButtons() {
   const buttonContainer = domElements.buttonContainer.cloneNode(false);
   buttonContainer.classList.add("button-container");
 
-  const item = this; // 'this' refers to the card item data in this context
+  const item = this;
 
-  // Use DocumentFragment for better performance
   const fragment = document.createDocumentFragment();
 
   const verMaisButton = domElements.button.cloneNode(true);
   verMaisButton.innerHTML = `<span>Ver mais</span>`;
   fragment.appendChild(verMaisButton);
 
-  // Conditionally add "Abrir catálogo" button for "Revestimentos"
   if (item.title === "Revestimentos") {
     const abrirCatalogoButton = domElements.button.cloneNode(true);
     abrirCatalogoButton.innerHTML = `<span>Abrir catálogo</span>`;
     fragment.appendChild(abrirCatalogoButton);
   };
 
-  // Append all buttons at once
   buttonContainer.appendChild(fragment);
 
   return buttonContainer;
 }
 
-function createCardImage(item) {
+function createCardImage(imageUrl, title) {
   const cardImageContainer = domElements.cardImageContainer.cloneNode(false);
   cardImageContainer.classList.add("card-image-container");
 
   const cardImage = domElements.cardImage.cloneNode(false);
 
-  // Usar data-src para lazy loading
   if (domElements.imageObserver) {
-    cardImage.dataset.src = item.image;
-    cardImage.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"; // Placeholder transparente
+    cardImage.dataset.src = imageUrl;
+    cardImage.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E";
     domElements.imageObserver.observe(cardImage);
   } else {
-    cardImage.src = item.image;
+    cardImage.src = imageUrl;
   }
 
-  cardImage.alt = item.title;
+  cardImage.alt = title;
   cardImageContainer.appendChild(cardImage);
   return cardImageContainer;
 }
 
-function createCardHeader(item) {
+function createCardHeader(title, subtitle, description) {
   const cardTitle = domElements.cardTitle.cloneNode(false);
   cardTitle.classList.add("card-title");
-  cardTitle.textContent = item.title;
+  cardTitle.textContent = title;
 
   const cardSubtitle = domElements.cardSubtitle.cloneNode(false);
   cardSubtitle.classList.add("card-subtitle");
-  cardSubtitle.textContent = item.subTitle;
+  cardSubtitle.textContent = subtitle;
 
   const cardDescription = domElements.cardDescription.cloneNode(false);
   cardDescription.classList.add("card-description");
-  cardDescription.textContent = item.description;
+  cardDescription.textContent = description;
 
   return { cardTitle, cardSubtitle, cardDescription };
 }
 
-function createCategory(category) {
+function createCategory(src, title) {
   const categoryElement = domElements.categoryElement.cloneNode(false);
   categoryElement.classList.add("category");
 
@@ -467,19 +460,18 @@ function createCategory(category) {
   const categoryIcon = domElements.categoryIcon.cloneNode(false);
   categoryIcon.classList.add("category-icon-img");
 
-  // Usar data-src para lazy loading
   if (domElements.imageObserver) {
-    categoryIcon.dataset.src = category.image;
-    categoryIcon.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"; // Placeholder transparente
+    categoryIcon.dataset.src = src;
+    categoryIcon.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E";
     domElements.imageObserver.observe(categoryIcon);
   } else {
-    categoryIcon.src = category.image;
+    categoryIcon.src = src;
   }
 
-  categoryIcon.alt = category.title;
+  categoryIcon.alt = title;
 
   const categoryTitle = domElements.categoryTitle.cloneNode(false);
-  categoryTitle.textContent = category.title;
+  categoryTitle.textContent = title;
 
   categoryIconContainer.appendChild(categoryIcon);
   categoryElement.appendChild(categoryIconContainer);
@@ -505,12 +497,31 @@ function createMoreIcon() {
   return moreIconContainer;
 }
 
-function createCardCategories(item) {
+function convertWixImageUrl(wixImageUrl) {
+  const baseUrl = "https://static.wixstatic.com/media/";
+  // Regex to capture the part between v1/ and the next / or #
+  const regex = /v1\/(.*?)(?:#|\/|$)/;
+  const match = wixImageUrl.match(regex);
+
+  if (match && match[1]) {
+    const imageIdentifier = match[1];
+    return baseUrl + imageIdentifier;
+  } else {
+    console.error("Could not extract image identifier from Wix URL:", wixImageUrl);
+    return null;
+  }
+}
+
+function createCardCategories(categoryIcons) {
   const cardCategories = domElements.cardCategories.cloneNode(false);
   cardCategories.classList.add("card-categories");
 
-  item.categories.forEach((category) => {
-    cardCategories.appendChild(createCategory(category));
+  let categoryElement;
+  let src;
+  categoryIcons.forEach((category) => {
+    src = convertWixImageUrl(category.src)
+    categoryElement = createCategory(src, category.title);
+    cardCategories.appendChild(categoryElement);
   });
 
   cardCategories.appendChild(createMoreIcon());
@@ -522,41 +533,33 @@ function createCard(item) {
   const card = domElements.card.cloneNode(false);
   card.classList.add("card");
 
-  // Card Image
-  card.appendChild(createCardImage(item));
+  card.appendChild(createCardImage(item.image, item.title));
 
-  // Card Content
   const cardContent = domElements.cardContent.cloneNode(false);
   cardContent.classList.add("card-content");
 
-  // Card Header
-  const { cardTitle, cardSubtitle, cardDescription } = createCardHeader(item);
+  const { cardTitle, cardSubtitle, cardDescription } = createCardHeader(item.title, item.subtitle, item.description);
   cardContent.appendChild(cardTitle);
   cardContent.appendChild(cardSubtitle);
   cardContent.appendChild(cardDescription);
 
-  // Card Categories
-  cardContent.appendChild(createCardCategories(item));
+  cardContent.appendChild(createCardCategories(item.categoryIcons));
 
-  // Buttons
-  cardContent.appendChild(createButtons.call(item)); // Pass item data to createButtons
+  cardContent.appendChild(createButtons.call(item));
 
   card.appendChild(cardContent);
 
   return card;
 }
 
-function createCarousel() {
-  // Inicializa os elementos DOM antes de criar o carrossel
+function createCarousel(carouselItens) {
   initDomElements();
 
   const carousel = document.querySelector(".swiper-wrapper");
 
-  // Usar DocumentFragment para minimizar reflows
   const fragment = document.createDocumentFragment();
 
-  // Criar todos os itens de uma vez
-  cardsItemsInfo.forEach((item) => {
+  carouselItens.forEach((item) => {
     const carouselItem = document.createElement("div");
     carouselItem.classList.add("swiper-slide");
 
@@ -565,22 +568,31 @@ function createCarousel() {
     fragment.appendChild(carouselItem);
   });
 
-  // Adicionar todos os itens de uma vez
   carousel.appendChild(fragment);
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  createCarousel();
+window.onload = function () {
+  window.parent.postMessage('iframeReady', '*');
 
-  // Swiper: Slider
+  window.addEventListener('message', (event) => {
+    const dadosRecebidos = event.data;
+    if (Array.isArray(dadosRecebidos) && !dadosRecebidos.error) {
+      createCarousel(dadosRecebidos);
+    } else if (dadosRecebidos && dadosRecebidos.error) {
+      console.error("Erro recebido do site pai:", dadosRecebidos.error);
+    } else {
+      console.warn("Dados inesperados recebidos do site pai:", dadosRecebidos);
+    }
+  });
+};
+
+document.addEventListener("DOMContentLoaded", function () {
   new Swiper('.swiper', {
-    // Optional parameters
     direction: 'horizontal',
     grabCursor: true,
     loop: false,
     slidesPerView: 'auto',
     spaceBetween: 20,
-    // Navigation arrows
     navigation: {
       nextEl: "carousel-control-next",
       prevEl: "carousel-control-prev",
