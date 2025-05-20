@@ -410,6 +410,13 @@ function createButtons() {
     fragment.appendChild(abrirCatalogoButton);
   };
 
+  verMaisButton.addEventListener("click", function () {
+    window.parent.postMessage({
+      type: 'navigateToCategoryPage', // A type to identify your message
+      url: item.linkCategoryPage
+    }, '*'); // '*' allows communication with any origin, replace with Wix site origin for more security
+  });
+
   buttonContainer.appendChild(fragment);
 
   return buttonContainer;
