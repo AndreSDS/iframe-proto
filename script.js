@@ -579,9 +579,11 @@ function createCarousel(carouselItens) {
 }
 
 window.onload = function () {
-  window.parent.postMessage('iframeReady', '*');
+  window.parent.postMessage('iframeReady', window.location.origin);
 
   window.addEventListener('message', (event) => {
+    message = event;
+
     const dadosRecebidos = event.data;
     if (Array.isArray(dadosRecebidos) && !dadosRecebidos.error) {
       createCarousel(dadosRecebidos);
@@ -604,6 +606,7 @@ document.addEventListener("DOMContentLoaded", function () {
       nextEl: "carousel-control-next",
       prevEl: "carousel-control-prev",
     },
+    
   });
 
   const buttonNext = document.querySelector(".carousel-control-next");
