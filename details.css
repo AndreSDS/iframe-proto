@@ -1,0 +1,82 @@
+/* General styling for the section */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+::before,
+::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    background-color: #fff;
+    /* Assuming a white background based on the image */
+    margin: 0 auto;
+}
+
+/* Container for the icons and labels */
+.icons-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    /* Space between icons */
+}
+
+/* Styling for each individual icon item */
+.icon-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    /* Adjust size as needed */
+    height: 60px;
+    /* Adjust size as needed */
+    border-radius: 50%;
+    background-color: #023A5C;
+    /* Grey color for most icons */
+}
+
+/* Styling for the labels below the icons */
+.icon-item label {
+    font-size: 12px;
+    /* Adjust font size as needed */
+    color: white;
+    /* Dark grey color for text */
+}
+
+/* Styling for the button */
+.contact-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 47px;
+    width: 285px;
+    min-width: 220px;
+    background-color: #023A5C;
+    /* Dark blue color */
+    color: #fff;
+    border: none;
+    border-radius: 15px;
+    font-size: 18px;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.contact-button:hover {
+    opacity: 0.6;
+    /* Slightly darker blue on hover */
+}

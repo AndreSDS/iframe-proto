@@ -237,7 +237,7 @@ function createCard(item) {
   card.appendChild(cardHeader);
   card.appendChild(carousel);
   card.appendChild(cardContent);
-  card.appendChild(cardFooter);
+  //card.appendChild(cardFooter);
 
   return card;
 }
