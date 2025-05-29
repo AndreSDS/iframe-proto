@@ -260,6 +260,23 @@ function createCarousel() {
   carousel.appendChild(fragment);
 }
 
+window.onload = function () {
+  window.parent.postMessage('iframeReady', window.location.origin);
+
+  window.addEventListener('message', (event) => {
+    message = event;
+
+    const dadosRecebidos = event.data;
+    if (Array.isArray(dadosRecebidos) && !dadosRecebidos.error) {
+      createCarousel(dadosRecebidos);
+    } else if (dadosRecebidos && dadosRecebidos.error) {
+      console.error("Erro recebido do site pai:", dadosRecebidos.error);
+    } else {
+      console.warn("Dados inesperados recebidos do site pai:", dadosRecebidos);
+    }
+  });
+};
+
 document.addEventListener("DOMContentLoaded", function () {
   createCarousel();
   

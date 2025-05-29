@@ -14,45 +14,71 @@
 
 body {
     font-family: "Poppins", sans-serif;
+
+    /* estilos somente para teste local*/
+    height: 100vh;
 }
+
+/* estilos somente para teste local*/
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin: 0 auto;
+}
+
+/* estilos somente para teste local*/
 
 .container {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    gap: 20px;
+    gap: 80px;
     background-color: #fff;
-    /* Assuming a white background based on the image */
     margin: 0 auto;
+    padding-top: 1.75rem;
+
+    /* estilos somente para teste local*/
+    box-shadow: 0px -5px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Container for the icons and labels */
 .icons-container {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 1.25rem;
     /* Space between icons */
 }
 
 /* Styling for each individual icon item */
 .icon-item {
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 60px;
-    /* Adjust size as needed */
-    height: 60px;
-    /* Adjust size as needed */
+    width: 47px;
+    height: 47px;
     border-radius: 50%;
+    background-color: #a6a6a6;
+}
+
+.icon-item.active {
     background-color: #023A5C;
-    /* Grey color for most icons */
+}
+
+.icon-item img {
+    width: 25px;
+    height: 25px;
 }
 
 /* Styling for the labels below the icons */
-.icon-item label {
-    font-size: 12px;
+.icon-item span {
+    font-size: 11px;
     /* Adjust font size as needed */
-    color: white;
+    color: #a6a6a6;
+    font-weight: 600;
     /* Dark grey color for text */
 }
 
@@ -61,14 +87,13 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 47px;
-    width: 285px;
+    height: 50px;
+    width: 240px;
     min-width: 220px;
     background-color: #023A5C;
-    /* Dark blue color */
     color: #fff;
     border: none;
-    border-radius: 15px;
+    border-radius: 12px;
     font-size: 18px;
     letter-spacing: 0.1em;
     cursor: pointer;
