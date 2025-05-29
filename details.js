@@ -48,17 +48,15 @@ function convertWixImageUrl(wixImageUrl) {
 }
 
 function createIconElements(icons) {
-    const currentLocation = window.location.href;
     let html = ``;
     if (icons && icons.length > 0) {
         html += `<div class="icons-container">`;
         icons.forEach(icon => {
             const imageUrl = convertWixImageUrl(icon.menuIcon);
-            const activeClass = currentLocation.includes(icon.pageUrl) ? 'active' : '';
-
             html += `
-              <div class="icon-item ${activeClass}">
-                <img src="${imageUrl}" alt="${icon.menuTitle}">
+                <div class="icon-item">
+                    <img src="${imageUrl}" alt="${icon.menuTitle}">
+                <div class="icon-tooltip">${icon.menuTitle}</div>
               </div>`;
         });
         html += `</div>`;
@@ -94,6 +92,25 @@ function setupIcons(iconsData, urlSlug) {
 
             if (icon.pageUrl) {
                 window.parent.postMessage({ type: 'pageUrl', url: icon.pageUrl }, "*");
+            }
+        });
+
+        // Add mouseover event listener for tooltip
+        item.addEventListener('mouseover', function () {
+            const tooltip = this.querySelector('.icon-tooltip');
+            if (tooltip) {
+                console.log('tooltip', tooltip)
+                tooltip.style.visibility = 'visible';
+                tooltip.style.opacity = '1';
+            }
+        });
+
+        // Add mouseout event listener for tooltip
+        item.addEventListener('mouseout', function () {
+            const tooltip = this.querySelector('.icon-tooltip');
+            if (tooltip) {
+                tooltip.style.visibility = 'hidden';
+                tooltip.style.opacity = '0';
             }
         });
 

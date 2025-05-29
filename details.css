@@ -17,6 +17,8 @@ body {
 
     /* estilos somente para teste local*/
     height: 100vh;
+    width: 100vw;
+    padding-top: 1rem;
 }
 
 /* estilos somente para teste local*/
@@ -33,15 +35,16 @@ main {
 
 .container {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
     gap: 80px;
     background-color: #fff;
     margin: 0 auto;
+    margin-top: 0px;
+    height: 80%;
     padding-top: 1.75rem;
-
-    /* estilos somente para teste local*/
-    box-shadow: 0px -5px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2);
+    margin-top: 1.6rem;
 }
 
 /* Container for the icons and labels */
@@ -54,6 +57,7 @@ main {
 
 /* Styling for each individual icon item */
 .icon-item {
+    position: relative;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -71,15 +75,6 @@ main {
 .icon-item img {
     width: 25px;
     height: 25px;
-}
-
-/* Styling for the labels below the icons */
-.icon-item span {
-    font-size: 11px;
-    /* Adjust font size as needed */
-    color: #a6a6a6;
-    font-weight: 600;
-    /* Dark grey color for text */
 }
 
 /* Styling for the button */
@@ -104,4 +99,50 @@ main {
 .contact-button:hover {
     opacity: 0.6;
     /* Slightly darker blue on hover */
+}
+
+.icon-tooltip {
+    visibility: hidden;
+    width: 120px;
+    white-space: nowrap;
+    background-color: #a6a6a6;
+    color: #fff;
+    text-align: center;
+    border-radius: 20px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    padding: 5px 12px;
+    min-width: max-content;
+    bottom: calc(100% + 10px);
+    /* Position the tooltip above the icon with spacing */
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.icon-item:hover .icon-tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+.icon-tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    /* At the bottom of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #a6a6a6 transparent transparent transparent;
+}
+
+.icon-item.active .icon-tooltip::after {
+    border-top-color: #023A5C;
+}
+
+.icon-item.active .icon-tooltip {
+    background-color: #023A5C;
 }
