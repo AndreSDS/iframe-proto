@@ -47,18 +47,24 @@ function convertWixImageUrl(wixImageUrl) {
     }
 }
 
+function createIconsContainer(iconsData) {
+    const iconsContainer = document.createElement('div');
+    iconsContainer.classList.add('icons-container');
+
+    const iconsContent = document.createElement('div');
+    iconsContent.classList.add('icons-content');
+
+    const iconsHtml = createIconElements(iconsData);
+    iconsContent.innerHTML = iconsHtml;
+    iconsContainer.appendChild(iconsContent);
+    
+    return iconsContainer;
+}
+
 function createIconElements(icons) {
     let html = ``;
     if (icons && icons.length > 0) {
-        html += `<div class="icons-container">`;
-        icons.forEach(icon => {
-            const imageUrl = convertWixImageUrl(icon.menuIcon);
-            html += `
-                <div class="icon-item">
-                    <img src="${imageUrl}" alt="${icon.menuTitle}">
-                <div class="icon-tooltip">${icon.menuTitle}</div>
-              </div>`;
-        });
+        icons.forEach(icon => { const imageUrl = convertWixImageUrl(icon.menuIcon); html += ` <div class="icon-item"> <img src="${imageUrl}" alt="${icon.menuTitle}"> <div class="icon-tooltip">${icon.menuTitle}</div> </div>`; });
         html += `</div>`;
     }
     return html;
@@ -126,16 +132,49 @@ function setupIcons(iconsData, urlSlug) {
     });
 }
 
+function toggleMenu() {
+    const iconsContainer = document.querySelector('.icons-container');
+    if (iconsContainer) {
+        iconsContainer.classList.toggle('open');
+    }
+}
+
+function addMenuToggleButton() {
+    const container = document.querySelector('.container');
+    if (container) {
+        const menuToggleButton = document.createElement('button');
+        menuToggleButton.textContent = 'Abrir menu';
+        menuToggleButton.classList.add('menu-toggle');
+        container.appendChild(menuToggleButton);
+    }
+}
+
 function populateContainer(iconsData, urlSlug) {
     const container = document.querySelector('.container');
-    const iconsHtml = createIconElements(iconsData);
-    container.innerHTML = iconsHtml;
+    container.innerHTML = ''; // Clear existing content
+
+    // Create and add the menu toggle button
+    addMenuToggleButton();
+
+    // Create and add the icons container
+    const iconsContainer = createIconsContainer(iconsData);
+
+    container.appendChild(iconsContainer);
+
     addButtonToContainer();
     setupIcons(iconsData, urlSlug);
+
+    const menuToggleButton = document.querySelector('.menu-toggle');
+    menuToggleButton.addEventListener('click', toggleMenu);
 }
+
 
 // window.addEventListener('message', (event) => {
 //     const messageData = event.data;
+
+//     if (messageData.type === 'menuBottom') {
+//         console.log('menuBottom', messageData.menuBottom)
+//     }
 
 //     // Verifica se a mensagem é o objeto de dados inicial
 //     if (messageData.type === 'initialData' && Array.isArray(messageData.items)) {
@@ -147,6 +186,7 @@ function populateContainer(iconsData, urlSlug) {
 //         icons.push(...iconsData); // Adiciona os novos dados
 //         // Popula os ícones com slug atual para setupIcons
 //         populateContainer(icons, urlSlug);
+        
 //     } else if (messageData.type === 'error') {
 //         console.error("Erro recebido do site pai:", messageData.message);
 //     } else {

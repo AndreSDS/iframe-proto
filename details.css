@@ -48,16 +48,16 @@ main {
 }
 
 /* Container for the icons and labels */
-.icons-container {
+.icons-container, .icons-content {
     display: flex;
     align-items: center;
     gap: 1.25rem;
+    background-color: #fff;
     /* Space between icons */
 }
 
 /* Styling for each individual icon item */
 .icon-item {
-    position: relative;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -145,4 +145,77 @@ main {
 
 .icon-item.active .icon-tooltip {
     background-color: #023A5C;
+}
+
+.menu-toggle {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    main {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        margin: 0 auto;
+        height: 250px;
+    }
+
+    .container {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        gap: 20px;
+        height: 84px;
+        z-index: 9999;
+        margin-top: 0;
+        padding-top: 0;
+    }
+
+    /* Container for the icons and labels */
+    .icons-container {
+        position: absolute;
+        bottom: 84px;
+        /* Position above the container */
+        left: 0;
+        right: 0;
+        padding: 1rem;
+        opacity: 0;
+        z-index: 0;
+        height: 0;
+        /* Start with height 0 */
+        overflow-y: hidden;
+        /* Hide content initially */
+        transform: translateY(0);
+        /* Start at the top of its position */
+        transition: transform 0.3s ease-in-out, height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        opacity: 0;
+        overflow-x: hidden;
+        box-shadow: 0 -3px 6px rgba(0, 0, 0, 0.2), inset 0 -3px 6px rgba(0, 0, 0, 0.2);
+        /* Start hidden */
+    }
+
+    .icons-content {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        grid-gap: 1rem;
+        width: fit-content;
+        margin: 0 auto;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .icons-container.open {
+        height: 158px;
+        /* Animate to full height */
+        opacity: 1;
+        /* Fade in */
+        transform: translateY(0);
+    }
 }
