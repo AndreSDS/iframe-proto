@@ -57,7 +57,7 @@ function createIconsContainer(iconsData) {
     const iconsHtml = createIconElements(iconsData);
     iconsContent.innerHTML = iconsHtml;
     iconsContainer.appendChild(iconsContent);
-    
+
     return iconsContainer;
 }
 
@@ -74,7 +74,7 @@ function addButtonToContainer() {
     const container = document.querySelector('.container');
     if (container) {
         const button = document.createElement('button');
-        button.textContent = 'CONVERSAR AGORA';
+        button.textContent = 'Conversar agora';
         button.classList.add('contact-button');
         container.appendChild(button);
     }
@@ -146,6 +146,17 @@ function addMenuToggleButton() {
         menuToggleButton.textContent = 'Abrir menu';
         menuToggleButton.classList.add('menu-toggle');
         container.appendChild(menuToggleButton);
+
+        menuToggleButton.addEventListener('click', function () {
+            const iconsContainer = document.querySelector('.icons-container');
+            if (iconsContainer) {
+                if (!iconsContainer.classList.contains('open')) {
+                    menuToggleButton.textContent = 'Fechar';
+                } else {
+                    menuToggleButton.textContent = 'Abrir menu';
+                }
+            }
+        });
     }
 }
 
@@ -186,7 +197,7 @@ function populateContainer(iconsData, urlSlug) {
 //         icons.push(...iconsData); // Adiciona os novos dados
 //         // Popula os ícones com slug atual para setupIcons
 //         populateContainer(icons, urlSlug);
-        
+
 //     } else if (messageData.type === 'error') {
 //         console.error("Erro recebido do site pai:", messageData.message);
 //     } else {

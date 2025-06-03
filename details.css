@@ -48,7 +48,8 @@ main {
 }
 
 /* Container for the icons and labels */
-.icons-container, .icons-content {
+.icons-container,
+.icons-content {
     display: flex;
     align-items: center;
     gap: 1.25rem;
@@ -92,7 +93,6 @@ main {
     font-size: 18px;
     letter-spacing: 0.1em;
     cursor: pointer;
-    text-transform: uppercase;
     transition: opacity 0.2s ease-in-out;
 }
 
@@ -149,6 +149,25 @@ main {
 
 .menu-toggle {
     display: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    min-width: 120px;
+    padding: 0 0.75rem;
+    background-color: #0071c4;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 0.9em;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.menu-toggle:hover {
+    opacity: 0.6;
+    /* Slightly darker blue on hover */
 }
 
 @media (max-width: 768px) {
@@ -160,7 +179,7 @@ main {
         justify-content: center;
         height: 100%;
         margin: 0 auto;
-        height: 250px;
+        height: 290px;
     }
 
     .container {
@@ -168,17 +187,17 @@ main {
         bottom: 0;
         left: 0;
         right: 0;
-        gap: 20px;
-        height: 84px;
+        gap: 8px;
         z-index: 9999;
         margin-top: 0;
-        padding-top: 0;
+        height: fit-content;
+        padding: 1.5rem 2rem 2.5rem;
     }
 
     /* Container for the icons and labels */
     .icons-container {
         position: absolute;
-        bottom: 84px;
+        bottom: 114px;
         /* Position above the container */
         left: 0;
         right: 0;
@@ -217,5 +236,13 @@ main {
         opacity: 1;
         /* Fade in */
         transform: translateY(0);
+    }
+
+    .contact-button {
+        font-size: 0.9em;
+        width: 100%;
+        min-width: 168px;
+        max-width: fit-content;
+        padding: 0 1.25rem;
     }
 }
