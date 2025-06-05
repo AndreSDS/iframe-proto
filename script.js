@@ -2,7 +2,7 @@ import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs
 
 const cardsSectionsInfo = [
   {
-    title: "Kits para Banheiros", description: "Aqui você encontra pias, armários, assentos sanitários e kits completos para montar ou renovar seu banheiro com facilidade. Tudo combinando, com opções que vão do básico ao moderno — é só escolher e levar!", sectionImages: [
+    title: "Paredão de Revestimentos", description: "Nosso paredão é o lugar perfeito para você se inspirar! São diversos modelos de revestimentos expostos lado a lado, para comparar cores, texturas e estilos com mais facilidade. Venha sentir de perto, imaginar seu ambiente dos sonhos e descobrir o que combina com o seu estilo.", sectionImages: [
       {
         src: "wix:image://v1/b98454_110e5797d6ed42bfa40ad00d83e86094~mv2.png/kits-para-banheiros-1.png#originWidth=1476&originHeight=938",
         title: "kits-para-banheiros-1.png"
@@ -14,7 +14,7 @@ const cardsSectionsInfo = [
     ]
   },
   {
-    title: "Paredão de Revestimentos", description: "Nosso paredão é o lugar perfeito para você se inspirar! São diversos modelos de revestimentos expostos lado a lado, para comparar cores, texturas e estilos com mais facilidade. Venha sentir de perto, imaginar seu ambiente dos sonhos e descobrir o que combina com o seu estilo.", sectionImages: [
+    title: "Kits para Banheiros", description: "Aqui você encontra pias, armários, assentos sanitários e kits completos para montar ou renovar seu banheiro com facilidade. Tudo combinando, com opções que vão do básico ao moderno — é só escolher e levar!", sectionImages: [
       {
         src: "wix:image://v1/b98454_110e5797d6ed42bfa40ad00d83e86094~mv2.png/kits-para-banheiros-1.png#originWidth=1476&originHeight=938",
         title: "kits-para-banheiros-1.png"
