@@ -8,29 +8,29 @@ const cardsItemsInfo = [
     subTitle: 'O nosso "carro-chefe"',
     description:
       "Cerâmicos, porcelanatos e vinílicos incríveis, que vão desde os mais simples até os mais sofisticados. Temos uma vasta lista de opções com um potencial incrível de transformar o ambiente de qualquer um.",
-    categories: [
+    categoryIcons: [
       {
-        image:
+        src:
           "https://static.wixstatic.com/media/b98454_9e997e6526004950883304239e6bb60a~mv2.png",
         title: "Cerâmicas",
       },
       {
-        image:
+        src:
           "https://static.wixstatic.com/media/b98454_1ca0232fd38e4344b520c467603fe5cf~mv2.png",
         title: "Porcelanatos",
       },
       {
-        image:
+        src:
           "https://wixstatic.com/media/b98454_f331b886655b4044af9978f30f9396bc~mv2.png",
         title: "Vinílicos",
       },
       {
-        image:
+        src:
           "https://static.wixstatic.com/media/b98454_cd4cdd524f6f445bb5346deb7937187a~mv2.png",
         title: "Pastilhas",
       },
       {
-        image:
+        src:
           "https://static.wixstatic.com/media/b98454_99e7f33fc3c6410c949fe201e13a3a40~mv2.png",
         title: "Rodapés",
       },
@@ -43,29 +43,29 @@ const cardsItemsInfo = [
     subTitle: "A base de tudo!",
     description:
       "Cimento, areia, blocos, vergalhões e muito mais para quem está começando do zero ou encarando aquela reforma de respeito. É aqui que o alicerce ganha forma (e força!).",
-    categories: [
+    categoryIcons: [
       {
-        image:
+        src:
           "https://static.wixstatic.com/media/b98454_8a1d89b14d584a71aad04538dde96a68~mv2.png",
         title: "Blocos",
       },
       {
-        image:
+        src:
           "https://static.wixstatic.com/media/b98454_20e68663d49d49a98bfa75a3e802c73b~mv2.png",
         title: "Cimentos",
       },
       {
-        image:
+        src:
           "https://static.wixstatic.com/media/b98454_9b31211d8440478486c03ec300e5c1e7~mv2.png",
         title: "Areias",
       },
       {
-        image:
+        src:
           "https://static.wixstatic.com/media/b98454_be3e3a939e6545fab780869d2103a338~mv2.png",
         title: "Pedras",
       },
       {
-        image:
+        src:
           "https://static.wixstatic.com/media/b98454_93cc6859cb264ebf8bdbb6cfef265860~mv2.png",
         title: "Ferragens",
       },
@@ -78,29 +78,29 @@ const cardsItemsInfo = [
     subTitle: "Cor e vida nas paredes!",
     description:
       "Tinta não é tudo igual – e a gente prova isso com uma seleção caprichada de cores, texturas, acabamentos e acessórios. Tem opção para todo tipo de gosto, parede e projeto criativo.",
-    categories: [
+    categoryIcons: [
       {
-        image:
+        src:
           "https://static.wixstatic.com/media/b98454_6ea7d12f333e45cfafa67cda577cb9df~mv2.png",
         title: "Tintas",
       },
       {
-        image:
+        src:
           "https://static.wixstatic.com/media/b98454_96cae1cc3b804551acb4f92c3a4da594~mv2.png",
         title: "Massas",
       },
       {
-        image:
+        src:
           "https://static.wixstatic.com/media/b98454_41fd9fb0e4e64e25af3031e9697d71ae~mv2.png",
         title: "Vernizes",
       },
       {
-        image:
+        src:
           "https://static.wixstatic.com/media/b98454_a245ad1d7e2949d28bdb42d883703dcd~mv2.png",
         title: "Rolos",
       },
       {
-        image:
+        src:
           "https://static.wixstatic.com/media/b98454_e4a02ba3dae444d4a76298fc4b6fe03f~mv2.png",
         title: "Pincéis",
       },
@@ -113,29 +113,29 @@ const cardsItemsInfo = [
     subTitle: "Sua obra na palma da mão.",
     description:
       'Manuais ou elétricas, aqui tem ferramentas para facilitar cada etapa do trabalho – seja profissional ou do tipo "faça você mesmo".',
-    categories: [
+    categoryIcons: [
       {
-        image:
+        src:
           "https://static.wixstatic.com/media/b98454_6456d03f4899416c8451a43100f16c95~mv2.png",
         title: "Manuais",
       },
       {
-        image:
+        src:
           "https://static.wixstatic.com/media/b98454_92aa5a03f5ef42fb8112cc5214d90202~mv2.png",
         title: "Elétricas",
       },
       {
-        image:
+        src:
           "https://static.wixstatic.com/media/b98454_6ea0ed5cae994d7999853e5ecc2a6b03~mv2.png",
         title: "Discos",
       },
       {
-        image:
+        src:
           "https://static.wixstatic.com/media/b98454_6704c472fb6f45309de2ca478d14a8c2~mv2.png",
         title: "Pregos",
       },
       {
-        image:
+        src:
           "https://static.wixstatic.com/media/b98454_60d1e4e48a7d444aa1d68662f4b4dbc6~mv2.png",
         title: "EPIs",
       },
@@ -148,29 +148,29 @@ const cardsItemsInfo = [
     subTitle: "Do cano à torneira.",
     description:
       "Aqui tem tudo para água circular bem na sua casa: tubos, conexões, torneiras, vasos sanitários, cubas e acessórios. Qualidade, durabilidade e praticidade para sua obra ou reforma fluir sem estresse.",
-    categories: [
+    categoryIcons: [
       {
-        image:
+        src:
           "https://static.wixstatic.com/media/b98454_c5767bf8af354901ba4ab0896144890c~mv2.png",
         title: "Tubos",
       },
       {
-        image:
+        src:
           "https://static.wixstatic.com/media/b98454_d8de94d4916d4b91bf7883fe3b9b9762~mv2.png",
         title: "Conexões",
       },
       {
-        image:
+        src:
           "https://static.wixstatic.com/media/b98454_b30e8bee0cfd46828a522e6010377c2d~mv2.png",
         title: "Louças",
       },
       {
-        image:
+        src:
           "https://static.wixstatic.com/media/b98454_47f04927b1964329a5700fd513b5d677~mv2.png",
         title: "Torneiras",
       },
       {
-        image:
+        src:
           "https://static.wixstatic.com/media/b98454_07dbbc69f16b49a495d7cd2855a2a429~mv2.png",
         title: "Chuveiros",
       },
@@ -183,29 +183,29 @@ const cardsItemsInfo = [
     subTitle: "Conforto, segurança e design.",
     description:
       "Cabos, tomadas, lâmpadas e luminárias que fazem seu projeto funcionar e valorizam cada ambiente. Tudo para sua casa ser mais prática, acolhedora e cheia de vida.",
-    categories: [
+    categoryIcons: [
       {
-        image:
+        src:
           "https://static.wixstatic.com/media/b98454_46ed15816ad2487fbb3a82224b9297f0~mv2.png",
         title: "Cabos",
       },
       {
-        image:
+        src:
           "https://static.wixstatic.com/media/b98454_afa8b482705746f28be83f9999c43933~mv2.png",
         title: "Tomadas",
       },
       {
-        image:
+        src:
           "https://static.wixstatic.com/media/b98454_a5396a9c900b4e74a208b34347b61acf~mv2.png",
         title: "Lâmpadas",
       },
       {
-        image:
+        src:
           "https://static.wixstatic.com/media/b98454_51a60732dc4b4ca3864a72d9791dabd5~mv2.png",
         title: "Isolantes",
       },
       {
-        image:
+        src:
           "https://static.wixstatic.com/media/b98454_57e9b1240748449b8f5b5d5f9df9ac3f~mv2.png",
         title: "Luminárias",
       },
@@ -218,29 +218,29 @@ const cardsItemsInfo = [
     subTitle: "Detalhes que fazem a casa mais viva.",
     description:
       "Gabinetes, espelhos, esquadrias e acessórios de jardinagem que trazem beleza, organização e bem-estar para o seu lar — dentro e fora de casa. Seu projeto fica mais completo, com personalidade e cuidado em cada canto.",
-    categories: [
+    categoryIcons: [
       {
-        image:
+        src:
           "https://static.wixstatic.com/media/b98454_b369259cf29a40c987f28279ce323784~mv2.png",
         title: "Gabinetes",
       },
       {
-        image:
+        src:
           "https://static.wixstatic.com/media/b98454_1535b1c6e3e944098f91891a97b77e63~mv2.png",
         title: "Espelhos",
       },
       {
-        image:
+        src:
           "https://static.wixstatic.com/media/b98454_ae92805c28d54c9caf2b56fcbcaf5bcf~mv2.png",
         title: "Portas",
       },
       {
-        image:
+        src:
           "https://static.wixstatic.com/media/b98454_7a642c1b564348d8a2385d571d0b58a8~mv2.png",
         title: "Janelas",
       },
       {
-        image:
+        src:
           "https://static.wixstatic.com/media/b98454_77f84d8354554fe392a5e7b110ca0a8f~mv2.png",
         title: "Pás",
       },
@@ -253,29 +253,29 @@ const cardsItemsInfo = [
     subTitle: "Você merece seu negócio decolando.",
     description:
       "Equipamentos pensados para dar agilidade, eficiência e qualidade ao seu dia a dia. Tudo para sua estrutura funcionar melhor, seu atendimento render mais e seu negócio crescer com força.",
-    categories: [
+    categoryIcons: [
       {
-        image:
+        src:
           "https://static.wixstatic.com/media/b98454_94c1ea1eb8e6413cb85af04c01130df1~mv2.png",
         title: "Liquidificadores",
       },
       {
-        image:
+        src:
           "https://static.wixstatic.com/media/b98454_073b5fa8e6ac46deac879a925c347d88~mv2.png",
         title: "Fornos",
       },
       {
-        image:
+        src:
           "https://static.wixstatic.com/media/b98454_22432b8f4dd948abbc7bf619a0e24b5f~mv2.png",
         title: "Lava-Louças",
       },
       {
-        image:
+        src:
           "https://static.wixstatic.com/media/b98454_12c339dd827e4bb4b22544507afa510d~mv2.png",
         title: "Bebedouros",
       },
       {
-        image:
+        src:
           "https://static.wixstatic.com/media/b98454_c1c05931310646ddab5f4b4f47b26879~mv2.png",
         title: "Refrigeradores",
       },
@@ -416,6 +416,13 @@ function createButtons() {
       url: item.linkCategoryPage
     }, '*'); // '*' allows communication with any origin, replace with Wix site origin for more security
   });
+
+  abrirCatalogoButton.addEventListener("click", function () {
+    window.parent.postMessage({
+      type: 'navigateToCategoryPage', // A type to identify your message
+      url: "/catálogo-virtual"
+    }, '*');
+  })
 
   buttonContainer.appendChild(fragment);
 
@@ -596,6 +603,9 @@ window.onload = function () {
 };
 
 document.addEventListener("DOMContentLoaded", function () {
+
+  createCarousel(cardsItemsInfo)
+
   new Swiper('.swiper', {
     direction: 'horizontal',
     grabCursor: true,
