@@ -2,93 +2,102 @@ import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs
 
 const cardsSectionsInfo = [
   {
-    title: "Paredão de Revestimentos",
-    image:
-      "https://static.wixstatic.com/media/b98454_d931ce5f7d274d45bd3cdc33b9ba2aa6~mv2.png",
-    description:
-      "Nosso paredão é o lugar perfeito para você se inspirar! São diversos modelos de revestimentos expostos lado a lado, para comparar cores, texturas e estilos com mais facilidade. Venha sentir de perto, imaginar seu ambiente dos sonhos e descobrir o que combina com o seu estilo.",
-    sectionImages: [{
-      img: "https://static.wixstatic.com/media/b98454_d931ce5f7d274d45bd3cdc33b9ba2aa6~mv2.png",
-    },
-    {
-      img: "https://static.wixstatic.com/media/b98454_d931ce5f7d274d45bd3cdc33b9ba2aa6~mv2.png",
-    }]
+    title: "Kits para Banheiros", description: "Aqui você encontra pias, armários, assentos sanitários e kits completos para montar ou renovar seu banheiro com facilidade. Tudo combinando, com opções que vão do básico ao moderno — é só escolher e levar!", sectionImages: [
+      {
+        src: "wix:image://v1/b98454_110e5797d6ed42bfa40ad00d83e86094~mv2.png/kits-para-banheiros-1.png#originWidth=1476&originHeight=938",
+        title: "kits-para-banheiros-1.png"
+      },
+      {
+        src: "wix:image://v1/b98454_110e5797d6ed42bfa40ad00d83e86094~mv2.png/kits-para-banheiros-1.png#originWidth=1476&originHeight=938",
+        title: "kits-para-banheiros-1.png"
+      }
+    ]
   },
   {
-    title: "Seção de Pintura",
-    image:
-      "https://static.wixstatic.com/media/b98454_1fc8c24f8bad41edb09bdd0be25ec2b7~mv2.png",
-    description:
-      "Cores que transformam ambientes! Aqui você encontra tintas para todos os estilos e superfícies, além de acessórios que facilitam cada etapa da pintura. Das paredes internas ao retoque externo, tem sempre uma tonalidade esperando para deixar seu espaço com a sua cara!",
-    sectionImages: [{
-      img: "https://static.wixstatic.com/media/b98454_1fc8c24f8bad41edb09bdd0be25ec2b7~mv2.png",
-    },
-    {
-      img: "https://static.wixstatic.com/media/b98454_1fc8c24f8bad41edb09bdd0be25ec2b7~mv2.png",
-    }]
+    title: "Paredão de Revestimentos", description: "Nosso paredão é o lugar perfeito para você se inspirar! São diversos modelos de revestimentos expostos lado a lado, para comparar cores, texturas e estilos com mais facilidade. Venha sentir de perto, imaginar seu ambiente dos sonhos e descobrir o que combina com o seu estilo.", sectionImages: [
+      {
+        src: "wix:image://v1/b98454_110e5797d6ed42bfa40ad00d83e86094~mv2.png/kits-para-banheiros-1.png#originWidth=1476&originHeight=938",
+        title: "kits-para-banheiros-1.png"
+      },
+      {
+        src: "wix:image://v1/b98454_110e5797d6ed42bfa40ad00d83e86094~mv2.png/kits-para-banheiros-1.png#originWidth=1476&originHeight=938",
+        title: "kits-para-banheiros-1.png"
+      }
+    ]
   },
   {
-    title: "Seção de Ferramentas",
-    image:
-      "https://static.wixstatic.com/media/b98454_e068e984de784277b5408bdf465e923a~mv2.png",
-    description:
-      'Ajudamos quem faz! Aqui você encontra desde ferramentas manuais até elétricas, com opções para iniciantes, profissionais e aventureiros do "faça você mesmo".',
-    sectionImages: [{
-      img: "https://static.wixstatic.com/media/b98454_e068e984de784277b5408bdf465e923a~mv2.png",
-    },
-    {
-      img: "https://static.wixstatic.com/media/b98454_e068e984de784277b5408bdf465e923a~mv2.png",
-    }]
+    title: "Seção de Pintura", description: "Cores que transformam ambientes! Aqui você encontra tintas para todos os estilos e superfícies, além de acessórios que facilitam cada etapa da pintura. Das paredes internas ao retoque externo, tem sempre uma tonalidade esperando para deixar seu espaço com a sua cara!", sectionImages: [
+      {
+        src: "wix:image://v1/b98454_110e5797d6ed42bfa40ad00d83e86094~mv2.png/kits-para-banheiros-1.png#originWidth=1476&originHeight=938",
+        title: "kits-para-banheiros-1.png"
+      },
+      {
+        src: "wix:image://v1/b98454_110e5797d6ed42bfa40ad00d83e86094~mv2.png/kits-para-banheiros-1.png#originWidth=1476&originHeight=938",
+        title: "kits-para-banheiros-1.png"
+      }
+    ]
   },
   {
-    title: "Seção de Hidráulica",
-    image:
-      "https://static.wixstatic.com/media/b98454_9ec9189120624d12a5fc420eac8592d6~mv2.png",
-    description:
-      "Tudo que passa por água começa aqui! Nossa seção hidráulica tem tubos, conexões, registros, caixas d'água e muito mais para garantir um sistema bem feito e duradouro. Está construindo ou só fazendo manutenção? Venha conferir de perto e garantir qualidade sem complicação.",
-    sectionImages: [{
-      img: "https://static.wixstatic.com/media/b98454_9ec9189120624d12a5fc420eac8592d6~mv2.png",
-    },
-    {
-      img: "https://static.wixstatic.com/media/b98454_9ec9189120624d12a5fc420eac8592d6~mv2.png",
-    }]
+    title: "Seção de Ferramentas", description: 'Ajudamos quem faz! Aqui você encontra desde ferramentas manuais até elétricas, com opções para iniciantes, profissionais e aventureiros do "faça você mesmo".', sectionImages: [
+      {
+        src: "wix:image://v1/b98454_110e5797d6ed42bfa40ad00d83e86094~mv2.png/kits-para-banheiros-1.png#originWidth=1476&originHeight=938",
+        title: "kits-para-banheiros-1.png"
+      },
+      {
+        src: "wix:image://v1/b98454_110e5797d6ed42bfa40ad00d83e86094~mv2.png/kits-para-banheiros-1.png#originWidth=1476&originHeight=938",
+        title: "kits-para-banheiros-1.png"
+      }
+    ]
   },
   {
-    title: "Gabinetes para Cozinhas",
-    image:
-      "https://static.wixstatic.com/media/b98454_1a8e548a57f54a269992f95ea4669a99~mv2.png",
-    description:
-      "Praticidade com estilo! Temos gabinetes prontos para instalação, com diferentes tamanhos, cores e acabamentos, perfeitos para valorizar sua cozinha sem dor de cabeça.",
-    sectionImages: [{
-      img: "https://static.wixstatic.com/media/b98454_1a8e548a57f54a269992f95ea4669a99~mv2.png",
-    },
-    {
-      img: "https://static.wixstatic.com/media/b98454_1a8e548a57f54a269992f95ea4669a99~mv2.png",
-    }]
+    title: "Seção de Hidráulica", description: "Tudo que passa por água começa aqui! Nossa seção hidráulica tem tubos, conexões, registros, caixas d'água e muito mais para garantir um sistema bem feito e duradouro. Está construindo ou só fazendo manutenção? Venha conferir de perto e garantir qualidade sem complicação.", sectionImages: [
+      {
+        src: "wix:image://v1/b98454_110e5797d6ed42bfa40ad00d83e86094~mv2.png/kits-para-banheiros-1.png#originWidth=1476&originHeight=938",
+        title: "kits-para-banheiros-1.png"
+      },
+      {
+        src: "wix:image://v1/b98454_110e5797d6ed42bfa40ad00d83e86094~mv2.png/kits-para-banheiros-1.png#originWidth=1476&originHeight=938",
+        title: "kits-para-banheiros-1.png"
+      }
+    ]
   },
   {
-    title: "Kits para Banheiros",
-    image:
-      "https://static.wixstatic.com/media/b98454_4b36fa14bd7646379fc8eb4635ca050f~mv2.png",
-    description:
-      "Aqui você encontra pias, armários, assentos sanitários e kits completos para montar ou renovar seu banheiro com facilidade. Tudo combinando, com opções que vão do básico ao moderno — é só escolher e levar!",
-    sectionImages: [{
-      img: "https://static.wixstatic.com/media/b98454_4b36fa14bd7646379fc8eb4635ca050f~mv2.png",
-    },
-    {
-      img: "https://static.wixstatic.com/media/b98454_4b36fa14bd7646379fc8eb4635ca050f~mv2.png",
-    }]
+    title: "Gabinetes para Cozinhas", description: "Praticidade com estilo! Temos gabinetes prontos para instalação, com diferentes tamanhos, cores e acabamentos, perfeitos para valorizar sua cozinha sem dor de cabeça.", sectionImages: [
+      {
+        src: "wix:image://v1/b98454_110e5797d6ed42bfa40ad00d83e86094~mv2.png/kits-para-banheiros-1.png#originWidth=1476&originHeight=938",
+        title: "kits-para-banheiros-1.png"
+      },
+      {
+        src: "wix:image://v1/b98454_110e5797d6ed42bfa40ad00d83e86094~mv2.png/kits-para-banheiros-1.png#originWidth=1476&originHeight=938",
+        title: "kits-para-banheiros-1.png"
+      }
+    ]
   },
 ];
 
-function createInnerCarousel(imageUrls) {
+function convertWixImageUrl(wixImageUrl) {
+  const baseUrl = "https://static.wixstatic.com/media/";
+  // Regex to capture the part between v1/ and the next / or #
+  const regex = /v1\/(.*?)(?:#|\/|$)/;
+  const match = wixImageUrl.match(regex);
+
+  if (match && match[1]) {
+    const imageIdentifier = match[1];
+    return baseUrl + imageIdentifier;
+  } else {
+    console.error("Could not extract image identifier from Wix URL:", wixImageUrl);
+    return null;
+  }
+}
+
+function createInnerCarousel(sectionImages) {
   const carousel = document.createElement('div');
   carousel.classList.add('inner-carousel');
 
   const carouselContainer = document.createElement('div');
   carouselContainer.classList.add('inner-carousel-container');
 
-  imageUrls.forEach(url => {
+  sectionImages.forEach(image => {
     const carouselItem = document.createElement('div');
     carouselItem.classList.add('carousel-item');
     const img = document.createElement('img');
@@ -99,8 +108,8 @@ function createInnerCarousel(imageUrls) {
       carouselItem.style.height = `${carouselItem.offsetWidth * aspectRatio}px`;
     };
 
-    img.src = url;
-    img.alt = 'Carousel Image'; // Consider adding more descriptive alt text if possible
+    img.src = image.src;
+    img.alt = image.title; // Consider adding more descriptive alt text if possible
     carouselItem.appendChild(img);
     carouselContainer.appendChild(carouselItem);
   });
@@ -134,7 +143,7 @@ function createInnerCarousel(imageUrls) {
   // Dots will be added and managed by the carousel logic (not part of this function's scope based on the prompt)
   carousel.appendChild(carouselDots);
 
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:2376196427.
+  // Suggested code may be subject to a license. Learn more: ~LicenseLog:2376196427.
   // Controls container with arrows and dots
   const controlsContainer = document.createElement('div');
   controlsContainer.classList.add('controls-container');
@@ -153,20 +162,20 @@ function createInnerCarousel(imageUrls) {
   }
 
   function updateDots() {
-      carouselDots.innerHTML = ''; // Clear existing dots
-      const items = carouselContainer.querySelectorAll('.carousel-item');
-      items.forEach((_, index) => {
-          const dot = document.createElement('span');
-          dot.classList.add('carousel-dot');
-          if (index === currentIndex) {
-              dot.classList.add('active');
-          }
-          dot.addEventListener('click', () => {
-              currentIndex = index;
-              updateCarousel();
-          });
-          carouselDots.appendChild(dot);
+    carouselDots.innerHTML = ''; // Clear existing dots
+    const items = carouselContainer.querySelectorAll('.carousel-item');
+    items.forEach((_, index) => {
+      const dot = document.createElement('span');
+      dot.classList.add('carousel-dot');
+      if (index === currentIndex) {
+        dot.classList.add('active');
+      }
+      dot.addEventListener('click', () => {
+        currentIndex = index;
+        updateCarousel();
       });
+      carouselDots.appendChild(dot);
+    });
   }
 
   prevButton.addEventListener('click', () => {
@@ -184,13 +193,13 @@ function createInnerCarousel(imageUrls) {
     }
   });
 
-    // Initial setup
-    setTimeout(() => { // Use a timeout to ensure images are loaded and offsetWidth is correct
-        updateCarousel();
-    }, 0);
+  // Initial setup
+  setTimeout(() => { // Use a timeout to ensure images are loaded and offsetWidth is correct
+    updateCarousel();
+  }, 0);
 
 
-  return {carousel, controlsContainer};
+  return { carousel, controlsContainer };
 }
 
 function createCard(item) {
@@ -208,7 +217,7 @@ function createCard(item) {
   cardHeader.appendChild(cardTitle);
 
   // Card image carousel
-  const {carousel, controlsContainer} = createInnerCarousel(item.sectionImages.map(img => img.img));
+  const { carousel, controlsContainer } = createInnerCarousel(item.sectionImages.map(img => ({ title: img.title, src: convertWixImageUrl(img.src) })));
 
   // Card Content
   const cardContent = document.createElement("div");
@@ -261,14 +270,13 @@ function createCarousel() {
 }
 
 window.onload = function () {
-  window.parent.postMessage('iframeReady', window.location.origin);
+  window.parent.postMessage('iframeSectionsReady', "*");
 
   window.addEventListener('message', (event) => {
-    message = event;
-
     const dadosRecebidos = event.data;
     if (Array.isArray(dadosRecebidos) && !dadosRecebidos.error) {
-      createCarousel(dadosRecebidos);
+      //createCarousel(dadosRecebidos);
+      console.log("dados recebidos")
     } else if (dadosRecebidos && dadosRecebidos.error) {
       console.error("Erro recebido do site pai:", dadosRecebidos.error);
     } else {
@@ -279,9 +287,9 @@ window.onload = function () {
 
 document.addEventListener("DOMContentLoaded", function () {
   createCarousel();
-  
-   // Swiper: Slider
-   new Swiper('.swiper', {
+
+  // Swiper: Slider
+  new Swiper('.swiper', {
     // Optional parameters
     direction: 'horizontal',
     grabCursor: true,
