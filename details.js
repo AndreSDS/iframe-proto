@@ -9,9 +9,16 @@ const icons = [
     { menuIcon: "wix:vector://v1/b98454_c1a536cb58614eefb8e6ff82d8638240.svg/icone-categoria-linha-industrial.svg", menuTitle: "Linha industrial", pageUrl: "/conteudo-categorias/linha-industrial" },
 ]
 
+// Debug function
+function logEvent(eventType, details = '') {
+    const eventLog = document.getElementById('eventLog');
+    eventLog.textContent = `${eventType} ${details} - ${new Date().toLocaleTimeString()}`;
+}
+
+let activeIconItem = null;
+
 function getUrlSlug(pathname) {
     try {
-        // Divide o pathname por '/' e remove o primeiro elemento vazio se houver
         const pathSegments = pathname.split('/').filter(segment => segment !== '');
 
         if (pathSegments.length >= 2) {
@@ -23,7 +30,6 @@ function getUrlSlug(pathname) {
             return pathSegments.slice(conteudoIndex).join('/');
         }
 
-        // Retorna o pathname completo se não conseguir extrair um slug específico
         return pathname.startsWith('/') ? pathname.substring(1) : pathname;
 
     } catch (e) {
@@ -33,8 +39,12 @@ function getUrlSlug(pathname) {
 }
 
 function convertWixImageUrl(wixImageUrl) {
+    // Para demo, retorna a URL diretamente
+    if (wixImageUrl.includes('placeholder')) {
+        return wixImageUrl;
+    }
+
     const baseUrl = "https://static.wixstatic.com/shapes/";
-    // Regex to capture the part between v1/ and the next / or #
     const regex = /v1\/(.*?)(?:#|\/|$)/;
     const match = wixImageUrl.match(regex);
 
@@ -47,40 +57,56 @@ function convertWixImageUrl(wixImageUrl) {
     }
 }
 
-function createIconsContainer(iconsData) {
-    const iconsContainer = document.createElement('div');
-    iconsContainer.classList.add('icons-container');
-
-    const iconsContent = document.createElement('div');
-    iconsContent.classList.add('icons-content');
-
+function populateIconsContainer(containerElement, iconsData) {
+    if (!containerElement) {
+        console.error("Container element not found.");
+        return;
+    }
     const iconsHtml = createIconElements(iconsData);
-    iconsContent.innerHTML = iconsHtml;
-    iconsContainer.appendChild(iconsContent);
-
-    return iconsContainer;
+    containerElement.innerHTML = iconsHtml;
 }
 
 function createIconElements(icons) {
     let html = ``;
     if (icons && icons.length > 0) {
-        icons.forEach(icon => { const imageUrl = convertWixImageUrl(icon.menuIcon); html += ` <div class="icon-item"> <img src="${imageUrl}" alt="${icon.menuTitle}"> <div class="icon-tooltip">${icon.menuTitle}</div> </div>`; });
-        html += `</div>`;
+        icons.forEach(icon => {
+            const imageUrl = convertWixImageUrl(icon.menuIcon);
+            html += `
+                        <div class="icon-item" data-url="${icon.pageUrl}">
+                            <img src="${imageUrl}" alt="${icon.menuTitle}">
+                            <div class="icon-tooltip">${icon.menuTitle}</div>
+                        </div>
+                    `;
+        });
     }
     return html;
 }
 
 function addButtonToContainer() {
-    const container = document.querySelector('.container');
-    if (container) {
-        const button = document.createElement('button');
-        button.textContent = 'Conversar agora';
-        button.classList.add('contact-button');
-        container.appendChild(button);
-    }
+    const contactButton = document.createElement('button');
+    contactButton.textContent = 'Conversar agora';
+    contactButton.classList.add('contact-button');
+
+    // CORREÇÃO: Adicionar event listener com stopPropagation
+    contactButton.addEventListener('click', function (e) {
+        e.stopPropagation();
+    });
+
+    return contactButton;
 }
 
-let activeIconItem = null;
+function handleScreenSizeChange() {
+    const outterIconsContainer = document.querySelector('.outter-icons-container');
+    const containerIconsContainer = document.querySelector('.container .icons-container');
+
+    if (window.innerWidth <= 768) {
+        outterIconsContainer.style.display = 'flex';
+        containerIconsContainer.style.display = 'none';
+    } else {
+        outterIconsContainer.style.display = 'none';
+        containerIconsContainer.style.display = 'flex';
+    }
+}
 
 function setupIcons(iconsData, urlSlug) {
     const iconItems = document.querySelectorAll('.icon-item');
@@ -88,41 +114,28 @@ function setupIcons(iconsData, urlSlug) {
     iconItems.forEach((item, index) => {
         const icon = iconsData[index];
 
-        // Adiciona o listener de clique
-        item.addEventListener('click', function () {
+        // CORREÇÃO: Event listener com stopPropagation
+        item.addEventListener('click', function (e) {
+            e.stopPropagation();
+
+            //logEvent('Icon clicked', icon.menuTitle);
+
             if (activeIconItem) {
                 activeIconItem.classList.remove('active');
             }
+
+            // Add active class to clicked item
             this.classList.add('active');
             activeIconItem = this;
 
+            // Navigate to page
             if (icon.pageUrl) {
+                // Para demo, apenas log. Na implementação real use postMessage
+                //logEvent('Navigation', icon.pageUrl);
                 window.parent.postMessage({ type: 'pageUrl', url: icon.pageUrl }, "*");
             }
         });
-
-        // Add mouseover event listener for tooltip
-        item.addEventListener('mouseover', function () {
-            const tooltip = this.querySelector('.icon-tooltip');
-            if (tooltip) {
-                console.log('tooltip', tooltip)
-                tooltip.style.visibility = 'visible';
-                tooltip.style.opacity = '1';
-            }
-        });
-
-        // Add mouseout event listener for tooltip
-        item.addEventListener('mouseout', function () {
-            const tooltip = this.querySelector('.icon-tooltip');
-            if (tooltip) {
-                tooltip.style.visibility = 'hidden';
-                tooltip.style.opacity = '0';
-            }
-        });
-
-        // Verifica slug do ícone corresponde ao slug atual do pai
         const iconUrlSlug = icon.pageUrl ? getUrlSlug(icon.pageUrl) : null;
-
         if (iconUrlSlug && urlSlug && iconUrlSlug === urlSlug) {
             item.classList.add('active');
             activeIconItem = item;
@@ -133,9 +146,10 @@ function setupIcons(iconsData, urlSlug) {
 }
 
 function toggleMenu() {
-    const iconsContainer = document.querySelector('.icons-container');
-    if (iconsContainer) {
-        iconsContainer.classList.toggle('open');
+    const outterContainer = document.querySelector('.outter-icons-container');
+    if (outterContainer) {
+        outterContainer.classList.toggle('open');
+        //logEvent('Menu toggled', outterContainer.classList.contains('open') ? 'opened' : 'closed');
     }
 }
 
@@ -145,67 +159,98 @@ function addMenuToggleButton() {
         const menuToggleButton = document.createElement('button');
         menuToggleButton.textContent = 'Abrir menu';
         menuToggleButton.classList.add('menu-toggle');
-        container.appendChild(menuToggleButton);
 
-        menuToggleButton.addEventListener('click', function () {
-            const iconsContainer = document.querySelector('.icons-container');
-            if (iconsContainer) {
-                if (!iconsContainer.classList.contains('open')) {
-                    menuToggleButton.textContent = 'Fechar';
+        menuToggleButton.addEventListener('touchstart', function (e) {
+            e.stopPropagation(); // Previne propagação
+            menuToggleButton.classList.toggle('active');
+
+            const outterContainer = document.querySelector('.outter-icons-container');
+            if (outterContainer) {
+                if (!outterContainer.classList.contains('open')) {
+                    this.textContent = 'Fechar';
                 } else {
-                    menuToggleButton.textContent = 'Abrir menu';
+                    this.textContent = 'Abrir menu';
                 }
             }
+            toggleMenu();
         });
+
+        menuToggleButton.addEventListener('touchstart', function (e) {
+            e.stopPropagation(); // Previne propagação
+            menuToggleButton.classList.toggle('active');
+        })
+
+        container.appendChild(menuToggleButton);
     }
 }
 
 function populateContainer(iconsData, urlSlug) {
     const container = document.querySelector('.container');
-    container.innerHTML = ''; // Clear existing content
+    const outterIconsContent = document.querySelector('.outter-icons-container .icons-content');
+    const containerIconsContent = document.querySelector('.container .icons-content');
 
-    // Create and add the menu toggle button
+    // Clear existing content
+    if (outterIconsContent) {
+        outterIconsContent.innerHTML = '';
+    }
+    if (containerIconsContent) {
+        containerIconsContent.innerHTML = '';
+    }
+
+    populateIconsContainer(outterIconsContent, iconsData);
+    populateIconsContainer(containerIconsContent, iconsData);
+
     addMenuToggleButton();
 
-    // Create and add the icons container
-    const iconsContainer = createIconsContainer(iconsData);
-
-    container.appendChild(iconsContainer);
-
-    addButtonToContainer();
-    setupIcons(iconsData, urlSlug);
-
-    const menuToggleButton = document.querySelector('.menu-toggle');
-    menuToggleButton.addEventListener('click', toggleMenu);
+    const contactButton = addButtonToContainer();
+    container.appendChild(contactButton);
 }
 
+function setupContainerEventListeners() {
+    const containers = document.querySelectorAll('.container, .outter-icons-container, .icons-container, .icons-content');
 
-// window.addEventListener('message', (event) => {
-//     const messageData = event.data;
+    containers.forEach(container => {
+        container.addEventListener('click', function (e) {
+            if (!e.target.closest('.icon-item, .contact-button, .menu-toggle')) {
+                e.stopPropagation();
+                //logEvent('Container click prevented', container.className);
+            }
+        });
+    });
+}
 
-//     if (messageData.type === 'menuBottom') {
-//         console.log('menuBottom', messageData.menuBottom)
-//     }
+// Event listener para mensagens do parent (mantido para compatibilidade)
+window.addEventListener('message', (event) => {
+    const messageData = event.data;
 
-//     // Verifica se a mensagem é o objeto de dados inicial
-//     if (messageData.type === 'initialData' && Array.isArray(messageData.items)) {
-//         const iconsData = messageData.items;
-//         const urlSlug = messageData.urlSlug;
+    if (messageData.type === 'initialData' && Array.isArray(messageData.items)) {
+        const iconsData = messageData.items;
+        const urlSlug = messageData.urlSlug;
 
-//         // Armazena os dados dos ícones
-//         icons.length = 0; // Limpa o array existente
-//         icons.push(...iconsData); // Adiciona os novos dados
-//         // Popula os ícones com slug atual para setupIcons
-//         populateContainer(icons, urlSlug);
+        icons.length = 0;
+        icons.push(...iconsData);
 
-//     } else if (messageData.type === 'error') {
-//         console.error("Erro recebido do site pai:", messageData.message);
-//     } else {
-//         console.warn("Dados inesperados recebidos do site pai:", messageData);
-//     }
-// });
+        populateContainer(iconsData, urlSlug);
+        setupIcons(iconsData, urlSlug);
+        setupContainerEventListeners(); // NOVA FUNÇÃO
+
+        //logEvent('Icons populated', `${iconsData.length} items`);
+    } else if (messageData.type === 'error') {
+        console.error("Erro recebido do site pai:", messageData.message);
+    }
+});
+
+window.addEventListener('resize', handleScreenSizeChange);
 
 document.addEventListener('DOMContentLoaded', () => {
-    //window.parent.postMessage('menuReady', "*");
-    populateContainer(icons, "urlSlug")
+    // Para demo, populate com dados mock
+    populateContainer(icons, '/home');
+    setupIcons(icons, '/home');
+    setupContainerEventListeners(); // NOVA FUNÇÃO
+    handleScreenSizeChange();
+
+    //logEvent('DOM loaded', 'ready');
+
+    // Para implementação real, descomente:
+    // window.parent.postMessage('menuReady', "*");
 });
