@@ -72,11 +72,13 @@ function createIconElements(icons) {
         icons.forEach(icon => {
             const imageUrl = convertWixImageUrl(icon.menuIcon);
             html += `
-                        <div class="icon-item" data-url="${icon.pageUrl}">
-                            <img src="${imageUrl}" alt="${icon.menuTitle}">
-                            <div class="icon-tooltip">${icon.menuTitle}</div>
-                        </div>
-                    `;
+                        <div class="icon-item-container">
+                            <div class="icon-item" data-url="${icon.pageUrl}">
+                                <img src="${imageUrl}" alt="${icon.menuTitle}">
+                                <div class="icon-tooltip">${icon.menuTitle}</div>
+                            </div>
+                            <span>${icon.menuTitle}</span>
+                        </div>                    `;
         });
     }
     return html;
@@ -162,7 +164,6 @@ function addMenuToggleButton() {
         menuToggleButton.classList.add('menu-toggle');
 
         menuToggleButton.addEventListener('touchstart', function (e) {
-            e.stopPropagation(); // Previne propagação
             menuToggleButton.classList.toggle('active');
 
             const outterContainer = document.querySelector('.outter-icons-container');

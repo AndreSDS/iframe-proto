@@ -1,12 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-  font-weight: 400;
-  font-style: normal;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 ::before,
@@ -32,7 +32,7 @@ body {
     z-index: 30;
     position: absolute;
     bottom: 0;
-    
+    width: 100vw;
 }
 
 /* Container for the icons and labels */
@@ -42,6 +42,23 @@ body {
     align-items: center;
     gap: 1.25rem;
     background-color: #fff;
+}
+
+.icon-item-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 5px;
+    height: auto;
+    width: auto;
+}
+
+.icon-item-container span {
+    display: none;
+    font-size: 11px;
+    line-height: 12px;
+    text-align: center;
 }
 
 /* Styling for each individual icon item */
@@ -74,6 +91,7 @@ body {
     pointer-events: none;
     user-select: none;
 }
+
 
 /* Styling for the button */
 .contact-button {
@@ -176,7 +194,8 @@ body {
     opacity: 0.6;
 }
 
-.menu-toggle:active, .contact-button:active {
+.menu-toggle:active,
+.contact-button:active {
     transform: scale(0.95);
 }
 
@@ -220,7 +239,7 @@ body {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         grid-template-rows: repeat(2, 1fr);
-        grid-gap: 1rem;
+        gap: 0px;
         width: fit-content;
         margin: 0 auto;
     }
@@ -230,10 +249,19 @@ body {
     }
 
     .outter-icons-container.open {
-        height: 158px;
+        height: 200px;
         opacity: 1;
-        padding: 1rem;
+        padding: 1rem 0px;
         transform: translateY(0);
+    }
+
+    .icon-item-container {
+        height: 80px;
+        width: 80px;
+    }
+
+    .icon-item-container span {
+        display: inline;
     }
 
     .icon-tooltip {
