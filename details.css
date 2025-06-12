@@ -175,7 +175,7 @@ body {
     opacity: 0.6;
 }
 
-.menu-toggle:active {
+.menu-toggle:active, .contact-button:active {
     transform: scale(0.95);
 }
 

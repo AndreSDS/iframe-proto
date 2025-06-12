@@ -89,6 +89,7 @@ function addButtonToContainer() {
 
     // CORREÇÃO: Adicionar event listener com stopPropagation
     contactButton.addEventListener('click', function (e) {
+        contactButton.classList.toggle('active');
         e.stopPropagation();
     });
 
@@ -174,11 +175,6 @@ function addMenuToggleButton() {
             }
             toggleMenu();
         });
-
-        menuToggleButton.addEventListener('touchstart', function (e) {
-            e.stopPropagation(); // Previne propagação
-            menuToggleButton.classList.toggle('active');
-        })
 
         container.appendChild(menuToggleButton);
     }
