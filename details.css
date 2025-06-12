@@ -27,13 +27,12 @@ body {
     gap: 80px;
     background-color: #fff;
     margin: 0 auto;
-    margin-top: 0px;
     height: 114px;
-    padding-top: 1.75rem;
     box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2);
-    margin-top: 1.6rem;
-    position: relative;
     z-index: 30;
+    position: absolute;
+    bottom: 0;
+    
 }
 
 /* Container for the icons and labels */
