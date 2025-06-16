@@ -123,6 +123,9 @@
 
 .category-icon-img {
   width: 100%;
+  width: 65px;
+  height: 45px;
+ display: block;
   object-fit: contain;
 }
 

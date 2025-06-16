@@ -330,10 +330,6 @@ function initDomElements() {
   domElements.cardImageContainer = document.createElement("div");
   domElements.cardImage = document.createElement("img");
 
-  // Otimizar carregamento de imagens
-  domElements.cardImage.loading = "lazy";
-  domElements.cardImage.decoding = "async";
-
   // Header elements
   domElements.cardTitle = document.createElement("h2");
   domElements.cardSubtitle = document.createElement("h3");
@@ -570,6 +566,8 @@ function createCarousel(carouselItens) {
   initDomElements();
 
   const carousel = document.querySelector(".swiper-wrapper");
+  carousel.innerHTML = ''; // Clear existing content
+
 
   const fragment = document.createDocumentFragment();
 
@@ -594,6 +592,39 @@ window.onload = function () {
     const dadosRecebidos = event.data;
     if (Array.isArray(dadosRecebidos) && !dadosRecebidos.error) {
       createCarousel(dadosRecebidos);
+
+      // Initialize Swiper after carousel is created
+      const swiperInstance = new Swiper('.swiper', {
+        direction: 'horizontal',
+        grabCursor: true,
+        loop: false,
+        slidesPerView: 'auto',
+        spaceBetween: 20,
+        navigation: {
+          nextEl: "carousel-control-next",
+          prevEl: "carousel-control-prev",
+        },
+
+      });
+
+      const buttonNext = document.querySelector(".carousel-control-next");
+      const buttonPrev = document.querySelector(".carousel-control-prev");
+
+      // Ensure listeners are only added once
+      if (buttonNext && !buttonNext.dataset.listenerAdded) {
+        buttonNext.addEventListener("click", function () {
+          swiperInstance.slideNext();
+        });
+        buttonNext.dataset.listenerAdded = 'true';
+      }
+
+      if (buttonPrev && !buttonPrev.dataset.listenerAdded) {
+        buttonPrev.addEventListener("click", function () {
+          swiperInstance.slidePrev();
+        });
+        buttonPrev.dataset.listenerAdded = 'true';
+      }
+
     } else if (dadosRecebidos && dadosRecebidos.error) {
       console.error("Erro recebido do site pai:", dadosRecebidos.error);
     } else {
@@ -601,34 +632,3 @@ window.onload = function () {
     }
   });
 };
-
-document.addEventListener("DOMContentLoaded", function () {
-
-  createCarousel(cardsItemsInfo)
-
-  new Swiper('.swiper', {
-    direction: 'horizontal',
-    grabCursor: true,
-    loop: false,
-    slidesPerView: 'auto',
-    spaceBetween: 20,
-    navigation: {
-      nextEl: "carousel-control-next",
-      prevEl: "carousel-control-prev",
-    },
-    
-  });
-
-  const buttonNext = document.querySelector(".carousel-control-next");
-  const buttonPrev = document.querySelector(".carousel-control-prev");
-
-  buttonNext.addEventListener("click", function () {
-    const swiper = document.querySelector(".swiper");
-    swiper.swiper.slideNext();
-  });
-
-  buttonPrev.addEventListener("click", function () {
-    const swiper = document.querySelector(".swiper");
-    swiper.swiper.slidePrev();
-  });
-});
