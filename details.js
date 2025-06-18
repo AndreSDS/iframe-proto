@@ -114,10 +114,11 @@ function handleScreenSizeChange() {
 function setupIcons(iconsData, urlSlug) {
     const iconItems = document.querySelectorAll('.icon-item');
 
-    iconItems.forEach((item, index) => {
-        const icon = iconsData[index];
+    iconItems.forEach((item) => {
+        const icon = iconsData.find(data => data.pageUrl === item.dataset.url);
 
-        // CORREÇÃO: Event listener com stopPropagation
+        if (!icon) return;
+
         item.addEventListener('click', function (e) {
             e.stopPropagation();
 
@@ -149,6 +150,7 @@ function setupIcons(iconsData, urlSlug) {
 }
 
 function toggleMenu() {
+    console.log("cliquei")
     const outterContainer = document.querySelector('.outter-icons-container');
     if (outterContainer) {
         outterContainer.classList.toggle('open');
@@ -163,7 +165,7 @@ function addMenuToggleButton() {
         menuToggleButton.textContent = 'Abrir menu';
         menuToggleButton.classList.add('menu-toggle');
 
-        menuToggleButton.addEventListener('touchstart', function (e) {
+        menuToggleButton.addEventListener('click', function (e) {
             menuToggleButton.classList.toggle('active');
 
             const outterContainer = document.querySelector('.outter-icons-container');
@@ -181,7 +183,7 @@ function addMenuToggleButton() {
     }
 }
 
-function populateContainer(iconsData, urlSlug) {
+function populateContainer(iconsData) {
     const container = document.querySelector('.container');
     const outterIconsContent = document.querySelector('.outter-icons-container .icons-content');
     const containerIconsContent = document.querySelector('.container .icons-content');
@@ -217,8 +219,7 @@ function setupContainerEventListeners() {
 }
 
 // Event listener para mensagens do parent (mantido para compatibilidade)
-window.addEventListener('message', (event) => {
-    const messageData = event.data;
+/**     const messageData = event.data;
 
     if (messageData.type === 'initialData' && Array.isArray(messageData.items)) {
         const iconsData = messageData.items;
@@ -236,12 +237,13 @@ window.addEventListener('message', (event) => {
         console.error("Erro recebido do site pai:", messageData.message);
     }
 });
+*/
 
 window.addEventListener('resize', handleScreenSizeChange);
 
 document.addEventListener('DOMContentLoaded', () => {
     // Para demo, populate com dados mock
-    populateContainer(icons, '/home');
+    populateContainer(icons);
     setupIcons(icons, '/home');
     setupContainerEventListeners(); // NOVA FUNÇÃO
     handleScreenSizeChange();
