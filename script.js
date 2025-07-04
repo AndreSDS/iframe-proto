@@ -364,7 +364,7 @@ function initDomElements() {
   domElements.button.classList.add("button");
 
   // Usar IntersectionObserver para lazy loading
-  setupLazyLoading();
+  //setupLazyLoading();
 }
 
 function setupLazyLoading() {
@@ -388,6 +388,19 @@ function setupLazyLoading() {
   }
 }
 
+function createCatalogButton(fragment, catologueUrl) {
+  const abrirCatalogoButton = domElements.button.cloneNode(true);
+  abrirCatalogoButton.innerHTML = `<span>Abrir catálogo</span>`;
+  fragment.appendChild(abrirCatalogoButton);
+
+  abrirCatalogoButton.addEventListener("click", function () {
+    window.parent.postMessage({
+      type: catologueUrl,
+      url: catologueUrl
+    }, '*');
+  });
+}
+
 function createButtons() {
   const buttonContainer = domElements.buttonContainer.cloneNode(false);
   buttonContainer.classList.add("button-container");
@@ -401,24 +414,20 @@ function createButtons() {
   fragment.appendChild(verMaisButton);
 
   if (item.title === "Revestimentos") {
-    const abrirCatalogoButton = domElements.button.cloneNode(true);
-    abrirCatalogoButton.innerHTML = `<span>Abrir catálogo</span>`;
-    fragment.appendChild(abrirCatalogoButton);
+    createCatalogButton(fragment, "/catalogo-virtual-revestimentos")
+  };
+
+  if (item.title === "Materiais Brutos") {
+    createCatalogButton(fragment, "/catálogo-virtual-produtos")
   };
 
   verMaisButton.addEventListener("click", function () {
     window.parent.postMessage({
-      type: 'navigateToCategoryPage', // A type to identify your message
+      type: 'navigateToCategoryPage',
       url: item.linkCategoryPage
-    }, '*'); // '*' allows communication with any origin, replace with Wix site origin for more security
+    }, '*');
   });
 
-  abrirCatalogoButton.addEventListener("click", function () {
-    window.parent.postMessage({
-      type: 'navigateToCategoryPage', // A type to identify your message
-      url: "/catálogo-virtual"
-    }, '*');
-  })
 
   buttonContainer.appendChild(fragment);
 
