@@ -93,7 +93,7 @@ body {
     user-select: none;
 }
 
-.icon-item.active + span {
+.icon-item.active+span {
     color: #023A5C;
 }
 
@@ -179,14 +179,13 @@ body {
     display: none;
     align-items: center;
     justify-content: center;
-    height: 50px;
-    min-width: 120px;
-    padding: 0 0.75rem;
+    height: 35px;
+    border-radius: 8px;
+    min-width: 90px;
     background-color: #0071c4;
     color: #fff;
     border: none;
-    border-radius: 12px;
-    font-size: 0.9em;
+    font-size: 10px;
     letter-spacing: 0.1em;
     cursor: pointer;
     transition: opacity 0.2s ease-in-out, transform 0.1s ease-in-out;
@@ -207,7 +206,7 @@ body {
 .outter-icons-container {
     display: flex;
     position: absolute;
-    bottom: 135px;
+    bottom: 75px;
     left: 0;
     right: 0;
     padding: 0;
@@ -231,7 +230,7 @@ body {
         right: 0;
         gap: 8px;
         align-items: flex-start;
-        height: 135px;
+        height: 75px;
         padding-top: 12px;
         margin-top: 0;
     }
@@ -287,11 +286,11 @@ body {
     }
 
     .contact-button {
-        font-size: 0.9em;
-        width: 100%;
-        min-width: 168px;
-        max-width: fit-content;
-        padding: 0 1.25rem;
+        font-size: 10px;
+        width: 130px;
+        min-width: 130px;
+        height: 35px;
+        border-radius: 8px;
     }
 
     .contact-button:hover {

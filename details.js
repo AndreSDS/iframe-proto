@@ -1,12 +1,52 @@
 const icons = [
-    { menuIcon: "wix:vector://v1/b98454_e2d61ef8c55a457b935cc91733e7ed36.svg/icone-categoria-revestimentos.svg", menuTitle: "Revestimentos", pageUrl: "/conteudo-categorias/revestimentos" },
-    { menuIcon: "wix:vector://v1/b98454_e4d327dd54044fce87525229fd82a6f5.svg/icone-categoria-material-bruto.svg", menuTitle: "Materiais Brutos", pageUrl: "/conteudo-categorias/materiais-brutos" },
-    { menuIcon: "wix:vector://v1/b98454_4be528f0a66c4f128e36bcef8dc54a10.svg/icone-categoria-pintura.svg", menuTitle: "Pintura", pageUrl: "/conteudo-categorias/pintura" },
-    { menuIcon: "wix:vector://v1/b98454_e7d01e6236564ebd8d78f3b5c74328a1.svg/icone-categoria-ferramentas.svg", menuTitle: "Ferramentas", pageUrl: "/conteudo-categorias/ferramentas" },
-    { menuIcon: "wix:vector://v1/b98454_d2b663ae404c4ddba2570e61ca2595ad.svg/icone-categoria-hidr%C3%A1ulica.svg", menuTitle: "Hidráulica", pageUrl: "/conteudo-categorias/hidr%C3%A1ulica" },
-    { menuIcon: "wix:vector://v1/b98454_73f9d0cdabb047e6a4e125e61beee918.svg/icone-categoria-iluminacao-e-eletrica.svg", menuTitle: "Iluminação e elétrica", pageUrl: "/conteudo-categorias/ilumina%C3%A7%C3%A3o-e-el%C3%A9trica" },
-    { menuIcon: "wix:vector://v1/b98454_f4d4365844ff4a72adf6f62054d37e27.svg/icone-categoria-casa-e-jardim.svg", menuTitle: "Casa e jardim", pageUrl: "/conteudo-categorias/casa-e-jardim" },
-    { menuIcon: "wix:vector://v1/b98454_c1a536cb58614eefb8e6ff82d8638240.svg/icone-categoria-linha-industrial.svg", menuTitle: "Linha industrial", pageUrl: "/conteudo-categorias/linha-industrial" },
+    {
+        menuIcon: "wix:vector://v1/b98454_e2d61ef8c55a457b935cc91733e7ed36.svg/icone-categoria-revestimentos.svg",
+        menuTitle: "Revestimentos",
+        pageUrl: "/conteudo-categorias/revestimentos",
+        url: "https://wa.me/5562982962832?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20Revestimentos."
+    },
+    {
+        menuIcon: "wix:vector://v1/b98454_e4d327dd54044fce87525229fd82a6f5.svg/icone-categoria-material-bruto.svg",
+        menuTitle: "Materiais Brutos",
+        pageUrl: "/conteudo-categorias/materiais-brutos",
+        url: "https://wa.me/5562982962832?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20Materiais%20Brutos."
+    },
+    {
+        menuIcon: "wix:vector://v1/b98454_4be528f0a66c4f128e36bcef8dc54a10.svg/icone-categoria-pintura.svg",
+        menuTitle: "Pintura",
+        pageUrl: "/conteudo-categorias/pintura",
+        url: "https://wa.me/5562982962832?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20Pintura."
+    },
+    {
+        menuIcon: "wix:vector://v1/b98454_e7d01e6236564ebd8d78f3b5c74328a1.svg/icone-categoria-ferramentas.svg",
+        menuTitle: "Ferramentas",
+        pageUrl: "/conteudo-categorias/ferramentas",
+        url: "https://wa.me/5562982962832?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20Ferramentas."
+    },
+    {
+        menuIcon: "wix:vector://v1/b98454_d2b663ae404c4ddba2570e61ca2595ad.svg/icone-categoria-hidr%C3%A1ulica.svg",
+        menuTitle: "Hidráulica",
+        pageUrl: "/conteudo-categorias/hidr%C3%A1ulica",
+        url: "https://wa.me/5562982962832?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20Hidráulica."
+    },
+    {
+        menuIcon: "wix:vector://v1/b98454_73f9d0cdabb047e6a4e125e61beee918.svg/icone-categoria-iluminacao-e-eletrica.svg",
+        menuTitle: "Iluminação e elétrica",
+        pageUrl: "/conteudo-categorias/ilumina%C3%A7%C3%A3o-e-el%C3%A9trica",
+        url: "https://wa.me/5562982962832?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20Iluminação%20e%20Elétrica."
+    },
+    {
+        menuIcon: "wix:vector://v1/b98454_f4d4365844ff4a72adf6f62054d37e27.svg/icone-categoria-casa-e-jardim.svg",
+        menuTitle: "Casa e jardim",
+        pageUrl: "/conteudo-categorias/casa-e-jardim",
+        url: "https://wa.me/5562982962832?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20Casa%20e%20Jardim."
+    },
+    {
+        menuIcon: "wix:vector://v1/b98454_c1a536cb58614eefb8e6ff82d8638240.svg/icone-categoria-linha-industrial.svg",
+        menuTitle: "Linha industrial",
+        pageUrl: "/conteudo-categorias/linha-industrial",
+        url: "https://wa.me/5562982962832?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20Linha%20Industrial."
+    },
 ]
 
 // Debug function
@@ -16,6 +56,7 @@ function logEvent(eventType, details = '') {
 }
 
 let activeIconItem = null;
+let activeIconData = null;
 
 function getUrlSlug(pathname) {
     try {
@@ -93,6 +134,10 @@ function addButtonToContainer() {
     contactButton.addEventListener('click', function (e) {
         contactButton.classList.toggle('active');
         e.stopPropagation();
+
+        if (activeIconData) {
+            window.open(activeIconData.url, '_blank');
+        }
     });
 
     return contactButton;
@@ -113,32 +158,37 @@ function handleScreenSizeChange() {
 
 function setupIcons(iconsData, urlSlug) {
     const iconItems = document.querySelectorAll('.icon-item');
-
-    iconItems.forEach((item) => {
+    const currentPagePath = window.location.pathname;
+    const currentUrl = window.location.href;
+    
+    // Encontrar o icon baseado na URL atual
+    activeIconData = iconsData.find(icon => {
+        return urlSlug === getUrlSlug(icon.pageUrl);
+    });
+  
+    iconItems.forEach((item, index) => {
         const icon = iconsData.find(data => data.pageUrl === item.dataset.url);
 
         if (!icon) return;
 
         item.addEventListener('click', function (e) {
             e.stopPropagation();
-
-            //logEvent('Icon clicked', icon.menuTitle);
+            activeIconData = icon;
 
             if (activeIconItem) {
                 activeIconItem.classList.remove('active');
             }
 
-            // Add active class to clicked item
             this.classList.add('active');
             activeIconItem = this;
 
             // Navigate to page
             if (icon.pageUrl) {
-                // Para demo, apenas log. Na implementação real use postMessage
-                //logEvent('Navigation', icon.pageUrl);
                 window.parent.postMessage({ type: 'pageUrl', url: icon.pageUrl }, "*");
             }
         });
+
+        // Set active state based on URL
         const iconUrlSlug = icon.pageUrl ? getUrlSlug(icon.pageUrl) : null;
         if (iconUrlSlug && urlSlug && iconUrlSlug === urlSlug) {
             item.classList.add('active');
