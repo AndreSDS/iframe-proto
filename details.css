@@ -111,7 +111,7 @@ body {
     border: none;
     border-radius: 12px;
     font-size: 18px;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.05;
     cursor: pointer;
     transition: opacity 0.2s ease-in-out;
     position: relative;
@@ -186,7 +186,7 @@ body {
     color: #fff;
     border: none;
     font-size: 10px;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.05;
     cursor: pointer;
     transition: opacity 0.2s ease-in-out, transform 0.1s ease-in-out;
     position: relative;
