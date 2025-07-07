@@ -413,12 +413,8 @@ function createButtons() {
   verMaisButton.innerHTML = `<span>Ver mais</span>`;
   fragment.appendChild(verMaisButton);
 
-  if (item.title === "Revestimentos") {
-    createCatalogButton(fragment, "/catalogo-virtual-revestimentos")
-  };
-
-  if (item.title === "Materiais Brutos") {
-    createCatalogButton(fragment, "/catálogo-virtual-produtos")
+  if (item.catalogoUrl) {
+    createCatalogButton(fragment, item.catalogoUrl)
   };
 
   verMaisButton.addEventListener("click", function () {
@@ -427,7 +423,6 @@ function createButtons() {
       url: item.linkCategoryPage
     }, '*');
   });
-
 
   buttonContainer.appendChild(fragment);
 
