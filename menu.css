@@ -205,6 +205,9 @@ body {
 
 .outter-icons-container {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     bottom: 75px;
     left: 0;
@@ -222,6 +225,60 @@ body {
     background-color: #fff;
 }
 
+.option-btn-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 10px;
+    padding: 0 1.5rem;
+    transform: translateY(0);
+    transition: transform 0.15s ease-in-out, height 0.15s ease-in-out, opacity 0.15s ease-in-out;
+    opacity: 0;
+    height: 0;
+}
+
+.option-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    padding: 0.25rem 1.5rem;
+    border: 2px solid #a6a6a6;
+    border-radius: 25px;
+    background-color: #fff;
+    color: #555;
+    font-size: 10px;
+    letter-spacing: 0.05;
+    cursor: pointer;
+}
+
+.info-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    overflow: hidden;
+    border-radius: 8px;
+    background-color: #a6a6a6;
+    font-size: 10px;
+}
+
+.info-cards-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 0 1.5rem;
+    transform: translateY(0);
+    visibility: hidden;
+    opacity: 0;
+    height: 0;
+    transition: transform 0.25s ease-in-out, height 0.25s ease-in-out, opacity 0.25s ease-in-out;
+}
+
 @media (max-width: 768px) {
     .container {
         position: absolute;
@@ -235,11 +292,14 @@ body {
         margin-top: 0;
     }
 
-    .icons-container {
-        display: none;
+    .icons-content {
+        visibility: hidden;
+        height: 0;
     }
 
-    .icons-content {
+    .icons-content.show {
+        visibility: visible;
+        height: auto;
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         grid-template-rows: repeat(2, 1fr);
@@ -254,10 +314,34 @@ body {
     }
 
     .outter-icons-container.open {
-        height: 200px;
+        height: fit-content;
         opacity: 1;
         padding: 1rem 0px;
         transform: translateY(0);
+    }
+
+    .outter-icons-container.open .option-btn-container {
+        opacity: 1;
+        height: fit-content;
+        transform: translateY(0);
+    }
+
+    .outter-icons-container.open {
+        opacity: 1;
+        height: fit-content;
+        transform: translateY(0);
+    }
+
+    .info-cards-container {
+        visibility: visible;
+        opacity: 1;
+        height: fit-content;
+    }
+
+    .info-cards-container.hide {
+        visibility: hidden;
+        opacity: 0;
+        height: 0;
     }
 
     .icon-item-container {
