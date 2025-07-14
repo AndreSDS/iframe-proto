@@ -52,6 +52,7 @@ body {
     gap: 5px;
     height: auto;
     width: auto;
+    position: relative;
 }
 
 .icon-item-container span {
@@ -79,6 +80,23 @@ body {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+}
+
+.icon-item .coming-soon {
+    font-size: 6px;
+    line-height: 8px;
+    position: absolute;
+    top: -7px;
+    right: -9px;
+    background-color: #0071c4;
+    color: #fff;
+    padding: 2px 6px;
+    border-radius: 20px;
+    z-index: 10;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .icon-item.active {
@@ -342,6 +360,13 @@ body {
         visibility: hidden;
         opacity: 0;
         height: 0;
+    }
+
+    .catalogue-btn.active,
+    .about-material-btn.active {
+        background-color: #0071c4;
+        color: #fff;
+        border: #0071c4;
     }
 
     .icon-item-container {

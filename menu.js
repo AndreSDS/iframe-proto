@@ -1,4 +1,4 @@
-const iconsData = [
+const icons = [
     {
         menuIcon: "wix:vector://v1/b98454_e2d61ef8c55a457b935cc91733e7ed36.svg/icone-categoria-revestimentos.svg",
         menuTitle: "Revestimentos",
@@ -89,6 +89,10 @@ function getUrlSlug(pathname) {
 
 function convertWixImageUrl(wixImageUrl) {
     // Para demo, retorna a URL diretamente
+    if (!wixImageUrl) {
+        return null;
+    }
+
     if (wixImageUrl.includes('placeholder')) {
         return wixImageUrl;
     }
@@ -116,15 +120,22 @@ function populateIconsContainer(containerElement, iconsData) {
 }
 
 function createIconElements(icons) {
+    const catalogueBtn = document.querySelector('.catalogue-btn');
+    const catalogueBtnIsActive = catalogueBtn && catalogueBtn.classList.contains('active');
+
     let html = ``;
     if (icons && icons.length > 0) {
         icons.forEach(icon => {
-            if(!icon) return;
+            if (!icon) return;
+
             const imageUrl = convertWixImageUrl(icon.menuIcon);
+            const hasBadge = icon.menuTitle === 'Pintura' && catalogueBtnIsActive;
+
             html += `
                         <div class="icon-item-container">
-                            <div class="icon-item" data-url="${icon.pageUrl}">
-                                <img src="${imageUrl}" alt="${icon.menuTitle}">
+                        <div class="icon-item" data-url="${icon.pageUrl}">
+                        <img src="${imageUrl}" alt="${icon.menuTitle}">
+                                ${hasBadge ? `<span class="coming-soon">Coming soon</span>` : ''}
                                 <div class="icon-tooltip">${icon.menuTitle}</div>
                             </div>
                             <span>${icon.menuTitle}</span>
@@ -209,7 +220,6 @@ function setupIcons(iconsData, urlSlug) {
 }
 
 function toggleMenu() {
-    console.log("cliquei")
     const outterContainer = document.querySelector('.outter-icons-container');
     if (outterContainer) {
         outterContainer.classList.toggle('open');
@@ -280,30 +290,76 @@ function setupContainerEventListeners() {
 const aboutMaterialBtn = document.querySelector('.about-material-btn');
 const catalogueBtn = document.querySelector('.catalogue-btn');
 const infoCardsContainer = document.querySelector('.info-cards-container');
-const iconsContent = document.querySelector('.icons-content');
+const outterIconsContent = document.querySelector('.icons-content');
+
+const iconsWithCatalogueUrl = [];
+
+for (var index = 0, arrLenght = icons.length; index < arrLenght; index++) {
+    const element = icons[index];
+    if (element.catalogoUrl) {
+        iconsWithCatalogueUrl.push(element);
+    }
+}
+
+function getIconToAddComingSoonBadge(menuTitle) {
+    const iconToAddBadge = icons.find(icon => {
+        return icon.menuTitle.toLocaleLowerCase() === menuTitle.toLocaleLowerCase();
+    })
+
+    return iconToAddBadge
+}
 
 aboutMaterialBtn.addEventListener('click', function () {
+    const currentIconsQuantity = outterIconsContent.children.length;
+    aboutMaterialBtn.classList.add('active');
+
+    if (catalogueBtn.classList.contains('active')) {
+        catalogueBtn.classList.remove('active');
+    }
+
+    if (currentIconsQuantity < icons.length) {
+        if (outterIconsContent) {
+            outterIconsContent.innerHTML = '';
+        }
+
+        populateIconsContainer(outterIconsContent, icons);
+    }
+
+    if (outterIconsContent.classList.contains('show') && currentIconsQuantity < icons.length) {
+        return;
+    }
+
     infoCardsContainer.classList.toggle('hide');
-    iconsContent.classList.toggle('show');
+    outterIconsContent.classList.toggle('show');
 });
 
 catalogueBtn.addEventListener('click', function () {
-    const outterIconsContent = document.querySelector('.icons-content');
+    catalogueBtn.classList.add('active');
+
+    if (aboutMaterialBtn.classList.contains('active')) {
+        aboutMaterialBtn.classList.remove('active');
+    }
+
+    const iconToAddComingSoonBadge = getIconToAddComingSoonBadge("pintura");
+
+    const iconExists = iconsWithCatalogueUrl.some(icon => icon.menuTitle === iconToAddComingSoonBadge.menuTitle);
+
+    if (!iconExists) {
+        iconsWithCatalogueUrl.push(iconToAddComingSoonBadge);
+    }
 
     if (outterIconsContent) {
         outterIconsContent.innerHTML = '';
     }
 
-    const iconsWithCatalogueUrl = iconsData.map(icon => {
-        if (icon.catalogoUrl) {
-            return {
-                ...icon
-            };
-        }
-        return null;
-    })
-
     populateIconsContainer(outterIconsContent, iconsWithCatalogueUrl);
+
+    if (outterIconsContent.classList.contains('show')) {
+        return;
+    }
+
+    infoCardsContainer.classList.toggle('hide');
+    outterIconsContent.classList.toggle('show');
 });
 
 // Event listener para mensagens do parent (mantido para compatibilidade)
@@ -331,8 +387,8 @@ window.addEventListener('resize', handleScreenSizeChange);
 
 document.addEventListener('DOMContentLoaded', () => {
     // Para demo, populate com dados mock
-    populateContainer(iconsData);
-    setupIcons(iconsData, '/home');
+    populateContainer(icons);
+    setupIcons(icons, '/home');
     setupContainerEventListeners(); // NOVA FUNÇÃO
     handleScreenSizeChange();
 
