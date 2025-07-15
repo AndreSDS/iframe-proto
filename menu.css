@@ -303,6 +303,10 @@ body {
     transition: transform 0.25s ease-in-out, height 0.25s ease-in-out, opacity 0.25s ease-in-out;
 }
 
+.disabled {
+    cursor: not-allowed;
+}
+
 @media (max-width: 768px) {
     .container {
         position: absolute;
@@ -367,6 +371,7 @@ body {
         visibility: hidden;
         opacity: 0;
         height: 0;
+        padding: 0;
     }
 
     .catalogue-btn.active,

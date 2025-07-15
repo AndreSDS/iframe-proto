@@ -4,14 +4,14 @@ const icons = [
         menuTitle: "Revestimentos",
         pageUrl: "/conteudo-categorias/revestimentos",
         url: "https://wa.me/5562982962832?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20Revestimentos.",
-        catalogoUrl: "revestimentos"
+        catalogoUrl: "/catalogo-virtual-revestimentos"
     },
     {
         menuIcon: "wix:vector://v1/b98454_e4d327dd54044fce87525229fd82a6f5.svg/icone-categoria-material-bruto.svg",
         menuTitle: "Materiais Brutos",
         pageUrl: "/conteudo-categorias/materiais-brutos",
         url: "https://wa.me/5562982962832?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20Materiais%20Brutos.",
-        catalogoUrl: "materiais"
+        catalogoUrl: "/catálogo-virtual-produtos"
     },
     {
         menuIcon: "wix:vector://v1/b98454_4be528f0a66c4f128e36bcef8dc54a10.svg/icone-categoria-pintura.svg",
@@ -56,6 +56,7 @@ const icons = [
         catalogoUrl: ""
     },
 ]
+let urlSlug = '';
 
 // Debug function
 function logEvent(eventType, details = '') {
@@ -135,7 +136,7 @@ function createIconElements(icons) {
                         <div class="icon-item-container">
                         <div class="icon-item" data-url="${icon.pageUrl}">
                         <img src="${imageUrl}" alt="${icon.menuTitle}">
-                                ${hasBadge ? `<span class="coming-soon">Coming soon</span>` : ''}
+                                ${hasBadge ? `<span class="coming-soon">Em breve</span>` : ''}
                                 <div class="icon-tooltip">${icon.menuTitle}</div>
                             </div>
                             <span>${icon.menuTitle}</span>
@@ -174,49 +175,6 @@ function handleScreenSizeChange() {
         outterIconsContainer.style.display = 'none';
         containerIconsContainer.style.display = 'flex';
     }
-}
-
-function setupIcons(iconsData, urlSlug) {
-    const iconItems = document.querySelectorAll('.icon-item');
-    const currentPagePath = window.location.pathname;
-    const currentUrl = window.location.href;
-
-    // Encontrar o icon baseado na URL atual
-    activeIconData = iconsData.find(icon => {
-        return urlSlug === getUrlSlug(icon.pageUrl);
-    });
-
-    iconItems.forEach((item, index) => {
-        const icon = iconsData.find(data => data.pageUrl === item.dataset.url);
-
-        if (!icon) return;
-
-        item.addEventListener('click', function (e) {
-            e.stopPropagation();
-            activeIconData = icon;
-
-            if (activeIconItem) {
-                activeIconItem.classList.remove('active');
-            }
-
-            this.classList.add('active');
-            activeIconItem = this;
-
-            // Navigate to page
-            if (icon.pageUrl) {
-                window.parent.postMessage({ type: 'pageUrl', url: icon.pageUrl }, "*");
-            }
-        });
-
-        // Set active state based on URL
-        const iconUrlSlug = icon.pageUrl ? getUrlSlug(icon.pageUrl) : null;
-        if (iconUrlSlug && urlSlug && iconUrlSlug === urlSlug) {
-            item.classList.add('active');
-            activeIconItem = item;
-        } else {
-            item.classList.remove('active');
-        }
-    });
 }
 
 function toggleMenu() {
@@ -310,6 +268,8 @@ function getIconToAddComingSoonBadge(menuTitle) {
 }
 
 aboutMaterialBtn.addEventListener('click', function () {
+    if (aboutMaterialBtn.classList.contains('active')) return;
+
     const currentIconsQuantity = outterIconsContent.children.length;
     aboutMaterialBtn.classList.add('active');
     catalogueBtn.classList.remove('active');
@@ -326,6 +286,8 @@ aboutMaterialBtn.addEventListener('click', function () {
         outterIconsContent.style.display = 'grid';
     }
 
+    setupIcons(icons, urlSlug)
+
     if (outterIconsContent.classList.contains('show')) {
         return;
     }
@@ -335,6 +297,8 @@ aboutMaterialBtn.addEventListener('click', function () {
 });
 
 catalogueBtn.addEventListener('click', function () {
+    if (catalogueBtn.classList.contains('active')) return;
+
     catalogueBtn.classList.add('active');
     aboutMaterialBtn.classList.remove('active');
 
@@ -352,10 +316,18 @@ catalogueBtn.addEventListener('click', function () {
 
     populateIconsContainer(outterIconsContent, iconsWithCatalogueUrl);
 
-    if (outterIconsContent.children.length <= 4 && catalogueBtn.classList.contains('active')) {
+    const iconsArray = outterIconsContent.children;
+    if (iconsArray.length <= 4 && catalogueBtn.classList.contains('active')) {
         outterIconsContent.style.display = 'flex';
         outterIconsContent.style.flexWrap = 'wrap';
     }
+
+    setupIcons(icons, urlSlug)
+
+    // avoid click to this element iconsArray[2]
+    iconsArray[2].addEventListener('click', function (e) {
+        e.stopPropagation();
+    });
 
     if (outterIconsContent.classList.contains('show')) {
         return;
@@ -365,15 +337,64 @@ catalogueBtn.addEventListener('click', function () {
     outterIconsContent.classList.toggle('show');
 });
 
+function setupIcons(iconsData, urlSlug) {
+    const iconItems = document.querySelectorAll('.icon-item');
+    const catalogueBtn = document.querySelector('.catalogue-btn');
+    const catalogueBtnIsActive = catalogueBtn && catalogueBtn.classList.contains('active');
+
+    // Encontrar o icon baseado na URL atual
+    activeIconData = iconsData.find(icon => {
+        return urlSlug === getUrlSlug(icon.pageUrl);
+    });
+
+    iconItems.forEach((item, index) => {
+        const icon = iconsData.find(data => data.pageUrl === item.dataset.url);
+        if (!icon) return;
+
+        // disable item to avoid click if it has a badge
+        // add styles to indicate that the item is disabled
+        if (icon.menuTitle === 'Pintura' && catalogueBtnIsActive) {
+            item.classList.add('disabled');
+            return;
+        }
+        
+        item.addEventListener('click', function (e) {
+            e.stopPropagation();
+            activeIconData = icon;
+
+            if (activeIconItem) {
+                activeIconItem.classList.remove('active');
+            }
+
+            this.classList.add('active');
+            activeIconItem = this;
+
+            if (catalogueBtnIsActive) {
+                window.parent.postMessage({ type: icon.catalogoUrl, url: icon.catalogoUrl }, "*");
+            } else if (icon.pageUrl) {
+                window.parent.postMessage({ type: 'pageUrl', url: icon.pageUrl }, "*");
+            }
+        });
+
+        // Set active state based on URL
+        const iconUrlSlug = icon.pageUrl ? getUrlSlug(icon.pageUrl) : null;
+        if (iconUrlSlug && urlSlug && iconUrlSlug === urlSlug) {
+            item.classList.add('active');
+            activeIconItem = item;
+        } else {
+            item.classList.remove('active');
+        }
+    });
+}
+
 // Event listener para mensagens do parent (mantido para compatibilidade)
 /**     const messageData = event.data;
 
     if (messageData.type === 'initialData' && Array.isArray(messageData.items)) {
-        const iconsData = messageData.items;
-        const urlSlug = messageData.urlSlug;
+        urlSlug = messageData.urlSlug;
 
         icons.length = 0;
-        icons.push(...iconsData);
+        icons.push(...messageData.items);
 
         populateContainer(iconsData, urlSlug);
         setupIcons(iconsData, urlSlug);
