@@ -312,10 +312,7 @@ function getIconToAddComingSoonBadge(menuTitle) {
 aboutMaterialBtn.addEventListener('click', function () {
     const currentIconsQuantity = outterIconsContent.children.length;
     aboutMaterialBtn.classList.add('active');
-
-    if (catalogueBtn.classList.contains('active')) {
-        catalogueBtn.classList.remove('active');
-    }
+    catalogueBtn.classList.remove('active');
 
     if (currentIconsQuantity < icons.length) {
         if (outterIconsContent) {
@@ -325,7 +322,11 @@ aboutMaterialBtn.addEventListener('click', function () {
         populateIconsContainer(outterIconsContent, icons);
     }
 
-    if (outterIconsContent.classList.contains('show') && currentIconsQuantity < icons.length) {
+    if (outterIconsContent.children.length > 0) {
+        outterIconsContent.style.display = 'grid';
+    }
+
+    if (outterIconsContent.classList.contains('show')) {
         return;
     }
 
@@ -335,10 +336,7 @@ aboutMaterialBtn.addEventListener('click', function () {
 
 catalogueBtn.addEventListener('click', function () {
     catalogueBtn.classList.add('active');
-
-    if (aboutMaterialBtn.classList.contains('active')) {
-        aboutMaterialBtn.classList.remove('active');
-    }
+    aboutMaterialBtn.classList.remove('active');
 
     const iconToAddComingSoonBadge = getIconToAddComingSoonBadge("pintura");
 
@@ -353,6 +351,11 @@ catalogueBtn.addEventListener('click', function () {
     }
 
     populateIconsContainer(outterIconsContent, iconsWithCatalogueUrl);
+
+    if (outterIconsContent.children.length <= 4 && catalogueBtn.classList.contains('active')) {
+        outterIconsContent.style.display = 'flex';
+        outterIconsContent.style.flexWrap = 'wrap';
+    }
 
     if (outterIconsContent.classList.contains('show')) {
         return;
