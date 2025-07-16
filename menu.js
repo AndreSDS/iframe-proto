@@ -121,22 +121,16 @@ function populateIconsContainer(containerElement, iconsData) {
 }
 
 function createIconElements(icons) {
-    const catalogueBtn = document.querySelector('.catalogue-btn');
-    const catalogueBtnIsActive = catalogueBtn && catalogueBtn.classList.contains('active');
-
     let html = ``;
     if (icons && icons.length > 0) {
         icons.forEach(icon => {
             if (!icon) return;
 
             const imageUrl = convertWixImageUrl(icon.menuIcon);
-            const hasBadge = icon.menuTitle === 'Pintura' && catalogueBtnIsActive;
-
             html += `
                         <div class="icon-item-container">
                         <div class="icon-item" data-url="${icon.pageUrl}">
                         <img src="${imageUrl}" alt="${icon.menuTitle}">
-                                ${hasBadge ? `<span class="coming-soon">Em breve</span>` : ''}
                                 <div class="icon-tooltip">${icon.menuTitle}</div>
                             </div>
                             <span>${icon.menuTitle}</span>
@@ -259,12 +253,26 @@ for (var index = 0, arrLenght = icons.length; index < arrLenght; index++) {
     }
 }
 
-function getIconToAddComingSoonBadge(menuTitle) {
+function getItemToComingSoonCatalogue(menuTitle) {
     const iconToAddBadge = icons.find(icon => {
         return icon.menuTitle.toLocaleLowerCase() === menuTitle.toLocaleLowerCase();
     })
 
     return iconToAddBadge
+}
+
+
+function addComingSoonBadgeToElement(element) {
+    if (!element) {
+        console.error("Elemento nulo ou indefinido passado para addComingSoonBadgeToElement.");
+        return;
+    }
+
+    const badge = document.createElement('span');
+    badge.classList.add('coming-soon');
+    badge.textContent = 'Em breve';
+
+    element.appendChild(badge);
 }
 
 aboutMaterialBtn.addEventListener('click', function () {
@@ -286,6 +294,9 @@ aboutMaterialBtn.addEventListener('click', function () {
         outterIconsContent.style.display = 'grid';
     }
 
+
+    addComingSoonBadgeToElement()
+
     setupIcons(icons, urlSlug)
 
     if (outterIconsContent.classList.contains('show')) {
@@ -302,12 +313,12 @@ catalogueBtn.addEventListener('click', function () {
     catalogueBtn.classList.add('active');
     aboutMaterialBtn.classList.remove('active');
 
-    const iconToAddComingSoonBadge = getIconToAddComingSoonBadge("pintura");
+    const iconComingSoonCatalogue = getItemToComingSoonCatalogue("pintura");
 
-    const iconExists = iconsWithCatalogueUrl.some(icon => icon.menuTitle === iconToAddComingSoonBadge.menuTitle);
+    const iconExists = iconsWithCatalogueUrl.some(icon => icon.menuTitle === iconComingSoonCatalogue.menuTitle);
 
     if (!iconExists) {
-        iconsWithCatalogueUrl.push(iconToAddComingSoonBadge);
+        iconsWithCatalogueUrl.push(iconComingSoonCatalogue);
     }
 
     if (outterIconsContent) {
@@ -321,6 +332,8 @@ catalogueBtn.addEventListener('click', function () {
         outterIconsContent.style.display = 'flex';
         outterIconsContent.style.flexWrap = 'wrap';
     }
+
+    addComingSoonBadgeToElement(outterIconsContent.children[2])
 
     setupIcons(icons, urlSlug)
 
@@ -339,9 +352,6 @@ catalogueBtn.addEventListener('click', function () {
 
 function setupIcons(iconsData, urlSlug) {
     const iconItems = document.querySelectorAll('.icon-item');
-    const catalogueBtn = document.querySelector('.catalogue-btn');
-    const catalogueBtnIsActive = catalogueBtn && catalogueBtn.classList.contains('active');
-
     // Encontrar o icon baseado na URL atual
     activeIconData = iconsData.find(icon => {
         return urlSlug === getUrlSlug(icon.pageUrl);
@@ -351,13 +361,6 @@ function setupIcons(iconsData, urlSlug) {
         const icon = iconsData.find(data => data.pageUrl === item.dataset.url);
         if (!icon) return;
 
-        // disable item to avoid click if it has a badge
-        // add styles to indicate that the item is disabled
-        if (icon.menuTitle === 'Pintura' && catalogueBtnIsActive) {
-            item.classList.add('disabled');
-            return;
-        }
-        
         item.addEventListener('click', function (e) {
             e.stopPropagation();
             activeIconData = icon;
