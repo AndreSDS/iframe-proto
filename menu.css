@@ -304,7 +304,23 @@ body {
 }
 
 .disabled {
+    pointer-events: none;
     cursor: not-allowed;
+}
+
+.hide {
+    visibility: hidden;
+    opacity: 0;
+    height: 0;
+    padding: 0;
+    transform: translateY(0);
+    transition: transform 0.3s ease-in-out, padding 0.3s ease-in-out, height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.show {
+    visibility: visible;
+    opacity: 1;
+    height: fit-content;
 }
 
 @media (max-width: 768px) {
@@ -323,6 +339,8 @@ body {
     .icons-content {
         visibility: hidden;
         height: 0;
+        transform: translateY(0);
+        transition: transform 0.3s ease-in-out, padding 0.3s ease-in-out, height 0.3s ease-in-out, opacity 0.3s ease-in-out;
     }
 
     .icons-content.show {
@@ -346,7 +364,7 @@ body {
         height: fit-content;
         opacity: 1;
         padding: 1rem 0px;
-        transform: translateY(0);
+         
     }
 
     .outter-icons-container.open .option-btn-container {
@@ -365,6 +383,7 @@ body {
         visibility: visible;
         opacity: 1;
         height: fit-content;
+
     }
 
     .info-cards-container.hide {

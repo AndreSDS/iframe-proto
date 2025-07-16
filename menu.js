@@ -56,16 +56,20 @@ const icons = [
         catalogoUrl: ""
     },
 ]
+const iconsWithCatalogueUrl = [];
 let urlSlug = '';
+let activeIconItem = null;
+let activeIconData = null;
 
-// Debug function
+const aboutMaterialBtn = document.querySelector('.about-material-btn');
+const catalogueBtn = document.querySelector('.catalogue-btn');
+const infoCardsContainer = document.querySelector('.info-cards-container');
+const outterIconsContent = document.querySelector('.icons-content');
+
 function logEvent(eventType, details = '') {
     const eventLog = document.getElementById('eventLog');
     eventLog.textContent = `${eventType} ${details} - ${new Date().toLocaleTimeString()}`;
 }
-
-let activeIconItem = null;
-let activeIconData = null;
 
 function getUrlSlug(pathname) {
     try {
@@ -174,11 +178,21 @@ function handleScreenSizeChange() {
 function toggleMenu() {
     const outterContainer = document.querySelector('.outter-icons-container');
     if (outterContainer) {
-        outterContainer.classList.toggle('open');
+        if (outterContainer.classList.contains('open')) {
+            // Fechar o menu
+            outterContainer.classList.remove('slide-up');
+            outterContainer.classList.add('slide-down');
+            outterContainer.classList.remove('open'); // Remove a classe 'open' após a animação
+        } else {
+            // Abrir o menu
+            outterContainer.classList.remove('slide-down');
+            outterContainer.classList.add('slide-up');
+            outterContainer.classList.add('open');
+        }
         //logEvent('Menu toggled', outterContainer.classList.contains('open') ? 'opened' : 'closed');
     }
 }
-
+// Função para adicionar o botão de toggle do menu
 function addMenuToggleButton() {
     const container = document.querySelector('.container');
     if (container) {
@@ -190,15 +204,14 @@ function addMenuToggleButton() {
             menuToggleButton.classList.toggle('active');
 
             const outterContainer = document.querySelector('.outter-icons-container');
-            if (outterContainer) {
-                if (!outterContainer.classList.contains('open')) {
-                    this.textContent = 'Fechar';
-                } else {
-                    this.textContent = 'Abrir menu';
-                }
+            if (outterContainer && !outterContainer.classList.contains('open')) {
+                this.textContent = 'Fechar';
+            } else {
+                this.textContent = 'Abrir menu';
             }
             toggleMenu();
         });
+
 
         container.appendChild(menuToggleButton);
     }
@@ -239,20 +252,6 @@ function setupContainerEventListeners() {
     });
 }
 
-const aboutMaterialBtn = document.querySelector('.about-material-btn');
-const catalogueBtn = document.querySelector('.catalogue-btn');
-const infoCardsContainer = document.querySelector('.info-cards-container');
-const outterIconsContent = document.querySelector('.icons-content');
-
-const iconsWithCatalogueUrl = [];
-
-for (var index = 0, arrLenght = icons.length; index < arrLenght; index++) {
-    const element = icons[index];
-    if (element.catalogoUrl) {
-        iconsWithCatalogueUrl.push(element);
-    }
-}
-
 function getItemToComingSoonCatalogue(menuTitle) {
     const iconToAddBadge = icons.find(icon => {
         return icon.menuTitle.toLocaleLowerCase() === menuTitle.toLocaleLowerCase();
@@ -260,7 +259,6 @@ function getItemToComingSoonCatalogue(menuTitle) {
 
     return iconToAddBadge
 }
-
 
 function addComingSoonBadgeToElement(element) {
     if (!element) {
@@ -272,83 +270,86 @@ function addComingSoonBadgeToElement(element) {
     badge.classList.add('coming-soon');
     badge.textContent = 'Em breve';
 
+    element.children[0].classList.add('disabled');
+
+    element.children[1].addEventListener('click', function (e) {
+        e.stopPropagation();
+    });
+
     element.appendChild(badge);
 }
 
-aboutMaterialBtn.addEventListener('click', function () {
-    if (aboutMaterialBtn.classList.contains('active')) return;
-
-    const currentIconsQuantity = outterIconsContent.children.length;
-    aboutMaterialBtn.classList.add('active');
-    catalogueBtn.classList.remove('active');
-
-    if (currentIconsQuantity < icons.length) {
-        if (outterIconsContent) {
-            outterIconsContent.innerHTML = '';
+function handleIconsWithCatalogueUrl() {
+    for (var index = 0, arrLenght = icons.length; index < arrLenght; index++) {
+        const element = icons[index];
+        if (element.catalogoUrl) {
+            iconsWithCatalogueUrl.push(element);
         }
-
-        populateIconsContainer(outterIconsContent, icons);
     }
+}
 
-    if (outterIconsContent.children.length > 0) {
-        outterIconsContent.style.display = 'grid';
-    }
+function handleMenuButtonClick(clickedButton, otherButton, iconsToShow) {
+    if (clickedButton.classList.contains('active')) return;
 
-
-    addComingSoonBadgeToElement()
-
-    setupIcons(icons, urlSlug)
-
-    if (outterIconsContent.classList.contains('show')) {
-        return;
-    }
-
-    infoCardsContainer.classList.toggle('hide');
-    outterIconsContent.classList.toggle('show');
-});
-
-catalogueBtn.addEventListener('click', function () {
-    if (catalogueBtn.classList.contains('active')) return;
-
-    catalogueBtn.classList.add('active');
-    aboutMaterialBtn.classList.remove('active');
-
-    const iconComingSoonCatalogue = getItemToComingSoonCatalogue("pintura");
-
-    const iconExists = iconsWithCatalogueUrl.some(icon => icon.menuTitle === iconComingSoonCatalogue.menuTitle);
-
-    if (!iconExists) {
-        iconsWithCatalogueUrl.push(iconComingSoonCatalogue);
-    }
+    clickedButton.classList.add('active');
+    otherButton.classList.remove('active');
 
     if (outterIconsContent) {
         outterIconsContent.innerHTML = '';
     }
 
-    populateIconsContainer(outterIconsContent, iconsWithCatalogueUrl);
+    populateIconsContainer(outterIconsContent, iconsToShow);
 
-    const iconsArray = outterIconsContent.children;
-    if (iconsArray.length <= 4 && catalogueBtn.classList.contains('active')) {
-        outterIconsContent.style.display = 'flex';
-        outterIconsContent.style.flexWrap = 'wrap';
+    setupIcons(iconsToShow, urlSlug);
+
+    if (!outterIconsContent.classList.contains('show')) {
+        infoCardsContainer.classList.add('hide');
+        outterIconsContent.classList.add('show');
     }
+}
 
-    addComingSoonBadgeToElement(outterIconsContent.children[2])
-
-    setupIcons(icons, urlSlug)
-
-    // avoid click to this element iconsArray[2]
-    iconsArray[2].addEventListener('click', function (e) {
-        e.stopPropagation();
+function setMenuButtonEventListeners() {
+    aboutMaterialBtn.addEventListener('click', function () {
+        outterIconsContent.classList.remove('slide-up');
+        outterIconsContent.classList.add('slide-down');
+        
+        handleMenuButtonClick(aboutMaterialBtn, catalogueBtn, icons);
+        
+        outterIconsContent.classList.add('slide-up');
+        outterIconsContent.classList.remove('slide-down');
+        outterIconsContent.style.display = 'grid';
     });
 
-    if (outterIconsContent.classList.contains('show')) {
-        return;
-    }
+    catalogueBtn.addEventListener('click', function () {
+        const iconComingSoonCatalogue = getItemToComingSoonCatalogue("pintura");
 
-    infoCardsContainer.classList.toggle('hide');
-    outterIconsContent.classList.toggle('show');
-});
+        const iconExists = iconsWithCatalogueUrl.some(icon => icon.menuTitle === iconComingSoonCatalogue.menuTitle);
+
+        if (!iconExists) {
+            iconsWithCatalogueUrl.push(iconComingSoonCatalogue);
+        }
+
+        outterIconsContent.classList.remove('slide-up');
+        outterIconsContent.classList.add('slide-down');
+
+        handleMenuButtonClick(catalogueBtn, aboutMaterialBtn, iconsWithCatalogueUrl);
+
+        outterIconsContent.classList.add('slide-up');
+        outterIconsContent.classList.remove('slide-down');
+        outterIconsContent.style.display = 'flex';
+        outterIconsContent.style.flexWrap = 'wrap';
+
+        const iconsArray = outterIconsContent.children;
+        addComingSoonBadgeToElement(outterIconsContent.children[2])
+
+        // avoid click to this element iconsArray[2]
+        iconsArray[2].addEventListener('click', function (e) {
+            e.stopPropagation();
+        });
+        // Ensure setupIcons is called after populating with the catalogue-specific icons
+        setupIcons(iconsWithCatalogueUrl, urlSlug);
+    });
+}
 
 function setupIcons(iconsData, urlSlug) {
     const iconItems = document.querySelectorAll('.icon-item');
@@ -391,7 +392,9 @@ function setupIcons(iconsData, urlSlug) {
 }
 
 // Event listener para mensagens do parent (mantido para compatibilidade)
-/**     const messageData = event.data;
+/**
+ window.addEventListener('message', (event) => {
+     const messageData = event.data;
 
     if (messageData.type === 'initialData' && Array.isArray(messageData.items)) {
         urlSlug = messageData.urlSlug;
@@ -399,9 +402,11 @@ function setupIcons(iconsData, urlSlug) {
         icons.length = 0;
         icons.push(...messageData.items);
 
+        handleIconsWithCatalogueUrl();
         populateContainer(iconsData, urlSlug);
         setupIcons(iconsData, urlSlug);
-        setupContainerEventListeners(); // NOVA FUNÇÃO
+        setupContainerEventListeners();
+        setMenuButtonEventListeners();
 
         //logEvent('Icons populated', `${iconsData.length} items`);
     } else if (messageData.type === 'error') {
@@ -414,9 +419,11 @@ window.addEventListener('resize', handleScreenSizeChange);
 
 document.addEventListener('DOMContentLoaded', () => {
     // Para demo, populate com dados mock
+    handleIconsWithCatalogueUrl();
     populateContainer(icons);
     setupIcons(icons, '/home');
-    setupContainerEventListeners(); // NOVA FUNÇÃO
+    setupContainerEventListeners();
+    setMenuButtonEventListeners();
     handleScreenSizeChange();
 
     //logEvent('DOM loaded', 'ready');
