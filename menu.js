@@ -61,6 +61,7 @@ let urlSlug = '';
 let activeIconItem = null;
 let activeIconData = null;
 
+const container = document.querySelector('.container');
 const aboutMaterialBtn = document.querySelector('.about-material-btn');
 const catalogueBtn = document.querySelector('.catalogue-btn');
 const infoCardsContainer = document.querySelector('.info-cards-container');
@@ -147,24 +148,6 @@ function createIconElements(icons) {
     return html;
 }
 
-function addButtonToContainer() {
-    const contactButton = document.createElement('button');
-    contactButton.textContent = 'Conversar agora';
-    contactButton.classList.add('contact-button');
-
-    // CORREÇÃO: Adicionar event listener com stopPropagation
-    contactButton.addEventListener('click', function (e) {
-        contactButton.classList.toggle('active');
-        e.stopPropagation();
-
-        if (activeIconData) {
-            window.open(activeIconData.url, '_blank');
-        }
-    });
-
-    return contactButton;
-}
-
 function handleScreenSizeChange() {
     const containerIconsContainer = document.querySelector('.container .icons-container');
 
@@ -213,12 +196,24 @@ function toggleMenu() {
     }
 }
 
+function addHomeButton() {
+    const homeButton = document.createElement('button');
+    homeButton.classList.add('btn', 'home-button');
+    homeButton.innerHTML = '<img src="placeholder-home-icon.svg" alt="Home">';
+
+    homeButton.addEventListener('click', function (e) {
+        e.stopPropagation();
+        window.parent.postMessage({ type: 'navidate-home' }, "*");
+    });
+
+    container.appendChild(homeButton);
+}
+
 function addMenuToggleButton() {
-    const container = document.querySelector('.container');
     if (container) {
         const menuToggleButton = document.createElement('button');
         menuToggleButton.textContent = 'Abrir menu';
-        menuToggleButton.classList.add('menu-toggle');
+        menuToggleButton.classList.add('btn', 'menu-toggle');
 
         menuToggleButton.addEventListener('click', function (e) {
             menuToggleButton.classList.toggle('active');
@@ -235,8 +230,24 @@ function addMenuToggleButton() {
     }
 }
 
+function addContactButton() {
+    const contactButton = document.createElement('button');
+    contactButton.textContent = 'Conversar agora';
+    contactButton.classList.add('btn', 'contact-button');
+
+    contactButton.addEventListener('click', function (e) {
+        contactButton.classList.toggle('active');
+        e.stopPropagation();
+
+        if (activeIconData) {
+            window.open(activeIconData.url, '_blank');
+        }
+    });
+
+    container.appendChild(contactButton);
+}
+
 function populateContainer(iconsData) {
-    const container = document.querySelector('.container');
     const containerIconsContent = document.querySelector('.container .icons-content');
 
     // Clear existing content
@@ -250,10 +261,9 @@ function populateContainer(iconsData) {
     populateIconsContainer(iconsContentInsideOutterContainer, iconsData);
     populateIconsContainer(containerIconsContent, iconsData);
 
+    addHomeButton();
     addMenuToggleButton();
-
-    const contactButton = addButtonToContainer();
-    container.appendChild(contactButton);
+    addContactButton();
 }
 
 function setupContainerEventListeners() {

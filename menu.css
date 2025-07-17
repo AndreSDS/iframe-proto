@@ -149,33 +149,6 @@ body {
     color: #023A5C;
 }
 
-
-/* Styling for the button */
-.contact-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 50px;
-    width: 240px;
-    min-width: 220px;
-    background-color: #023A5C;
-    color: #fff;
-    border: none;
-    border-radius: 12px;
-    font-size: 18px;
-    letter-spacing: 0.05;
-    cursor: pointer;
-    transition: opacity 0.2s ease-in-out;
-    position: relative;
-    z-index: 50;
-    /* Previne seleção de texto */
-    user-select: none;
-}
-
-.contact-button:hover {
-    opacity: 0.6;
-}
-
 .icon-tooltip {
     visibility: hidden;
     width: 120px;
@@ -223,38 +196,56 @@ body {
     background-color: #023A5C;
 }
 
-.menu-toggle {
-    -webkit-tap-highlight-color: transparent;
+.btn {
+    display: none;
     outline: none;
     border: none;
     background: none;
-    display: none;
     align-items: center;
     justify-content: center;
-    height: 35px;
-    border-radius: 8px;
-    min-width: 90px;
     background-color: #0071c4;
     color: #fff;
     font-size: 10px;
-    letter-spacing: 0.05;
     cursor: pointer;
-    transition: opacity 0.2s ease-in-out, transform 0.1s ease-in-out;
     position: relative;
+    height: 35px;
+    border-radius: 50%;
     z-index: 50;
+    transition: opacity 0.2s ease-in-out, transform 0.1s ease-in-out;
     user-select: none;
 }
 
-.menu-toggle:hover {
+.home-button {
+    width: 35px;
+}
+
+.menu-toggle {
+    border-radius: 8px;
+    min-width: 90px;
+}
+
+.contact-button {
+    display: flex;
+    height: 50px;
+    width: 240px;
+    min-width: 220px;
+    background-color: #023A5C;
+    border-radius: 12px;
+    font-size: 18px;
+}
+
+.contact-button:hover {
     opacity: 0.6;
 }
 
+.home-button:active,
 .menu-toggle:active,
 .contact-button:active {
     transform: scale(0.95);
 }
 
 .outter-icons-container {
+    display: none;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -372,6 +363,10 @@ body {
         margin-top: 0;
     }
 
+    .outter-icons-container {
+        display: flex;
+    }
+
     .icons-content {
         grid-template-columns: repeat(4, 1fr);
         grid-template-rows: repeat(2, 1fr);
@@ -388,8 +383,9 @@ body {
         margin-bottom: 1rem;
     }
 
+    .home-button,
     .menu-toggle {
-        display: block;
+        display: flex;
     }
 
     .catalogue-btn.active,
