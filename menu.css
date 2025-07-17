@@ -1,3 +1,35 @@
+/* Define the keyframes for the slide-up animation */
+@keyframes slideUp {
+    0% {
+        transform: translateY(100%);
+        opacity: 0;
+        max-height: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+        height: fit-content;
+    }
+}
+
+/* Define the keyframes for the slide-down animation */
+@keyframes slideDown {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+        max-height: 1300px;
+        /* Start with a large enough value */
+    }
+
+    100% {
+        transform: translateY(100%);
+        opacity: 0;
+        height: 0;
+        max-height: 0;
+    }
+}
+
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 
 * {
@@ -41,7 +73,9 @@ body {
     display: flex;
     align-items: center;
     gap: 1.25rem;
-    background-color: #fff;
+    background-color: transparent;
+    position: relative;
+    z-index: 9;
 }
 
 .icon-item-container {
@@ -202,7 +236,6 @@ body {
     min-width: 90px;
     background-color: #0071c4;
     color: #fff;
-    border: none;
     font-size: 10px;
     letter-spacing: 0.05;
     cursor: pointer;
@@ -222,7 +255,6 @@ body {
 }
 
 .outter-icons-container {
-    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -235,11 +267,7 @@ body {
     z-index: 21;
     height: 0;
     overflow-y: hidden;
-    transform: translateY(0);
-    transition: transform 0.3s ease-in-out, padding 0.3s ease-in-out, height 0.3s ease-in-out, opacity 0.3s ease-in-out;
-    opacity: 0;
     overflow-x: hidden;
-    box-shadow: 0 -3px 6px rgba(0, 0, 0, 0.2), inset 0 -3px 6px rgba(0, 0, 0, 0.2);
     background-color: #fff;
 }
 
@@ -249,13 +277,11 @@ body {
     justify-content: center;
     width: 100%;
     gap: 10px;
-    padding: 0 1.5rem;
-    transform: translateY(0);
-    transition: transform 0.15s ease-in-out, height 0.15s ease-in-out, opacity 0.15s ease-in-out;
-    opacity: 0;
-    height: 0;
-    padding-top: 16px;
+    padding: 1rem;
     box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 11;
+    background-color: #fff;
 }
 
 .option-btn {
@@ -296,11 +322,7 @@ body {
     justify-content: center;
     gap: 20px;
     padding: 1.5rem 0 2rem;
-    transform: translateY(0);
-    visibility: hidden;
-    opacity: 0;
-    height: 0;
-    transition: transform 0.25s ease-in-out, height 0.25s ease-in-out, opacity 0.25s ease-in-out;
+    z-index: 8;
 }
 
 .disabled {
@@ -309,18 +331,32 @@ body {
 }
 
 .hide {
-    visibility: hidden;
     opacity: 0;
-    height: 0;
+    overflow: hidden;
     padding: 0;
-    transform: translateY(0);
-    transition: transform 0.3s ease-in-out, padding 0.3s ease-in-out, height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    max-height: 0;
+    /* Explicitly set max-height to 0 when hidden */
+}
+
+.slide-up {
+    visibility: visible;
+    /* Ensure visibility for the animation */
+    animation: slideUp 0.5s ease-out forwards;
 }
 
 .show {
     visibility: visible;
+    /* Manter visibility: visible aqui */
     opacity: 1;
     height: fit-content;
+    max-height: 1300px;
+    /* Set max-height to a large value when shown */
+    transform: translateY(0);
+    /* Ensure no vertical translation when shown */
+}
+
+.slide-down {
+    animation: slideDown 0.5s ease-in forwards;
 }
 
 @media (max-width: 768px) {
@@ -337,60 +373,23 @@ body {
     }
 
     .icons-content {
-        visibility: hidden;
-        height: 0;
-        transform: translateY(0);
-        transition: transform 0.3s ease-in-out, padding 0.3s ease-in-out, height 0.3s ease-in-out, opacity 0.3s ease-in-out;
-    }
-
-    .icons-content.show {
-        visibility: visible;
-        height: auto;
-        display: grid;
         grid-template-columns: repeat(4, 1fr);
         grid-template-rows: repeat(2, 1fr);
         width: fit-content;
         margin: 0 auto;
         row-gap: 0px;
         column-gap: 20px;
-        padding: 1.5rem 0;
+        position: relative;
+        z-index: 9;
+    }
+
+    .icons-content.show {
+        padding: 1.5rem 0 0.5rem;
+        margin-bottom: 1rem;
     }
 
     .menu-toggle {
         display: block;
-    }
-
-    .outter-icons-container.open {
-        height: fit-content;
-        opacity: 1;
-        padding: 1rem 0px;
-         
-    }
-
-    .outter-icons-container.open .option-btn-container {
-        opacity: 1;
-        height: fit-content;
-        transform: translateY(0);
-    }
-
-    .outter-icons-container.open {
-        opacity: 1;
-        height: fit-content;
-        transform: translateY(0);
-    }
-
-    .info-cards-container {
-        visibility: visible;
-        opacity: 1;
-        height: fit-content;
-
-    }
-
-    .info-cards-container.hide {
-        visibility: hidden;
-        opacity: 0;
-        height: 0;
-        padding: 0;
     }
 
     .catalogue-btn.active,

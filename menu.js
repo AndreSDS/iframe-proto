@@ -65,6 +65,9 @@ const aboutMaterialBtn = document.querySelector('.about-material-btn');
 const catalogueBtn = document.querySelector('.catalogue-btn');
 const infoCardsContainer = document.querySelector('.info-cards-container');
 const outterIconsContent = document.querySelector('.icons-content');
+const optionBtnContainer = document.querySelector('.option-btn-container');
+const outterContainer = document.querySelector('.outter-icons-container');
+const iconsContentInsideOutterContainer = document.querySelector('.outter-icons-container .icons-content');
 
 function logEvent(eventType, details = '') {
     const eventLog = document.getElementById('eventLog');
@@ -163,36 +166,53 @@ function addButtonToContainer() {
 }
 
 function handleScreenSizeChange() {
-    const outterIconsContainer = document.querySelector('.outter-icons-container');
     const containerIconsContainer = document.querySelector('.container .icons-container');
 
     if (window.innerWidth <= 768) {
-        outterIconsContainer.style.display = 'flex';
         containerIconsContainer.style.display = 'none';
     } else {
-        outterIconsContainer.style.display = 'none';
         containerIconsContainer.style.display = 'flex';
     }
 }
 
-function toggleMenu() {
-    const outterContainer = document.querySelector('.outter-icons-container');
-    if (outterContainer) {
-        if (outterContainer.classList.contains('open')) {
-            // Fechar o menu
-            outterContainer.classList.remove('slide-up');
-            outterContainer.classList.add('slide-down');
-            outterContainer.classList.remove('open'); // Remove a classe 'open' após a animação
-        } else {
-            // Abrir o menu
-            outterContainer.classList.remove('slide-down');
-            outterContainer.classList.add('slide-up');
-            outterContainer.classList.add('open');
-        }
-        //logEvent('Menu toggled', outterContainer.classList.contains('open') ? 'opened' : 'closed');
+function applySlideUpAnimation(element) {
+    if (element) {
+        element.classList.remove('hide'); // Ensure hide is removed before animation
+        element.style.visibility = 'visible'; // Ensure visibility is not hidden
+
+        element.classList.remove('slide-down');
+        element.classList.add('slide-up');
+        element.classList.add('show');
+
+        // Remove max-height style after animation
+        element.addEventListener('animationend', function handleAnimationEnd() {
+            element.style.maxHeight = '';
+            element.removeEventListener('animationend', handleAnimationEnd);
+        });
     }
 }
-// Função para adicionar o botão de toggle do menu
+
+function applySlideDownAnimation(element) {
+    if (element) {
+        // Ensure element is visible and has a max-height set before starting the animation
+        element.style.visibility = 'visible';
+        element.style.maxHeight = element.scrollHeight + 'px'; // Set max-height to current scroll height
+
+        element.classList.remove('slide-up');
+        element.classList.remove('show');
+        element.classList.add('slide-down');
+        element.classList.add('hide');
+    }
+}
+
+function toggleMenu() {
+    if (outterContainer && outterContainer.classList.contains('show')) {
+        applySlideDownAnimation(outterContainer)
+    } else {
+        applySlideUpAnimation(outterContainer)
+    }
+}
+
 function addMenuToggleButton() {
     const container = document.querySelector('.container');
     if (container) {
@@ -203,8 +223,7 @@ function addMenuToggleButton() {
         menuToggleButton.addEventListener('click', function (e) {
             menuToggleButton.classList.toggle('active');
 
-            const outterContainer = document.querySelector('.outter-icons-container');
-            if (outterContainer && !outterContainer.classList.contains('open')) {
+            if (menuToggleButton.classList.contains('active')) {
                 this.textContent = 'Fechar';
             } else {
                 this.textContent = 'Abrir menu';
@@ -212,25 +231,23 @@ function addMenuToggleButton() {
             toggleMenu();
         });
 
-
         container.appendChild(menuToggleButton);
     }
 }
 
 function populateContainer(iconsData) {
     const container = document.querySelector('.container');
-    const outterIconsContent = document.querySelector('.outter-icons-container .icons-content');
     const containerIconsContent = document.querySelector('.container .icons-content');
 
     // Clear existing content
-    if (outterIconsContent) {
-        outterIconsContent.innerHTML = '';
+    if (iconsContentInsideOutterContainer) {
+        iconsContentInsideOutterContainer.innerHTML = '';
     }
     if (containerIconsContent) {
         containerIconsContent.innerHTML = '';
     }
 
-    populateIconsContainer(outterIconsContent, iconsData);
+    populateIconsContainer(iconsContentInsideOutterContainer, iconsData);
     populateIconsContainer(containerIconsContent, iconsData);
 
     addMenuToggleButton();
@@ -288,66 +305,63 @@ function handleIconsWithCatalogueUrl() {
     }
 }
 
-function handleMenuButtonClick(clickedButton, otherButton, iconsToShow) {
+function handleOptionBtnClick(clickedButton, otherButton, iconsToShow) {
     if (clickedButton.classList.contains('active')) return;
 
     clickedButton.classList.add('active');
     otherButton.classList.remove('active');
 
-    if (outterIconsContent) {
-        outterIconsContent.innerHTML = '';
+    if (iconsContentInsideOutterContainer) {
+        iconsContentInsideOutterContainer.innerHTML = '';
     }
 
-    populateIconsContainer(outterIconsContent, iconsToShow);
+    populateIconsContainer(iconsContentInsideOutterContainer, iconsToShow);
 
     setupIcons(iconsToShow, urlSlug);
 
-    if (!outterIconsContent.classList.contains('show')) {
-        infoCardsContainer.classList.add('hide');
-        outterIconsContent.classList.add('show');
+    if (infoCardsContainer) {
+        applySlideDownAnimation(infoCardsContainer);
+        infoCardsContainer.style.display = 'none';
     }
 }
 
 function setMenuButtonEventListeners() {
     aboutMaterialBtn.addEventListener('click', function () {
-        outterIconsContent.classList.remove('slide-up');
-        outterIconsContent.classList.add('slide-down');
-        
-        handleMenuButtonClick(aboutMaterialBtn, catalogueBtn, icons);
-        
-        outterIconsContent.classList.add('slide-up');
-        outterIconsContent.classList.remove('slide-down');
-        outterIconsContent.style.display = 'grid';
+        if (catalogueBtn.classList.contains('active')) {
+            applySlideDownAnimation(iconsContentInsideOutterContainer);
+        }
+
+        handleOptionBtnClick(aboutMaterialBtn, catalogueBtn, icons);
+        iconsContentInsideOutterContainer.style.display = 'grid';
+
+        applySlideUpAnimation(iconsContentInsideOutterContainer);
     });
 
     catalogueBtn.addEventListener('click', function () {
         const iconComingSoonCatalogue = getItemToComingSoonCatalogue("pintura");
 
         const iconExists = iconsWithCatalogueUrl.some(icon => icon.menuTitle === iconComingSoonCatalogue.menuTitle);
-
         if (!iconExists) {
             iconsWithCatalogueUrl.push(iconComingSoonCatalogue);
         }
 
-        outterIconsContent.classList.remove('slide-up');
-        outterIconsContent.classList.add('slide-down');
+        if (aboutMaterialBtn.classList.contains('active')) {
+            applySlideDownAnimation(iconsContentInsideOutterContainer);
+        }
 
-        handleMenuButtonClick(catalogueBtn, aboutMaterialBtn, iconsWithCatalogueUrl);
+        handleOptionBtnClick(catalogueBtn, aboutMaterialBtn, iconsWithCatalogueUrl);
 
-        outterIconsContent.classList.add('slide-up');
-        outterIconsContent.classList.remove('slide-down');
-        outterIconsContent.style.display = 'flex';
-        outterIconsContent.style.flexWrap = 'wrap';
+        applySlideUpAnimation(iconsContentInsideOutterContainer);
 
-        const iconsArray = outterIconsContent.children;
-        addComingSoonBadgeToElement(outterIconsContent.children[2])
+        iconsContentInsideOutterContainer.style.display = 'flex';
+        iconsContentInsideOutterContainer.style.flexWrap = 'wrap';
 
-        // avoid click to this element iconsArray[2]
+        const iconsArray = iconsContentInsideOutterContainer.children;
+        addComingSoonBadgeToElement(iconsContentInsideOutterContainer.children[2])
+
         iconsArray[2].addEventListener('click', function (e) {
             e.stopPropagation();
         });
-        // Ensure setupIcons is called after populating with the catalogue-specific icons
-        setupIcons(iconsWithCatalogueUrl, urlSlug);
     });
 }
 
