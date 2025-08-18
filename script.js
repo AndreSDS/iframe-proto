@@ -390,6 +390,7 @@ function setupLazyLoading() {
 
 function createCatalogButton(fragment, catologueUrl) {
   const abrirCatalogoButton = domElements.button.cloneNode(true);
+  abrirCatalogoButton.classList.add("catalog-button");
   abrirCatalogoButton.innerHTML = `<span>Abrir catálogo</span>`;
   fragment.appendChild(abrirCatalogoButton);
 
@@ -402,27 +403,32 @@ function createCatalogButton(fragment, catologueUrl) {
 }
 
 function createButtons() {
+  const item = this;
+  const title = item.title;
+
   const buttonContainer = domElements.buttonContainer.cloneNode(false);
   buttonContainer.classList.add("button-container");
 
-  const item = this;
-
   const fragment = document.createDocumentFragment();
 
-  //const verMaisButton = domElements.button.cloneNode(true);
-  //verMaisButton.innerHTML = `<span>Ver mais</span>`;
-  //fragment.appendChild(verMaisButton);
+  const verMaisButton = domElements.button.cloneNode(true);
+  verMaisButton.innerHTML = `<span>Ver mais</span>`;
+  if (!title.includes("Revestimentos")) {
+    if (!title.includes("Materiais Brutos")) {
+      fragment.appendChild(verMaisButton);
+    }
+  }
 
   if (item.catalogoUrl) {
     createCatalogButton(fragment, item.catalogoUrl)
   };
 
-  //verMaisButton.addEventListener("click", function () {
-    //window.parent.postMessage({
-      //type: 'navigateToCategoryPage',
-      //url: item.linkCategoryPage
-   // }, '*');
-  //});
+  verMaisButton.addEventListener("click", function () {
+    window.parent.postMessage({
+      type: 'navigateToCategoryPage',
+      url: item.linkCategoryPage
+    }, '*');
+  });
 
   buttonContainer.appendChild(fragment);
 
