@@ -409,20 +409,20 @@ function createButtons() {
 
   const fragment = document.createDocumentFragment();
 
-  const verMaisButton = domElements.button.cloneNode(true);
-  verMaisButton.innerHTML = `<span>Ver mais</span>`;
-  fragment.appendChild(verMaisButton);
+  //const verMaisButton = domElements.button.cloneNode(true);
+  //verMaisButton.innerHTML = `<span>Ver mais</span>`;
+  //fragment.appendChild(verMaisButton);
 
   if (item.catalogoUrl) {
     createCatalogButton(fragment, item.catalogoUrl)
   };
 
-  verMaisButton.addEventListener("click", function () {
-    window.parent.postMessage({
-      type: 'navigateToCategoryPage',
-      url: item.linkCategoryPage
-    }, '*');
-  });
+  //verMaisButton.addEventListener("click", function () {
+    //window.parent.postMessage({
+      //type: 'navigateToCategoryPage',
+      //url: item.linkCategoryPage
+   // }, '*');
+  //});
 
   buttonContainer.appendChild(fragment);
 
