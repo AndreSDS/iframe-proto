@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
 /* Define the keyframes for the slide-up animation */
 @keyframes slideUp {
     0% {
@@ -29,8 +31,6 @@
         max-height: 0;
     }
 }
-
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 
 * {
     margin: 0;
@@ -260,6 +260,7 @@ body {
     overflow-y: hidden;
     overflow-x: hidden;
     background-color: #fff;
+    box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2);
 }
 
 .option-btn-container {
