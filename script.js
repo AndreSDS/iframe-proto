@@ -5,6 +5,7 @@ const cardsItemsInfo = [
     image:
       "https://static.wixstatic.com/media/b98454_a764b683732c4edeba1f4928d53c902f~mv2.png",
     title: "Revestimentos",
+    catalogoUrl: "/catalogo-virtual-revestimentos",
     subTitle: 'O nosso "carro-chefe"',
     description:
       "Cerâmicos, porcelanatos e vinílicos incríveis, que vão desde os mais simples até os mais sofisticados. Temos uma vasta lista de opções com um potencial incrível de transformar o ambiente de qualquer um.",
@@ -40,6 +41,7 @@ const cardsItemsInfo = [
     image:
       "https://static.wixstatic.com/media/b98454_b63a7e9ffe194ce88add907097d95548~mv2.png",
     title: "Materiais Brutos",
+    catalogoUrl: "/catálogo-virtual-produtos",
     subTitle: "A base de tudo!",
     description:
       "Cimento, areia, blocos, vergalhões e muito mais para quem está começando do zero ou encarando aquela reforma de respeito. É aqui que o alicerce ganha forma (e força!).",
@@ -75,6 +77,7 @@ const cardsItemsInfo = [
     image:
       "https://static.wixstatic.com/media/b98454_db85f3427c9d4505b0f368d947ed8ab1~mv2.png",
     title: "Pintura",
+    catalogoUrl: "/catalogo-virtual-pintura",
     subTitle: "Cor e vida nas paredes!",
     description:
       "Tinta não é tudo igual – e a gente prova isso com uma seleção caprichada de cores, texturas, acabamentos e acessórios. Tem opção para todo tipo de gosto, parede e projeto criativo.",
@@ -110,6 +113,7 @@ const cardsItemsInfo = [
     image:
       "https://static.wixstatic.com/media/b98454_df97aeb32bd64adbabfc97a1745201d3~mv2.png",
     title: "Ferramentas",
+    catalogoUrl: "",
     subTitle: "Sua obra na palma da mão.",
     description:
       'Manuais ou elétricas, aqui tem ferramentas para facilitar cada etapa do trabalho – seja profissional ou do tipo "faça você mesmo".',
@@ -145,6 +149,7 @@ const cardsItemsInfo = [
     image:
       "https://static.wixstatic.com/media/b98454_00cc902ddde54fbf8cfcf7629e567226~mv2.png",
     title: "Hidráulica",
+    catalogoUrl: "/catalogo-virtual-hidraulica",
     subTitle: "Do cano à torneira.",
     description:
       "Aqui tem tudo para água circular bem na sua casa: tubos, conexões, torneiras, vasos sanitários, cubas e acessórios. Qualidade, durabilidade e praticidade para sua obra ou reforma fluir sem estresse.",
@@ -180,6 +185,7 @@ const cardsItemsInfo = [
     image:
       "https://static.wixstatic.com/media/b98454_15c2c0c62a0248da81f34a6fe6200938~mv2.png",
     title: "Iluminação e Elétrica",
+    catalogoUrl: "",
     subTitle: "Conforto, segurança e design.",
     description:
       "Cabos, tomadas, lâmpadas e luminárias que fazem seu projeto funcionar e valorizam cada ambiente. Tudo para sua casa ser mais prática, acolhedora e cheia de vida.",
@@ -215,6 +221,7 @@ const cardsItemsInfo = [
     image:
       "https://static.wixstatic.com/media/b98454_56d54cc1af89438e8d7c94271faa908d~mv2.png",
     title: "Casa e Jardim",
+    catalogoUrl: "/catálogo-virtual-casa-e-jardim",
     subTitle: "Detalhes que fazem a casa mais viva.",
     description:
       "Gabinetes, espelhos, esquadrias e acessórios de jardinagem que trazem beleza, organização e bem-estar para o seu lar — dentro e fora de casa. Seu projeto fica mais completo, com personalidade e cuidado em cada canto.",
@@ -250,6 +257,7 @@ const cardsItemsInfo = [
     image:
       "https://static.wixstatic.com/media/b98454_5490e575ec564cadade6132bde7be3c3~mv2.png",
     title: "Linha Industrial",
+    catalogoUrl: "",
     subTitle: "Você merece seu negócio decolando.",
     description:
       "Equipamentos pensados para dar agilidade, eficiência e qualidade ao seu dia a dia. Tudo para sua estrutura funcionar melhor, seu atendimento render mais e seu negócio crescer com força.",
@@ -405,7 +413,7 @@ function createCatalogButton(fragment, catologueUrl) {
 function createButtons() {
   const item = this;
   const title = item.title;
-
+console.log(item)
   const buttonContainer = domElements.buttonContainer.cloneNode(false);
   buttonContainer.classList.add("button-container");
 
@@ -413,10 +421,9 @@ function createButtons() {
 
   const verMaisButton = domElements.button.cloneNode(true);
   verMaisButton.innerHTML = `<span>Ver mais</span>`;
-  if (!title.includes("Revestimentos")) {
-    if (!title.includes("Materiais Brutos")) {
-      fragment.appendChild(verMaisButton);
-    }
+  
+  if (!item.catalogoUrl) {
+    fragment.appendChild(verMaisButton);
   }
 
   if (item.catalogoUrl) {
@@ -597,9 +604,9 @@ window.onload = function () {
   window.parent.postMessage('iframeReady', window.location.origin);
 
   window.addEventListener('message', (event) => {
-    message = event;
+    //message = event;
 
-    const dadosRecebidos = event.data;
+    const dadosRecebidos = cardsItemsInfo; //event.data;
     if (Array.isArray(dadosRecebidos) && !dadosRecebidos.error) {
       createCarousel(dadosRecebidos);
 
